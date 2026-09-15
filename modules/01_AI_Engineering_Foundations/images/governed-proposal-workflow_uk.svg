@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
   <title id="title">Керована зміна від кандидатної пропозиції до прийнятого стану</title>
-  <desc id="desc">На звичайному шляху асистент ШІ записує кандидатну пропозицію. За задокументованого запасного шляху без агента студент записує такого самого кандидата, не заявляючи про авторство ШІ. Команда validate перевіряє структуру й нічого не записує. Студент розглядає значення. Команда decide записує затвердження або відхилення, прив’язане до дайджесту SHA-256. Команда apply записує прийнятий артефакт лише тоді, коли це затверджене рішення все ще відповідає пропозиції. Запасний шлях зберігає ці контроли артефактів, але не демонструє живого розділення між акторами ШІ та студента.</desc>
+  <desc id="desc">На звичайному шляху асистент ШІ записує кандидатну пропозицію. За задокументованого запасного шляху без агента уповноважений рецензент записує такого самого кандидата, не заявляючи про авторство ШІ. Команда validate перевіряє структуру й нічого не записує. Рецензент розглядає значення. Команда decide записує затвердження або відхилення, прив’язане до дайджесту SHA-256. Команда apply записує прийнятий артефакт лише тоді, коли це затверджене рішення все ще відповідає пропозиції. У Лабораторній роботі 01 студент виконує ролі рецензента й оператора. Запасний шлях зберігає ці засоби контролю артефактів і рішень, але не демонструє живого розділення між ролями ШІ та рецензента.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#475569"/></marker>
     <style>
@@ -24,14 +24,15 @@
   <rect x="70" y="62" width="330" height="44" rx="10" class="ai"/>
   <text x="235" y="90" text-anchor="middle" class="label">Звичайний шлях — ШІ записує лише кандидата</text>
   <rect x="430" y="62" width="340" height="44" rx="10" class="hum"/>
-  <text x="600" y="90" text-anchor="middle" class="label">Студент — розглядає; виконує CLI проєкту</text>
+  <text x="600" y="90" text-anchor="middle" class="label">Уповноважений рецензент</text>
   <rect x="800" y="62" width="330" height="44" rx="10" class="wf"/>
   <text x="965" y="90" text-anchor="middle" class="label">Робочий процес — перевіряє та записує файли</text>
 
   <rect x="40" y="140" width="200" height="96" rx="14" class="ai"/>
   <text x="140" y="178" text-anchor="middle" class="label">1. Запропонувати</text>
   <text x="140" y="198" text-anchor="middle" class="small">Зазвичай записує ШІ</text>
-  <text x="140" y="218" text-anchor="middle" class="small">Студент на ручному запасному шляху</text>
+  <text x="140" y="210" text-anchor="middle" class="small">Рецензент — ручний</text>
+  <text x="140" y="226" text-anchor="middle" class="small">запасний шлях</text>
   <path d="M240 188 H276" class="line"/>
 
   <rect x="276" y="140" width="200" height="96" rx="14" class="wf"/>
@@ -41,7 +42,7 @@
 
   <rect x="512" y="140" width="200" height="96" rx="14" class="hum"/>
   <text x="612" y="178" text-anchor="middle" class="label">3. Семантичний розгляд</text>
-  <text x="612" y="204" text-anchor="middle" class="small">Студент оцінює значення</text>
+  <text x="612" y="204" text-anchor="middle" class="small">Рецензент оцінює значення</text>
   <path d="M712 188 H748" class="line"/>
 
   <rect x="748" y="140" width="200" height="96" rx="14" class="wf"/>
@@ -57,8 +58,8 @@
   <rect x="40" y="268" width="200" height="150" rx="14" class="card"/>
   <text x="140" y="300" text-anchor="middle" class="label">Пропозиція</text>
   <text x="140" y="326" text-anchor="middle" class="small">boundary-proposal.yaml</text>
-  <text x="140" y="350" text-anchor="middle" class="small">Уповноважений засіб запису: ШІ або студент</text>
-  <text x="140" y="374" text-anchor="middle" class="small">State: proposed</text>
+  <text x="140" y="350" text-anchor="middle" class="small">Засіб запису: ШІ</text>
+  <text x="140" y="374" text-anchor="middle" class="small">або рецензент · proposed</text>
   <text x="140" y="398" text-anchor="middle" class="small">Без повноважень приймати</text>
 
   <rect x="276" y="268" width="200" height="150" rx="14" class="card"/>
@@ -71,7 +72,7 @@
   <rect x="512" y="268" width="200" height="150" rx="14" class="card"/>
   <text x="612" y="300" text-anchor="middle" class="label">Запис розгляду</text>
   <text x="612" y="326" text-anchor="middle" class="small">Відповіді у звіті, а не шлюз</text>
-  <text x="612" y="350" text-anchor="middle" class="small">Засіб запису звіту: студент</text>
+  <text x="612" y="350" text-anchor="middle" class="small">Звіт записує рецензент</text>
   <text x="612" y="374" text-anchor="middle" class="small">Без запису до канонічного стану</text>
   <text x="612" y="398" text-anchor="middle" class="small">Значення, а не схема</text>
 
@@ -119,7 +120,7 @@
   <text x="600" y="744" text-anchor="middle" class="small">Статус пропозиції: proposed • результат validate: valid або invalid • рішення: approved або rejected</text>
   <text x="600" y="770" text-anchor="middle" class="small">Прийнятий контракт записується лише з узгодженого рішення approved; його статус YAML — approved.</text>
   <text x="600" y="796" text-anchor="middle" class="small">Файли Лабораторної роботи 01 є аудиторськими артефактами під контролем Git; записи врядування сховища починаються лише тоді, коли змінюється канонічне знання.</text>
-  <text x="600" y="818" text-anchor="middle" class="small">Ручний запасний шлях змінює лише авторство кандидата і не демонструє живого розділення акторів ШІ та студента.</text>
+  <text x="600" y="818" text-anchor="middle" class="small">Ручний запасний шлях змінює лише авторство кандидата і не демонструє живого розділення ролей ШІ та рецензента.</text>
 
   <text x="600" y="852" text-anchor="middle" class="note">Роль асистента ШІ не охоплює запис рішення або прийнятого контракту.</text>
   <text x="600" y="884" text-anchor="middle" class="small">Команди лабораторної роботи передають явні шляхи; діаграма скорочує шляхи пропозиції та рішення до назв артефактів.</text>

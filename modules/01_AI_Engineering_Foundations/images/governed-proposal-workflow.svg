@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
   <title id="title">Governed change from a candidate proposal to accepted state</title>
-  <desc id="desc">On the normal path, an AI assistant writes a candidate proposal. Under the documented no-agent fallback, the student writes the same candidate without claiming AI authorship. The validate command checks structure and writes nothing. The student reviews meaning. The decide command records an approval or rejection bound to a SHA-256 digest. The apply command writes the accepted artifact only when that approved decision still matches the proposal. The fallback preserves these artifact controls but does not demonstrate live separation between AI and student actors.</desc>
+  <desc id="desc">On the normal path, an AI assistant writes a candidate proposal. Under the documented no-agent fallback, the authorized human reviewer writes the same candidate without claiming AI authorship. The validate command checks structure and writes nothing. The reviewer examines meaning. The decide command records an approval or rejection bound to a SHA-256 digest. The apply command writes the accepted artifact only when that approved decision still matches the proposal. In Laboratory 01 the student performs the reviewer and operator roles. The fallback preserves the artifact and decision controls but does not demonstrate a live separation between AI and human-review roles.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#475569"/></marker>
     <style>
@@ -24,14 +24,14 @@
   <rect x="70" y="62" width="330" height="44" rx="10" class="ai"/>
   <text x="235" y="90" text-anchor="middle" class="label">Normal path — AI writes candidate only</text>
   <rect x="430" y="62" width="340" height="44" rx="10" class="hum"/>
-  <text x="600" y="90" text-anchor="middle" class="label">Student — reviews; runs project CLI</text>
+  <text x="600" y="90" text-anchor="middle" class="label">Authorized human reviewer</text>
   <rect x="800" y="62" width="330" height="44" rx="10" class="wf"/>
   <text x="965" y="90" text-anchor="middle" class="label">Workflow — checks and writes files</text>
 
   <rect x="40" y="140" width="200" height="96" rx="14" class="ai"/>
   <text x="140" y="178" text-anchor="middle" class="label">1. Propose</text>
   <text x="140" y="198" text-anchor="middle" class="small">AI normally writes</text>
-  <text x="140" y="218" text-anchor="middle" class="small">Student on manual fallback</text>
+  <text x="140" y="218" text-anchor="middle" class="small">Reviewer on manual fallback</text>
   <path d="M240 188 H276" class="line"/>
 
   <rect x="276" y="140" width="200" height="96" rx="14" class="wf"/>
@@ -41,7 +41,7 @@
 
   <rect x="512" y="140" width="200" height="96" rx="14" class="hum"/>
   <text x="612" y="178" text-anchor="middle" class="label">3. Semantic review</text>
-  <text x="612" y="204" text-anchor="middle" class="small">Student judges meaning</text>
+  <text x="612" y="204" text-anchor="middle" class="small">Reviewer examines meaning</text>
   <path d="M712 188 H748" class="line"/>
 
   <rect x="748" y="140" width="200" height="96" rx="14" class="wf"/>
@@ -57,7 +57,7 @@
   <rect x="40" y="268" width="200" height="150" rx="14" class="card"/>
   <text x="140" y="300" text-anchor="middle" class="label">Proposal</text>
   <text x="140" y="326" text-anchor="middle" class="small">boundary-proposal.yaml</text>
-  <text x="140" y="350" text-anchor="middle" class="small">Allowed writer: AI or student</text>
+  <text x="140" y="350" text-anchor="middle" class="small">Writer: AI or reviewer</text>
   <text x="140" y="374" text-anchor="middle" class="small">State: proposed</text>
   <text x="140" y="398" text-anchor="middle" class="small">No authority to accept</text>
 
@@ -71,7 +71,7 @@
   <rect x="512" y="268" width="200" height="150" rx="14" class="card"/>
   <text x="612" y="300" text-anchor="middle" class="label">Review record</text>
   <text x="612" y="326" text-anchor="middle" class="small">Report answers, not a gate</text>
-  <text x="612" y="350" text-anchor="middle" class="small">Report writer: student</text>
+  <text x="612" y="350" text-anchor="middle" class="small">Report writer: reviewer</text>
   <text x="612" y="374" text-anchor="middle" class="small">No canonical write</text>
   <text x="612" y="398" text-anchor="middle" class="small">Meaning, not schema</text>
 
@@ -119,7 +119,7 @@
   <text x="600" y="744" text-anchor="middle" class="small">Proposal status: proposed • validate outcome: valid or invalid • decision: approved or rejected</text>
   <text x="600" y="770" text-anchor="middle" class="small">The accepted contract is written only from a matching approved decision; its YAML status is approved.</text>
   <text x="600" y="796" text-anchor="middle" class="small">Laboratory 01 files are Git-backed audit artifacts; vault governance records begin only when canonical knowledge changes.</text>
-  <text x="600" y="818" text-anchor="middle" class="small">Manual fallback changes candidate authorship only and does not demonstrate a live AI/student actor split.</text>
+  <text x="600" y="818" text-anchor="middle" class="small">Manual fallback changes candidate authorship only and does not demonstrate a live AI/reviewer role split.</text>
 
   <text x="600" y="852" text-anchor="middle" class="note">The AI assistant's role does not include writing the decision or the accepted contract.</text>
   <text x="600" y="884" text-anchor="middle" class="small">Laboratory commands pass explicit paths; the diagram abbreviates proposal and decision paths to artifact names.</text>

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1480" viewBox="0 0 1200 1480" role="img" aria-labelledby="title desc">
   <title id="title">Governed change from proposal to accepted state</title>
-  <desc id="desc">An AI assistant writes a candidate proposal. The validate command checks structure and writes nothing. The student reviews meaning. The decide command records an approval or rejection bound to a SHA-256 digest. The apply command writes the accepted artifact only when that approved decision still matches the proposal.</desc>
+  <desc id="desc">An AI assistant writes a candidate proposal. The validate command checks structure and writes nothing. An authorized human reviewer examines meaning. The decide command records an approval or rejection bound to a SHA-256 digest. The apply command writes the accepted artifact only when that approved decision still matches the proposal. In Laboratory 01 the student performs the reviewer and operator roles.</desc>
   <defs>
     <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto"><path d="M0,0 L0,8 L10,4 z" fill="#475569"/></marker>
     <style>
@@ -25,13 +25,13 @@
   <rect x="40" y="78" width="360" height="64" rx="12" class="ai"/>
   <text x="220" y="118" text-anchor="middle" class="chip">AI — writes candidate only</text>
   <rect x="420" y="78" width="360" height="64" rx="12" class="hum"/>
-  <text x="600" y="118" text-anchor="middle" class="chip">Student — reviews; operates decide</text>
+  <text x="600" y="118" text-anchor="middle" class="chip">Authorized human reviewer</text>
   <rect x="800" y="78" width="360" height="64" rx="12" class="wf"/>
   <text x="980" y="118" text-anchor="middle" class="chip">Workflow — validate, decide, apply</text>
 
   <rect x="40" y="170" width="620" height="120" rx="16" class="ai"/>
   <text x="350" y="218" text-anchor="middle" class="label">1. Propose</text>
-  <text x="350" y="254" text-anchor="middle" class="small">AI writes the candidate; student may correct it</text>
+  <text x="350" y="254" text-anchor="middle" class="small">AI writes the candidate; reviewer may correct it</text>
   <rect x="700" y="170" width="460" height="120" rx="16" class="card"/>
   <text x="930" y="212" text-anchor="middle" class="label">Proposal artifact</text>
   <text x="930" y="244" text-anchor="middle" class="small">boundary-proposal.yaml</text>
@@ -51,10 +51,10 @@
 
   <rect x="40" y="466" width="620" height="120" rx="16" class="hum"/>
   <text x="350" y="514" text-anchor="middle" class="label">3. Semantic review</text>
-  <text x="350" y="550" text-anchor="middle" class="small">Student judges meaning. Report is not the gate.</text>
+  <text x="350" y="550" text-anchor="middle" class="small">Reviewer examines meaning. Report is not the gate.</text>
   <rect x="700" y="466" width="460" height="120" rx="16" class="card"/>
   <text x="930" y="508" text-anchor="middle" class="label">Review record</text>
-  <text x="930" y="544" text-anchor="middle" class="small">Actor: student · no canonical write</text>
+  <text x="930" y="544" text-anchor="middle" class="small">Actor: reviewer · no canonical write</text>
   <path d="M350 586 V614" class="line"/>
 
   <rect x="40" y="614" width="620" height="140" rx="16" class="wf"/>
