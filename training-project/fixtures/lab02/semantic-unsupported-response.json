@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "concept_id": "structured-output",
+  "title": "Structured Output",
+  "definition": "Structured output guarantees that every generated statement is true.",
+  "key_points": [
+    "Structured output makes model output factually correct.",
+    "A provider JSON mode guarantees semantic correctness.",
+    "A schema proves the truth of every value."
+  ],
+  "source_support": [
+    {
+      "claim_kind": "definition",
+      "claim": "Structured output guarantees truth.",
+      "quote": "model output intended to follow an explicit machine-readable organization"
+    },
+    {
+      "claim_kind": "syntax-vs-semantics",
+      "claim": "A schema proves truth.",
+      "quote": "it cannot prove that the definition accurately represents the source"
+    },
+    {
+      "claim_kind": "authority-boundary",
+      "claim": "The model may write accepted state.",
+      "quote": "Only a separately authorized application operation may write accepted state"
+    }
+  ],
+  "tags": ["domain/ai-engineering"]
+}

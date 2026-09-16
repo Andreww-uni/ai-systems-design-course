@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "concept_id": "structured-output",
+  "title": "Structured Output",
+  "definition": "Model output intended to follow an explicit machine-readable organization.",
+  "key_points": [
+    "A syntactic gate checks that the response can be parsed as the declared representation.",
+    "A deterministic invariant gate checks required fields and cross-field relationships.",
+    "A semantic acceptance gate requires human judgment about meaning and evidence."
+  ],
+  "source_support": [
+    {
+      "claim_kind": "definition",
+      "claim": "Structured output follows an explicit machine-readable organization.",
+      "quote": "model output intended to follow an explicit machine-readable organization"
+    },
+    {
+      "claim_kind": "syntax-vs-semantics",
+      "claim": "A schema cannot prove semantic correctness.",
+      "quote": "it cannot prove that the definition accurately represents the source"
+    },
+    {
+      "claim_kind": "authority-boundary",
+      "claim": "Only a separately authorized application operation writes accepted state.",
+      "quote": "Only a separately authorized application operation may write accepted state"
+    }
+  ],
+  "tags": ["domain/ai-engineering"]
+}

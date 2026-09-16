@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://course.example/schemas/lab02-candidate.schema.json",
+  "title": "Laboratory 02 Structured Output candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "concept_id",
+    "title",
+    "definition",
+    "key_points",
+    "source_support",
+    "tags"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "concept_id": {
+      "type": "string",
+      "const": "structured-output"
+    },
+    "title": {
+      "type": "string",
+      "const": "Structured Output"
+    },
+    "definition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "key_points": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_support": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_kind", "claim", "quote"],
+        "properties": {
+          "claim_kind": {
+            "type": "string",
+            "enum": ["definition", "syntax-vs-semantics", "authority-boundary"]
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

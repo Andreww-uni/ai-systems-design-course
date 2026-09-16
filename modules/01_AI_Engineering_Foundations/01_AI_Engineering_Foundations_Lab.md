@@ -47,7 +47,7 @@ macOS is not a documented path in this edition. A macOS-only host is a red prefl
 
 The public course repository is https://github.com/sobol-mo/ai-systems-design-course. Every laboratory file comes from a clone of the student's fork of that repository. The instructor does not attach `dsc.yaml`, the starter proposal, or other project files outside Git.
 
-The mandatory path does not require a paid model API, payment card, container runtime, virtual machine, or Windows Subsystem for Linux. A Linux workstation is already a supported host and does not need WSL. Antigravity CLI uses the quota available to the authenticated account. A different existing agent subscription uses that subscription's quota. If no usable agent remains, use the documented manual proposal path and record the limitation honestly; do not purchase API access solely for this laboratory.
+The mandatory path does not require purchasing model API access, a container runtime, a virtual machine, or Windows Subsystem for Linux. A no-cost student account may require provider-side payment-card verification; card data must never enter the project or submitted evidence. A Linux workstation is already a supported host and does not need WSL. Antigravity CLI uses the quota available to the authenticated account. A different existing agent subscription uses that subscription's quota. If no usable agent remains, use the documented manual proposal path and record the limitation honestly; do not purchase API access solely for this laboratory.
 
 ## Starting state
 

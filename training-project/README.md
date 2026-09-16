@@ -1,6 +1,7 @@
 # AI Engineering training project
 
-Status: Laboratory 01 workstation doctor and governed-proposal workflow implemented.
+Status: Laboratory 01 workstation doctor and governed-proposal workflow implemented. Laboratory 02
+structured-output governed workflow implemented and reference-sliced.
 
 This directory holds the neutral cumulative AI system built across the eight laboratories. It runs
 without access to the instructor's private repositories or personal data: every artefact you produce
@@ -96,6 +97,55 @@ uv run python -m unittest discover -s tests/public -v
 
 The tests under `tests/public/` are the specification of the workflow. Read them before you change
 the code: they state what the protocol must guarantee, not how it is implemented.
+
+## Laboratory 02 governed structured-output workflow
+
+Laboratory 02 registers the Module 02 theory as a source and governs the creation of one accepted
+concept, `Structured Output`, from a fixed source fragment. The source record, proposals, decisions,
+operations, and the accepted concept live in the external Markdown vault; run evidence, the live
+comparison, the semantic review, screenshots, and the verification report live under `reports/lab02/`.
+
+The `lab02` subcommands, in the approved order, are:
+
+```bash
+vault="/absolute/path/to/your/vault"   # set once per terminal session
+
+uv run learning-project lab02 register-source --vault "$vault" --course-root . \
+  --theory modules/02_Foundation_Models_and_AI_Application_Architecture/02_Foundation_Models_and_AI_Application_Architecture_Theory.md \
+  --course-repository "$(git remote get-url origin)" --course-commit "$(git rev-parse HEAD)" --by "your-name"
+
+uv run learning-project lab02 prepare      --vault "$vault" --report-dir reports/lab02 --run-id live-primary-01
+# ... run the model/agent to write reports/lab02/runs/live-primary-01/raw-response.txt ...
+uv run learning-project lab02 record-run   --report-dir reports/lab02 --run-id live-primary-01 \
+  --evidence-kind live --adapter agy --model-id "<model>" --by "your-name"
+uv run learning-project lab02 import       --vault "$vault" --report-dir reports/lab02 --run-id live-primary-01 --evidence-kind live
+uv run learning-project lab02 validate     --vault "$vault" --report-dir reports/lab02 \
+  --proposal-id lab02-structured-output-live-primary-01 \
+  --output reports/lab02/runs/live-primary-01/validation-result.json
+
+# ... repeat prepare/run/record-run/import/validate for live-primary-02, then ...
+uv run learning-project lab02 compare-live --vault "$vault" --report-dir reports/lab02 \
+  --run-id live-primary-01 live-primary-02
+
+# ... the student writes reports/lab02/semantic-review.yaml and then ...
+uv run learning-project lab02 decide       --vault "$vault" --proposal-id lab02-structured-output-live-primary-01 \
+  --validation reports/lab02/runs/live-primary-01/validation-result.json \
+  --review reports/lab02/semantic-review.yaml --approve --by "your-name"
+uv run learning-project lab02 apply        --vault "$vault" --proposal-id lab02-structured-output-live-primary-01 \
+  --validation reports/lab02/runs/live-primary-01/validation-result.json \
+  --review reports/lab02/semantic-review.yaml
+uv run learning-project lab02 verify       --vault "$vault" --report-dir reports/lab02
+```
+
+`verify` is read-only with respect to the vault and writes only
+`reports/lab02/verification-report.json`. It exits `0` when every check passes, `1` when verification
+completes with failures, and `2` when required inputs cannot be read. `revise` (`--revision
+reports/lab02/revisions/<id>.yaml`) creates a new human-revised proposal rather than editing a model
+candidate in place; the revised candidate repeats the full validate, review, decide, and apply cycle.
+
+Every record is write-once and every derived record binds the SHA-256 digest of its inputs. A file
+never contains its own digest. The mandatory path requires two live responses; offline fixtures are
+deterministic test substitutes and never satisfy the live-response requirement.
 
 ## Later laboratories
 

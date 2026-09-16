@@ -134,7 +134,7 @@ The mandatory project excludes several adjacent goals so that its system boundar
 - providing high-consequence medical, financial, legal, or safety decisions;
 - requiring private notes, credentials, real family data, or other sensitive personal data;
 - treating a graph visualization, vector index, model output, or agent chat as the canonical knowledge source;
-- requiring a paid model API, payment card, or commercial cloud infrastructure for the mandatory path.
+- requiring purchase of a paid model subscription, prepaid API balance, separately billed model use, or commercial cloud infrastructure for the mandatory path. A no-cost account may require provider-side payment-card verification, but card data must remain outside project artifacts and submitted evidence.
 
 ## Evidence of success
 

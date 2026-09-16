@@ -1,0 +1,5 @@
+{
+  "schema_version": "1.0",
+  "concept_id": "structured-output",
+  "title": "Structured Output",
+  "definition": "This JSON object is intentionally incomplete",
