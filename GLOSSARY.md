@@ -21,6 +21,7 @@
 | Architecture decision record | Запис архітектурного рішення |
 | Architecture model | Архітектурна модель |
 | Attribution | Атрибуція |
+| Authorized human reviewer | Уповноважений рецензент |
 | Authorized writer | Уповноважений засіб запису |
 | Autoregressive language model | Авторегресійна мовна модель |
 | Benchmark | Бенчмарк |
@@ -32,10 +33,12 @@
 | Content digest | Дайджест вмісту |
 | Context window | Вікно контексту |
 | Continuity | Спадкоємність |
+| Controllability | Керованість |
 | Convergence | Збіжність |
 | Design pattern | Патерн проєктування |
+| Deterministic invariant gate | Шлюз детермінованих інваріантів |
 | Embeddings | Векторні подання |
-| Faceted classification | Фасетна класифікація |
+| Evolvability | Еволюційність |
 | Fallback | Запасний шлях |
 | Fine-tuning | Донавчання |
 | Fork | Форк |
@@ -45,25 +48,29 @@
 | Gate | Шлюз |
 | Governance | Врядування |
 | Governed change workflow | Керований процес внесення змін |
+| Greedy decoding | Жадібне декодування |
 | Host | Хост |
 | Human-in-the-loop | Людина в контурі ухвалення рішень |
 | Inference | Виведення |
 | Iterative AI-system lifecycle | Ітеративний життєвий цикл системи ШІ |
-| Knowledge ingestion | Приймання та інтегрування знань |
 | Latency | Затримка |
-| Layer | Шар |
 | Learning knowledge system | Навчальна система знань |
 | Logical component | Логічний компонент |
 | Machine-learning engineering | Інженерія машинного навчання |
 | Maintainability | Супроводжуваність |
 | Markdown vault | Сховище Markdown-файлів |
+| Model gateway | Шлюз доступу до моделей |
+| Modular monolith | Модульний моноліт |
+| Next-token generation | Генерування наступного токена |
 | Non-goals | Нецілі |
 | Observability | Спостережуваність |
-| Ontology | Онтологія |
+| Offline fixture | Детермінована тестова фікстура |
 | Operator | Оператор |
+| Ports and adapters | Порти та адаптери |
 | Preflight | Передпольотна перевірка |
 | Production AI system | Система ШІ в промисловій експлуатації |
 | Prompt | Підказка |
+| Prompt and context adaptation | Адаптація підказки та контексту |
 | Proposal authority | Повноваження пропонувати зміни |
 | Proposer | Пропонувач |
 | Protocol artifact | Протокольний артефакт |
@@ -79,6 +86,7 @@
 | Sanitized | Очищений від чутливих даних |
 | Scalability | Масштабованість |
 | Screenshot | Знімок екрана |
+| Semantic acceptance gate | Шлюз семантичного приймання |
 | Semantic review | Семантичний розгляд |
 | Serving | Обслуговування |
 | Slash command | Слеш-команда |
@@ -86,22 +94,21 @@
 | Software design | Проєктування програмного забезпечення |
 | Software engineering | Програмна інженерія |
 | Source-grounding | Обґрунтування джерелами |
+| Stable model boundary | Стабільна межа доступу до моделі |
 | Stakeholder | Зацікавлена сторона |
 | Stress-test | Стрес-тест |
 | Structural validation | Структурна перевірка |
 | Structured output | Структурований вихід |
+| Syntactic gate | Синтаксичний шлюз |
 | System boundary | Межа системи |
-| Taxonomy | Таксономія |
 | Telemetry | Телеметрія |
 | Tenant | Орендар |
 | Throughput | Пропускна здатність |
-| Tier | Рівень розгортання |
 | Token | Токен |
 | Tokenization | Токенізація |
 | Trade-off | Компроміс |
 | Trade-off analysis | Аналіз компромісів |
 | Transcript | Транскрипт |
-| Typed relation | Типізоване відношення |
 | Use case | Сценарій використання |
 | Usefulness threshold | Поріг корисності |
 | Zettelkasten | Метод Zettelkasten (картотека нотаток) |
