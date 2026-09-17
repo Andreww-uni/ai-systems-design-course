@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -31,6 +32,7 @@ from .lab02 import (
     validate_candidate,
     verify_lab02,
 )
+from .openai_compatible import run_openrouter
 from .workflow import (
     ACCEPTED_FILENAME,
     DECISION_FILENAME,
@@ -108,6 +110,13 @@ def _build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--vault", type=Path, required=True)
     prepare.add_argument("--report-dir", type=Path, required=True)
     prepare.add_argument("--run-id", required=True)
+
+    run_openrouter_command = lab02_commands.add_parser(
+        "run-openrouter", help="Run the verified OpenRouter Free contingency profile."
+    )
+    run_openrouter_command.add_argument("--report-dir", type=Path, required=True)
+    run_openrouter_command.add_argument("--run-id", required=True)
+    run_openrouter_command.add_argument("--by", required=True)
 
     import_command = lab02_commands.add_parser("import", help="Import one raw JSON response.")
     import_command.add_argument("--vault", type=Path, required=True)
@@ -239,6 +248,22 @@ def _run_lab02(args: argparse.Namespace) -> int:
             course_root=course_root,
         )
         print(f"Wrote the model request to {path}.")
+        return 0
+    if command == "run-openrouter":
+        result = run_openrouter(
+            report_dir=args.report_dir,
+            run_id=args.run_id,
+            schema_path=(
+                Path(__file__).resolve().parent.parent.parent
+                / "schemas/lab02-candidate.schema.json"
+            ),
+            api_key=os.environ.get("OPENROUTER_API_KEY", ""),
+            recorded_by=args.by,
+        )
+        print(
+            "Recorded an OpenRouter live response using model "
+            f"{result['model_id']} for run {args.run_id}."
+        )
         return 0
     if command == "import":
         path = import_response(
