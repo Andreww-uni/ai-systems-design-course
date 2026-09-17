@@ -1,6 +1,7 @@
 import hashlib
 import json
 import shutil
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -10,6 +11,7 @@ import yaml
 from learning_project.lab02 import (
     apply_candidate,
     compare_live_runs,
+    course_tree_drift,
     import_response,
     prepare_request,
     record_decision,
@@ -48,6 +50,35 @@ def vault_snapshot(vault: Path) -> dict[str, bytes]:
 
 
 class Lab02FinalVerificationTests(unittest.TestCase):
+    def test_course_tree_drift_excludes_student_paths_but_reports_upstream_changes(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            subprocess.run(["git", "init"], cwd=root, check=True, capture_output=True)
+            subprocess.run(
+                ["git", "config", "user.email", "test@example.test"], cwd=root, check=True
+            )
+            subprocess.run(["git", "config", "user.name", "Test"], cwd=root, check=True)
+            upstream = root / "training-project/platform/learning_project/lab02.py"
+            upstream.parent.mkdir(parents=True)
+            upstream.write_text("original\n", encoding="utf-8")
+            subprocess.run(["git", "add", "."], cwd=root, check=True)
+            subprocess.run(
+                ["git", "commit", "-m", "baseline"], cwd=root, check=True, capture_output=True
+            )
+
+            report = root / "training-project/reports/lab02/REPORT.md"
+            report.parent.mkdir(parents=True)
+            report.write_text("student evidence\n", encoding="utf-8")
+            student = root / "training-project/student/note.txt"
+            student.parent.mkdir(parents=True)
+            student.write_text("student state\n", encoding="utf-8")
+            upstream.write_text("changed\n", encoding="utf-8")
+
+            self.assertEqual(
+                course_tree_drift(root),
+                ["training-project/platform/learning_project/lab02.py"],
+            )
+
     def _build_submission(self, root: Path) -> tuple[Path, Path, Path]:
         project_root = root / "course"
         report_dir = project_root / "reports/lab02"

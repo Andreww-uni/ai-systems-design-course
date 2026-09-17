@@ -315,9 +315,12 @@ class Lab02RequestPreparationTests(unittest.TestCase):
             )
             prepare_request(vault=vault, report_dir=report_dir, run_id="live-primary-01")
             raw_path = report_dir / "runs/live-primary-01/raw-response.txt"
-            raw_bytes = (json.dumps(VALID_RESPONSE, ensure_ascii=False) + "\n").encode(
-                "utf-8"
-            )
+            transport_response = {
+                **VALID_RESPONSE,
+                "toolAction": "Submitting structured output candidate",
+                "toolSummary": "Submit candidate payload",
+            }
+            raw_bytes = (json.dumps(transport_response, ensure_ascii=False) + "\n").encode("utf-8")
             raw_path.write_bytes(raw_bytes)
 
             proposal_path = import_response(
@@ -354,6 +357,8 @@ class Lab02RequestPreparationTests(unittest.TestCase):
             )
             self.assertIn("```json", body)
             self.assertIn(VALID_RESPONSE["definition"], body)
+            self.assertNotIn("toolAction", body)
+            self.assertNotIn("toolSummary", body)
             self.assertEqual(raw_path.read_bytes(), raw_bytes)
 
 

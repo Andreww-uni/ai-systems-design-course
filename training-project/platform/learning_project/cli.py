@@ -18,10 +18,12 @@ import subprocess
 import sys
 from pathlib import Path
 
+from .agy_adapter import run_agy
 from .doctor import collect_environment_report
 from .lab02 import (
     Lab02InputError,
     apply_candidate,
+    check_approved_fixtures,
     compare_live_runs,
     import_response,
     prepare_request,
@@ -106,10 +108,23 @@ def _build_parser() -> argparse.ArgumentParser:
     register.add_argument("--course-commit", required=True)
     register.add_argument("--by", required=True)
 
+    check_fixtures = lab02_commands.add_parser(
+        "check-fixtures", help="Exercise approved offline fixtures without changing the vault."
+    )
+    check_fixtures.add_argument("--vault", type=Path, required=True)
+
     prepare = lab02_commands.add_parser("prepare", help="Write one deterministic model request.")
     prepare.add_argument("--vault", type=Path, required=True)
     prepare.add_argument("--report-dir", type=Path, required=True)
     prepare.add_argument("--run-id", required=True)
+
+    run_agy_command = lab02_commands.add_parser(
+        "run-agy", help="Run the verified Antigravity CLI live profile."
+    )
+    run_agy_command.add_argument("--report-dir", type=Path, required=True)
+    run_agy_command.add_argument("--run-id", required=True)
+    run_agy_command.add_argument("--model-id", required=True)
+    run_agy_command.add_argument("--by", required=True)
 
     run_openrouter_command = lab02_commands.add_parser(
         "run-openrouter", help="Run the verified OpenRouter Free contingency profile."
@@ -229,6 +244,11 @@ def _run_doctor(args: argparse.Namespace) -> int:
 def _run_lab02(args: argparse.Namespace) -> int:
     command = args.lab02_command
     course_root = _discover_course_root()
+    if command == "check-fixtures":
+        results = check_approved_fixtures(vault=args.vault, course_root=course_root)
+        for name, result in results.items():
+            print(f"{name}: {result}")
+        return 0
     if command == "register-source":
         path = register_source(
             course_root=args.course_root,
@@ -248,6 +268,22 @@ def _run_lab02(args: argparse.Namespace) -> int:
             course_root=course_root,
         )
         print(f"Wrote the model request to {path}.")
+        return 0
+    if command == "run-agy":
+        result = run_agy(
+            report_dir=args.report_dir,
+            run_id=args.run_id,
+            schema_path=(
+                Path(__file__).resolve().parent.parent.parent
+                / "schemas/lab02-candidate.schema.json"
+            ),
+            model_id=args.model_id,
+            recorded_by=args.by,
+        )
+        print(
+            "Recorded an AGY live response using model "
+            f"{result['model_id']} for run {args.run_id}."
+        )
         return 0
     if command == "run-openrouter":
         result = run_openrouter(

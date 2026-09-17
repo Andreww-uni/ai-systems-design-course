@@ -1,7 +1,8 @@
 # AI Engineering training project
 
 Status: Laboratory 01 workstation doctor and governed-proposal workflow implemented. Laboratory 02
-structured-output governed workflow implemented and reference-sliced.
+structured-output governed workflow, AGY profile, and OpenRouter contingency implemented and
+reference-sliced.
 
 This directory holds the neutral cumulative AI system built across the eight laboratories. It runs
 without access to the instructor's private repositories or personal data: every artefact you produce
@@ -110,14 +111,15 @@ The `lab02` subcommands, in the approved order, are:
 ```bash
 vault="/absolute/path/to/your/vault"   # set once per terminal session
 
-uv run learning-project lab02 register-source --vault "$vault" --course-root . \
-  --theory modules/02_Foundation_Models_and_AI_Application_Architecture/02_Foundation_Models_and_AI_Application_Architecture_Theory.md \
+uv run learning-project lab02 register-source --vault "$vault" --course-root .. \
+  --theory ../modules/02_Foundation_Models_and_AI_Application_Architecture/02_Foundation_Models_and_AI_Application_Architecture_Theory.md \
   --course-repository "$(git remote get-url origin)" --course-commit "$(git rev-parse HEAD)" --by "your-name"
 
+uv run learning-project lab02 check-fixtures --vault "$vault"
+
 uv run learning-project lab02 prepare      --vault "$vault" --report-dir reports/lab02 --run-id live-primary-01
-# ... run the model/agent to write reports/lab02/runs/live-primary-01/raw-response.txt ...
-uv run learning-project lab02 record-run   --report-dir reports/lab02 --run-id live-primary-01 \
-  --evidence-kind live --adapter agy --model-id "<model>" --by "your-name"
+uv run learning-project lab02 run-agy      --report-dir reports/lab02 --run-id live-primary-01 \
+  --model-id "<model-from-agy-models>" --by "your-name"
 uv run learning-project lab02 import       --vault "$vault" --report-dir reports/lab02 --run-id live-primary-01 --evidence-kind live
 uv run learning-project lab02 validate     --vault "$vault" --report-dir reports/lab02 \
   --proposal-id lab02-structured-output-live-primary-01 \
@@ -142,6 +144,12 @@ uv run learning-project lab02 verify       --vault "$vault" --report-dir reports
 completes with failures, and `2` when required inputs cannot be read. `revise` (`--revision
 reports/lab02/revisions/<id>.yaml`) creates a new human-revised proposal rather than editing a model
 candidate in place; the revised candidate repeats the full validate, review, decide, and apply cycle.
+
+`run-agy` is the primary live path and records the selected AGY model in run metadata. The tested
+contingency is `run-openrouter`, which reads `OPENROUTER_API_KEY` from the process environment and uses
+the pinned free profile `nex-agi/nex-n2.5-mini:free`. The adapter enforces a 120-second overall deadline
+and writes no partial run evidence after a timeout. Free model availability is external and may change.
+`record-run` remains available when another permitted harness writes the exact raw response itself.
 
 Every record is write-once and every derived record binds the SHA-256 digest of its inputs. A file
 never contains its own digest. The mandatory path requires two live responses; offline fixtures are

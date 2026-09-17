@@ -333,6 +333,7 @@ def import_response(
         raise WorkflowError("Model request does not match the Laboratory 02 request contract.")
     if not isinstance(candidate, dict):
         raise WorkflowError("Raw response must contain one JSON object.")
+    normalized_candidate = {key: candidate[key] for key in PROPOSAL_FIELDS if key in candidate}
 
     source_path = vault / SOURCE_RELATIVE_PATH
     source_metadata, _ = _read_source_record(vault)
@@ -360,16 +361,16 @@ def import_response(
             "fragment_id": FRAGMENT_ID,
             "fragment_sha256": fragment_sha256,
         },
-        "proposed_concept": _proposed_concept(candidate),
+        "proposed_concept": _proposed_concept(normalized_candidate),
         "created_at": _now(),
         "created_by": "learning-project lab02 import",
     }
     body = (
-        f"# Candidate proposal: {candidate.get('title', 'Unvalidated')}\n\n"
+        f"# Candidate proposal: {normalized_candidate.get('title', 'Unvalidated')}\n\n"
         "The JSON object below is the normalized candidate payload. It has no authority until "
         "it passes deterministic validation and receives an explicit human decision.\n\n"
         "```json\n"
-        + json.dumps(candidate, indent=2, ensure_ascii=False, sort_keys=True)
+        + json.dumps(normalized_candidate, indent=2, ensure_ascii=False, sort_keys=True)
         + "\n```\n"
     )
     proposal_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1105,6 +1106,29 @@ def _verify_approved_fixtures(vault: Path, report_dir: Path, fixture_dir: Path) 
         )
 
 
+def check_approved_fixtures(
+    *,
+    vault: Path,
+    course_root: Path | None = None,
+    fixture_dir: Path | None = None,
+) -> dict[str, str]:
+    """Exercise all approved offline fixtures without changing accepted state."""
+    if fixture_dir is None:
+        fixture_dir = Path(__file__).resolve().parent.parent.parent / "fixtures" / "lab02"
+    resolved_vault = _resolve_vault(vault, course_root)
+    before = _vault_snapshot(resolved_vault)
+    _verify_approved_fixtures(resolved_vault, Path(), fixture_dir)
+    _require(_vault_snapshot(resolved_vault) == before, "Fixture checks changed vault bytes.")
+    return {
+        "valid-response.json": "passed deterministic gates",
+        "malformed-response.txt": "refused at syntactic gate",
+        "semantic-unsupported-response.json": (
+            "passed deterministic gates; semantic review required"
+        ),
+        "accepted state": "unchanged",
+    }
+
+
 def _discover_git_root(start: Path) -> Path | None:
     try:
         result = subprocess.run(
@@ -1116,6 +1140,31 @@ def _discover_git_root(start: Path) -> Path | None:
         return Path(result.stdout.strip())
     except (OSError, subprocess.CalledProcessError):
         return None
+
+
+def course_tree_drift(git_root: Path) -> list[str]:
+    """Return changed paths outside the two student-owned project areas."""
+    try:
+        tracked = subprocess.run(
+            ["git", "-C", str(git_root), "diff", "--name-only", "HEAD", "--"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.splitlines()
+        untracked = subprocess.run(
+            ["git", "-C", str(git_root), "ls-files", "--others", "--exclude-standard"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.splitlines()
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise WorkflowError(f"Course repository state cannot be inspected: {exc}") from exc
+
+    def student_owned(path: str) -> bool:
+        normalized = "/" + path.strip("/") + "/"
+        return "/training-project/reports/" in normalized or "/training-project/student/" in normalized
+
+    return sorted({path for path in [*tracked, *untracked] if path and not student_owned(path)})
 
 
 def _forbidden_canonical_fields(metadata: dict) -> list[str]:
@@ -1182,7 +1231,12 @@ def verify_lab02(
             check=True,
         ).stdout.strip()
         _require(head == course_commit, "Registered course commit does not match git HEAD.")
-        return "registered course commit matches git HEAD"
+        drift = course_tree_drift(git_root)
+        _require(
+            not drift,
+            "Upstream-owned course paths differ from the registered commit: " + ", ".join(drift),
+        )
+        return "registered course commit matches git HEAD and upstream-owned paths are unchanged"
 
     check("course-commit", verify_course_commit)
 
