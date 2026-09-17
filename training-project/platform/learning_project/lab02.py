@@ -1142,11 +1142,30 @@ def _discover_git_root(start: Path) -> Path | None:
         return None
 
 
-def course_tree_drift(git_root: Path) -> list[str]:
-    """Return changed paths outside the two student-owned project areas."""
+def course_tree_drift(git_root: Path, baseline: str | None = None) -> list[str]:
+    """Return changed paths outside the two student-owned project areas.
+
+    Compare committed, staged, unstaged, and untracked paths against the
+    registered source baseline when one is supplied; otherwise against HEAD.
+    Student-owned paths are recognized in both the published course repository
+    (`training-project/reports/`) and the authoring monorepo subtree.
+    """
+    compare_to = baseline or "HEAD"
     try:
-        tracked = subprocess.run(
-            ["git", "-C", str(git_root), "diff", "--name-only", "HEAD", "--"],
+        committed = subprocess.run(
+            ["git", "-C", str(git_root), "diff", "--name-only", compare_to, "HEAD", "--"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.splitlines()
+        committed_or_unstaged = subprocess.run(
+            ["git", "-C", str(git_root), "diff", "--name-only", compare_to, "--"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.splitlines()
+        staged = subprocess.run(
+            ["git", "-C", str(git_root), "diff", "--name-only", "--cached", compare_to, "--"],
             capture_output=True,
             text=True,
             check=True,
@@ -1164,7 +1183,9 @@ def course_tree_drift(git_root: Path) -> list[str]:
         normalized = "/" + path.strip("/") + "/"
         return "/training-project/reports/" in normalized or "/training-project/student/" in normalized
 
-    return sorted({path for path in [*tracked, *untracked] if path and not student_owned(path)})
+    return sorted(
+        {path for path in [*committed, *committed_or_unstaged, *staged, *untracked] if path and not student_owned(path)}
+    )
 
 
 def _forbidden_canonical_fields(metadata: dict) -> list[str]:
@@ -1220,23 +1241,34 @@ def verify_lab02(
     def verify_course_commit() -> str:
         source_metadata = context["source_metadata"]
         course_commit = source_metadata.get("course_commit")
+        if not isinstance(course_commit, str) or not course_commit.strip():
+            raise WorkflowError("Registered course commit is missing or unresolvable.")
         base = course_root if course_root is not None else Path.cwd()
         git_root = _discover_git_root(base)
         if git_root is None:
             return "course commit not compared: no git repository discovered"
-        head = subprocess.run(
-            ["git", "-C", str(git_root), "rev-parse", "HEAD"],
+        resolved_baseline = subprocess.run(
+            ["git", "-C", str(git_root), "rev-parse", "--verify", f"{course_commit}^{{commit}}"],
             capture_output=True,
             text=True,
-            check=True,
-        ).stdout.strip()
-        _require(head == course_commit, "Registered course commit does not match git HEAD.")
-        drift = course_tree_drift(git_root)
+        )
+        if resolved_baseline.returncode != 0:
+            raise WorkflowError("Registered course commit is missing or unresolvable.")
+        ancestor = subprocess.run(
+            ["git", "-C", str(git_root), "merge-base", "--is-ancestor", course_commit, "HEAD"],
+            capture_output=True,
+            text=True,
+        )
+        if ancestor.returncode != 0:
+            raise WorkflowError("Registered course commit is not an ancestor of git HEAD.")
+        drift = course_tree_drift(git_root, baseline=course_commit)
         _require(
             not drift,
             "Upstream-owned course paths differ from the registered commit: " + ", ".join(drift),
         )
-        return "registered course commit matches git HEAD and upstream-owned paths are unchanged"
+        return (
+            "registered course commit is an ancestor of git HEAD and upstream-owned paths are unchanged"
+        )
 
     check("course-commit", verify_course_commit)
 
