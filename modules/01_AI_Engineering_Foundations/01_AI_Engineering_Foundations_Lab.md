@@ -101,7 +101,9 @@ Do not edit `boundary-decision.json` or the accepted contract manually. If a rec
 
 ## Steps
 
-### Step 1: Perform a read-only preflight
+### Step 1: Perform a read-only preliminary check
+
+The later `learning-project doctor` report records this host check in the `preflight` field.
 
 On Windows, open PowerShell without administrator elevation. Do not install packages and do not clone yet. Run the following checks:
 
@@ -129,7 +131,7 @@ Classify the result before changing the workstation:
 
 Resolve a yellow result before continuing. Stop and report a red result instead of replacing the supported path with unreviewed installation commands.
 
-**Expected result:** a Windows host reports a WinGet version and both WinGet commands display version or help output without changing installed packages. A Linux or macOS host reports `Linux` or `Darwin` and does not install packages during preflight.
+**Expected result:** a Windows host reports a WinGet version and both WinGet commands display version or help output without changing installed packages. A Linux or macOS host reports `Linux` or `Darwin` and does not install packages during the preliminary check.
 
 ### Step 2: Fork, clone, and bind remotes
 
@@ -212,7 +214,7 @@ git switch lab01/<student-id>
 
 ### Step 3: Apply the workstation configuration twice
 
-On Windows, open PowerShell **as Administrator**, change to the `training-project` directory inside the clone, and record both configuration runs in one transcript. The configuration file is the upstream copy in the clone. Linux and macOS students skip the WinGet block and use the Linux/macOS paragraph after the Windows expected result.
+On Windows, open PowerShell **as Administrator**, change to the `training-project` directory inside the clone, and record both configuration runs in one provisioning log. The configuration file is the upstream copy in the clone. Linux and macOS students skip the WinGet block and use the Linux/macOS paragraph after the Windows expected result.
 
 ```powershell
 Set-Location "$HOME\projects\ai-systems-design-course\training-project"
@@ -232,7 +234,7 @@ The first apply reconciles missing tools. The second apply checks convergence: p
 
 **Expected result:** all four package queries return an installed package. The second configuration run reports that the declared package state is already satisfied or completes without reinstalling the four tools.
 
-Linux and macOS do not apply `fixtures/windows/lab01-workstation-windows11.dsc.yaml`. Install Git, GitHub CLI, `uv`, and Obsidian with the distribution package manager or each tool's official installer until `git --version`, `gh --version`, `uv --version`, and the Obsidian About page succeed. Run the three command-line version checks a second time; the versions must match. Save that terminal transcript as `provision.log`. On Linux the `obsidian` executable must be on `PATH`; on macOS the standard `/Applications/Obsidian.app` or a `obsidian` command on `PATH` is detected. Do not edit the Windows configuration file.
+Linux and macOS do not apply `fixtures/windows/lab01-workstation-windows11.dsc.yaml`. Install Git, GitHub CLI, `uv`, and Obsidian with the distribution package manager or each tool's official installer until `git --version`, `gh --version`, `uv --version`, and the Obsidian About page succeed. Run the three command-line version checks a second time; the versions must match. Save that provisioning log as `provision.log`. On Linux the `obsidian` executable must be on `PATH`; on macOS the standard `/Applications/Obsidian.app` or a `obsidian` command on `PATH` is detected. Do not edit the Windows configuration file.
 
 On Windows, close all PowerShell windows and open a new non-administrator PowerShell so the updated `PATH` is loaded. On every supported host, verify capabilities rather than relying only on package names:
 
@@ -435,13 +437,13 @@ Complete the `reports/lab01/REPORT.md` file created in Step 5. Explain, in the s
 
 Use the machine-readable `reports/lab01/environment-report.json` created by `learning-project doctor`. Do not replace it with a hand-written package list or edit a red report into a green one. Record the separate second-apply, public-test, premature-apply, and accepted-contract evidence in `REPORT.md` and screenshots.
 
-Copy the provisioning transcript into the report directory after removing credentials, authentication secrets, and unrelated private material:
+Copy the provisioning log into the report directory after removing credentials, authentication secrets, and unrelated private material:
 
 ```powershell
 Copy-Item .\provision.log .\reports\lab01\provision.log
 ```
 
-Do not include email addresses, tokens, authentication secrets, model session files, or raw environment-variable dumps. An absolute path or operating-system account may remain when it is needed to attribute evidence to the workstation, but unrelated private paths and account data must be removed. Preserve the package and convergence output in the sanitized transcript.
+Do not include email addresses, tokens, authentication secrets, model session files, or raw environment-variable dumps. An absolute path or operating-system account may remain when it is needed to attribute evidence to the workstation, but unrelated private paths and account data must be removed. Preserve the package and convergence output in the sanitized log.
 
 Each submitted screenshot must be attributable to the student's workstation through visible operating-system context or a matching caption in `REPORT.md`. Capture screenshots that show only:
 

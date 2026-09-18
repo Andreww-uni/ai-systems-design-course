@@ -79,7 +79,7 @@
 | Open-weight model | Модель з відкритими вагами |
 | Operator | Оператор |
 | Ports and adapters | Порти та адаптери |
-| Preflight | Передпольотна перевірка |
+| Preliminary check | Попередня перевірка |
 | Production AI system | Система ШІ в промисловій експлуатації |
 | Prompt | Підказка |
 | Prompt and context adaptation | Адаптація підказки та контексту |
@@ -87,6 +87,7 @@
 | Proposer | Пропонувач |
 | Protocol artifact | Протокольний артефакт |
 | Provider-neutral | Нейтральний щодо постачальника |
+| Provisioning log | Журнал налаштування |
 | Quota | Квота |
 | Reference architecture | Еталонна архітектура |
 | Reliability | Надійність |
