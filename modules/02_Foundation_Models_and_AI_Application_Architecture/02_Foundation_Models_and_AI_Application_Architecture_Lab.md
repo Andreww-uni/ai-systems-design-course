@@ -95,7 +95,7 @@ reports/lab02/
   concepts/structured-output.md
 ```
 
-The numbered steps show Windows PowerShell because that is the primary documented path. Linux substitutes POSIX directory commands (`cd`) and POSIX line continuation (`\`); Git, `uv`, and `learning-project` argument values are otherwise the same. Do not translate a Windows-only installer into an unreviewed Linux command.
+The numbered steps show Windows PowerShell because that is the primary documented path. Linux and macOS substitute POSIX directory commands (`cd`) and POSIX line continuation (`\`); Git, `uv`, and `learning-project` argument values are otherwise the same. Do not translate a Windows-only installer into an unreviewed Linux or macOS command.
 
 ## Steps
 
@@ -111,7 +111,7 @@ uv run learning-project lab02 register-source --vault "$vault" --course-root .. 
   --course-repository "$(git remote get-url origin)" --course-commit "$(git rev-parse HEAD)" --by "<student-id>"
 ```
 
-Linux uses `cd` and line continuation with `\`; the argument values are identical.
+Linux and macOS use `cd` and line continuation with `\`; the argument values are identical.
 
 `register-source` writes `sources/module-02-foundation-models-and-ai-application-architecture.md` in the vault and records the source identifier, the exact course path, the repository, the clone commit, and the SHA-256 digest of the complete §1.3 fragment. Re-running it against the same bytes is a no-op; registering a different commit or different content for the same source identifier is refused rather than silently overwriting the record.
 
@@ -171,7 +171,7 @@ uv run learning-project lab02 run-openrouter --report-dir reports/lab02 --run-id
 Remove-Item Env:OPENROUTER_API_KEY
 ```
 
-On Linux, read the key without echoing it, export it only for the following command, then unset it:
+On Linux or macOS, read the key without echoing it, export it only for the following command, then unset it:
 
 ```bash
 read -s OPENROUTER_API_KEY
@@ -287,7 +287,7 @@ reviewed_by: "<student-id>"
 
 `findings.definition` answers question 1, `findings.control_gates` answers questions 2 and 3, and `findings.authority_boundary` answers question 4. Do not add extra YAML fields. `rationale` must answer questions 5 and 6: whether the candidate adds unsupported meaning, and whether the tags and key points serve the learning purpose rather than provider or harness metadata.
 
-Compute the two digests over the exact stored file bytes and paste the lowercase hexadecimal values. Do not invent them. Use the same command on Windows and Linux so the case matches the workflow exactly. Pass each path as an argument; do not interpolate `$vault` inside the Python source, because Windows paths such as `C:\absolute\path\to\ai-systems-learning-vault` would then be parsed as string escapes. Run the commands from `training-project` with the vault variable already set:
+Compute the two digests over the exact stored file bytes and paste the lowercase hexadecimal values. Do not invent them. Use the same command on Windows, Linux, and macOS so the case matches the workflow exactly. Pass each path as an argument; do not interpolate `$vault` inside the Python source, because Windows paths such as `C:\absolute\path\to\ai-systems-learning-vault` would then be parsed as string escapes. Run the commands from `training-project` with the vault variable already set:
 
 ```powershell
 uv run python -c "import hashlib,pathlib,sys; print(hashlib.sha256(pathlib.Path(sys.argv[1]).read_bytes()).hexdigest())" "reports/lab02/runs/live-primary-01/validation-result.json"
