@@ -39,11 +39,9 @@ The required starting conditions on every supported host are:
 - a text editor and a web browser are available;
 - the student can use an agent path or document why none is usable and follow the manual fallback. Antigravity CLI authenticated with a Google account is the default proposer, and a student who already has another agent subscription may use it instead.
 
-Windows 11 is the primary documented workstation path and the majority host. A Windows student must be able to approve administrator prompts, and WinGet must be available through Windows App Installer.
+Windows 11 is the primary documented workstation path and the majority host. A Windows student must be able to approve administrator prompts, and WinGet must be available through Windows App Installer. The `lab01-workstation-windows11.dsc.yaml` fixture is named for that platform and is applied only on Windows.
 
-Linux is an equivalent path for the same repository boundary, governed-proposal workflow, and `learning-project doctor` capability checks. It is not a second course edition. A Linux student must be able to install Git, GitHub CLI, `uv`, and Obsidian with the distribution package manager or each tool's official installer.
-
-macOS is not a documented path in this edition. A macOS-only host is a red preflight: stop and report it instead of improvising a third workflow.
+Linux and macOS are equivalent paths for the same repository boundary, governed-proposal workflow, and `learning-project doctor` capability checks. They are not separate course editions. A student on either host must be able to install Git, GitHub CLI, `uv`, and Obsidian with a package manager or each tool's official installer. A host is green when the four required capabilities are available; the operating-system name itself does not make a host red.
 
 The public course repository is https://github.com/sobol-mo/ai-systems-design-course. Every laboratory file comes from a clone of the student's fork of that repository. The instructor does not attach `dsc.yaml`, the starter proposal, or other project files outside Git.
 
@@ -51,7 +49,7 @@ The mandatory path does not require purchasing model API access, a container run
 
 ## Starting state
 
-The student begins with an empty working folder and a GitHub account. After Step 2 the local clone is the only source of laboratory files. The workstation configuration is `training-project/fixtures/windows/lab01-workstation.dsc.yaml`. The starter proposal is `training-project/boundary-proposal.yaml`. Both files are upstream-owned: the student uses them from the clone and does not edit the upstream copies.
+The student begins with an empty working folder and a GitHub account. After Step 2 the local clone is the only source of laboratory files. The Windows workstation configuration is `training-project/fixtures/windows/lab01-workstation-windows11.dsc.yaml`. The starter proposal is `training-project/boundary-proposal.yaml`. Both files are upstream-owned: the student uses them from the clone and does not edit the upstream copies.
 
 The same clone supplies the system definition in `training-project/requirements/SYSTEM_BRIEF.md`, the binding requirements in `training-project/requirements/REQUIREMENTS_BASELINE.md`, and the external-vault organization rules in `training-project/requirements/VAULT_STRUCTURE.md`. These files define the system every student builds. They are project inputs to read and apply, not material for requirements elicitation, replacement, or architecture invention.
 
@@ -79,7 +77,7 @@ ai-systems-design-course/                  clone root
     .gitignore                             upstream
     requirements/                          upstream — supplied system definition and requirements
     boundary-proposal.yaml                 upstream starter — copy, do not edit in place
-    fixtures/                              upstream — including lab01-workstation.dsc.yaml
+    fixtures/                              upstream — including lab01-workstation-windows11.dsc.yaml
     platform/                              upstream — CLI, doctor, and proposal workflow
     tests/public/                          upstream — public acceptance tests
     student/                               student — design and later implementation
@@ -114,7 +112,7 @@ winget --version
 winget configure --help
 ```
 
-On Linux, run a read-only host check instead of WinGet:
+On Linux or macOS, run a read-only host check instead of WinGet:
 
 ```bash
 uname -s
@@ -124,14 +122,14 @@ git --version
 
 Classify the result before changing the workstation:
 
-- **green (Windows):** Windows 11, WinGet, and `winget configure` are available;
-- **green (Linux):** `uname -s` reports `Linux`; Git may still be missing until the bootstrap in Step 2;
+- **green (Windows):** WinGet and `winget configure` are available;
+- **green (Linux/macOS):** `uname -s` reports `Linux` or `Darwin`; Git may still be missing until the bootstrap in Step 2;
 - **yellow (Windows):** WinGet exists but must be updated through Microsoft Store before configuration can be applied;
-- **red:** macOS, Windows older than 11, Windows App Installer unavailable, no administrator approval on Windows, or a Linux host on which the student cannot install the required tools.
+- **red:** a host on which one of the four required capabilities is missing and cannot be installed, or a Windows host without administrator approval. The operating-system name by itself is never a red condition.
 
 Resolve a yellow result before continuing. Stop and report a red result instead of replacing the supported path with unreviewed installation commands.
 
-**Expected result:** a Windows host reports version `10.0.22000` or newer and both WinGet commands display version or help output without changing installed packages. A Linux host reports `Linux` and does not install packages during preflight.
+**Expected result:** a Windows host reports a WinGet version and both WinGet commands display version or help output without changing installed packages. A Linux or macOS host reports `Linux` or `Darwin` and does not install packages during preflight.
 
 ### Step 2: Fork, clone, and bind remotes
 
@@ -198,7 +196,7 @@ upstream  https://github.com/sobol-mo/ai-systems-design-course.git (push)
 
 `origin` is the student's personal GitHub repository. Student-owned files are committed on the personal branch and pushed only to `origin`. `upstream` is the instructor's published course. Upstream-owned folders are updated by fetching from `upstream`, not by editing them and not by pushing to them.
 
-Confirm that the clone contains `modules\01_AI_Engineering_Foundations\` and `training-project\fixtures\windows\lab01-workstation.dsc.yaml`. Later steps use those paths. They are not supplied as separate attachments.
+Confirm that the clone contains `modules\01_AI_Engineering_Foundations\` and `training-project\fixtures\windows\lab01-workstation-windows11.dsc.yaml`. Later steps use those paths. They are not supplied as separate attachments.
 
 When the instructor publishes an update later in the course, synchronize `main` from `upstream` and then return to the personal branch. Do not run this merge as a substitute for the first clone, and do not merge onto a dirty personal branch that contains unpublished laboratory work.
 
@@ -210,17 +208,17 @@ git push origin main
 git switch lab01/<student-id>
 ```
 
-**Expected result:** `git remote -v` shows the student's fork as `origin` and `sobol-mo/ai-systems-design-course` as `upstream`; `git branch --show-current` reports `lab01/<student-id>`; `training-project\fixtures\windows\lab01-workstation.dsc.yaml` and `training-project\boundary-proposal.yaml` exist in the clone.
+**Expected result:** `git remote -v` shows the student's fork as `origin` and `sobol-mo/ai-systems-design-course` as `upstream`; `git branch --show-current` reports `lab01/<student-id>`; `training-project\fixtures\windows\lab01-workstation-windows11.dsc.yaml` and `training-project\boundary-proposal.yaml` exist in the clone.
 
 ### Step 3: Apply the workstation configuration twice
 
-On Windows, open PowerShell **as Administrator**, change to the `training-project` directory inside the clone, and record both configuration runs in one transcript. The configuration file is the upstream copy in the clone. Linux students skip the WinGet block and use the Linux paragraph after the Windows expected result.
+On Windows, open PowerShell **as Administrator**, change to the `training-project` directory inside the clone, and record both configuration runs in one transcript. The configuration file is the upstream copy in the clone. Linux and macOS students skip the WinGet block and use the Linux/macOS paragraph after the Windows expected result.
 
 ```powershell
 Set-Location "$HOME\projects\ai-systems-design-course\training-project"
 Start-Transcript -Path .\provision.log -Force
-winget configure --file .\fixtures\windows\lab01-workstation.dsc.yaml --accept-configuration-agreements
-winget configure --file .\fixtures\windows\lab01-workstation.dsc.yaml --accept-configuration-agreements
+winget configure --file .\fixtures\windows\lab01-workstation-windows11.dsc.yaml --accept-configuration-agreements
+winget configure --file .\fixtures\windows\lab01-workstation-windows11.dsc.yaml --accept-configuration-agreements
 winget list --id Git.Git --exact --source winget
 winget list --id GitHub.cli --exact --source winget
 winget list --id astral-sh.uv --exact --source winget
@@ -228,13 +226,13 @@ winget list --id Obsidian.Obsidian --exact --source winget
 Stop-Transcript
 ```
 
-Approve only the configuration and package-source agreements shown for that file. Do not add unrelated packages to the laboratory configuration. Do not edit `fixtures/windows/lab01-workstation.dsc.yaml`.
+Approve only the configuration and package-source agreements shown for that file. Do not add unrelated packages to the laboratory configuration. Do not edit `fixtures/windows/lab01-workstation-windows11.dsc.yaml`.
 
 The first apply reconciles missing tools. The second apply checks convergence: packages already satisfying the declared state must not be reinstalled or downgraded. Keep `provision.log`; it is required evidence. Review it and remove credentials, authentication secrets, and unrelated private material before submission, but do not rewrite the configuration results. An operating-system account or absolute path may remain when it attributes the evidence to the workstation. Do not commit `provision.log` at the `training-project` root; Step 10 copies a sanitized file into `reports/lab01/`.
 
 **Expected result:** all four package queries return an installed package. The second configuration run reports that the declared package state is already satisfied or completes without reinstalling the four tools.
 
-Linux does not apply `fixtures/windows/lab01-workstation.dsc.yaml`. Install Git, GitHub CLI, `uv`, and Obsidian with the distribution package manager or each tool's official installer until `git --version`, `gh --version`, `uv --version`, and the Obsidian About page succeed. Run the three command-line version checks a second time; the versions must match. Save that terminal transcript as `provision.log`. On Linux, the `obsidian` executable must be on `PATH` so `learning-project doctor` can detect it. Do not edit the Windows configuration file.
+Linux and macOS do not apply `fixtures/windows/lab01-workstation-windows11.dsc.yaml`. Install Git, GitHub CLI, `uv`, and Obsidian with the distribution package manager or each tool's official installer until `git --version`, `gh --version`, `uv --version`, and the Obsidian About page succeed. Run the three command-line version checks a second time; the versions must match. Save that terminal transcript as `provision.log`. On Linux the `obsidian` executable must be on `PATH`; on macOS the standard `/Applications/Obsidian.app` or a `obsidian` command on `PATH` is detected. Do not edit the Windows configuration file.
 
 On Windows, close all PowerShell windows and open a new non-administrator PowerShell so the updated `PATH` is loaded. On every supported host, verify capabilities rather than relying only on package names:
 
@@ -311,7 +309,7 @@ course_commit: "<40-character Git commit>"
 
 This record points to the exact version-controlled theory without copying it into a second editable location. It is a source registration, not a structured concept record. Do not create `concepts/`, `questions/`, `proposals/`, `decisions/`, or `operations/` directories in the vault during Laboratory 01.
 
-Protect this mutable canonical state against loss of the workstation. On Windows, the simplest recommended baseline is to create the vault inside a directory synchronized by the student's Microsoft OneDrive account. A Linux student may use an existing equivalent off-device synchronization or backup location. Do not install or design a new backup stack for this laboratory. If no off-device protection is available, create the external vault and record that limitation honestly in `REPORT.md`.
+Protect this mutable canonical state against loss of the workstation. On Windows, the simplest recommended baseline is to create the vault inside a directory synchronized by the student's Microsoft OneDrive account. A Linux or macOS student may use an existing equivalent off-device synchronization or backup location. Do not install or design a new backup stack for this laboratory. If no off-device protection is available, create the external vault and record that limitation honestly in `REPORT.md`.
 
 Off-device synchronization is an initial protection measure, not a complete disaster-recovery design: an unwanted change or deletion may also be synchronized. Backup retention, monitoring, and restoration testing belong to the production-system work in Module 08.
 
@@ -340,7 +338,7 @@ uv run learning-project validate .\reports\lab01\boundary-proposal.yaml
 uv run learning-project apply .\reports\lab01\boundary-proposal.yaml --decision .\reports\lab01\boundary-decision.json --output .\student\design\learning-system-boundary.yaml
 ```
 
-The starter file is structurally valid but contains instructional placeholders. Validation should succeed, while apply must fail because no decision exists. The `doctor` command must write a normalized environment report and return green before the AI step. Green means a supported Windows or Linux host with Git, GitHub CLI, `uv`, and Obsidian available. Authenticated Antigravity CLI is recorded when the default proposer is used; it is not required for green when another harness is used. Confirm that `student/design/learning-system-boundary.yaml` was not created.
+The starter file is structurally valid but contains instructional placeholders. Validation should succeed, while apply must fail because no decision exists. The `doctor` command must write a normalized environment report and return green before the AI step. Green means a supported Windows, Linux, or macOS host with Git, GitHub CLI, `uv`, and Obsidian available. Authenticated Antigravity CLI is recorded when the default proposer is used; it is not required for green when another harness is used. Confirm that `student/design/learning-system-boundary.yaml` was not created.
 
 **Expected result:** all public tests pass; the environment report records a green supported host and the four required toolchain capabilities; validation identifies a valid proposal; the premature apply exits with an error about the missing decision and creates no accepted contract.
 

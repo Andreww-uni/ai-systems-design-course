@@ -46,14 +46,16 @@ def _windows_build() -> int | None:
     return None
 
 
-def _supported_host(system: str, build: int | None) -> bool:
-    if system == "Windows":
-        return build is not None and build >= 22000
-    return system == "Linux"
-
-
 def _obsidian_available() -> bool:
     if shutil.which("obsidian"):
+        return True
+    app_candidates = [
+        Path("/Applications/Obsidian.app"),
+    ]
+    home = os.environ.get("HOME")
+    if home:
+        app_candidates.append(Path(home) / "Applications" / "Obsidian.app")
+    if any(path.is_dir() for path in app_candidates):
         return True
     candidates = []
     for variable in ("LOCALAPPDATA", "PROGRAMFILES", "PROGRAMFILES(X86)"):
@@ -99,7 +101,6 @@ def collect_environment_report() -> dict:
         "uv": "available",
         "obsidian": "available",
     }
-    supported_host = _supported_host(system, build)
     capabilities_ready = all(
         capabilities[name]["status"] == expected
         for name, expected in required_statuses.items()
@@ -112,6 +113,6 @@ def collect_environment_report() -> dict:
             "release": platform.release(),
             "build": build,
         },
-        "preflight": "green" if supported_host and capabilities_ready else "red",
+        "preflight": "green" if capabilities_ready else "red",
         "capabilities": capabilities,
     }

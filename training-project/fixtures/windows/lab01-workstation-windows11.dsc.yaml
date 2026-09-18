@@ -1,11 +1,11 @@
-# Laboratory 01 workstation as code.
+# Laboratory 01 workstation as code — Windows 11.
 #
 # WinGet Configuration provisions the declarative Lab 01 package set.
 # Antigravity CLI and its user-owned authentication are managed separately.
 # Machine-scope packages require administrator rights; run from an elevated
 # PowerShell:
 #
-#     winget configure --file .\lab01-workstation.dsc.yaml
+#     winget configure --file .\lab01-workstation-windows11.dsc.yaml
 #
 # The evaluation was performed on Windows 11 Enterprise Evaluation 25H2.
 $schema: https://aka.ms/configuration-dsc-schema/0.2
