@@ -2,8 +2,6 @@
 
 > **Status:** Ready for Students — English theory approved as part of the Module 02 English pair on 2026-09-17
 >
-> **Source-page note:** Page numbers in `Further reading` blocks refer to the current working PDF edition of *AI Engineering*. They are edition-specific and must be rechecked if the course changes to another print, EPUB, PDF, or online edition. The two software-architecture EPUB working copies have no stable page numbers, so their chapter and section titles are used as locators.
-
 ## Engineering problem: a model response is not an application architecture
 
 A software team gives a source fragment to a foundation model and asks for a concise concept definition. The model returns fluent text in seconds. A second request returns a different definition. A third response looks like the requested JSON object but omits a required field. Another response is syntactically valid yet misrepresents the source.
@@ -436,7 +434,7 @@ The table above contains several related choices, but an ADR should record one s
 The eight sections make the selected authority rule and the reasoning behind it independently reviewable.
 
 1. **Title and identifier:** ADR 001 — Governed candidate before canonical application.
-2. **Status and lifecycle links:** Proposed. The supplied system brief and requirements baseline are still under instructor review, so this record is not yet an accepted implementation authority. It supersedes no earlier ADR.
+2. **Status and lifecycle links:** Proposed. This illustrative record presents an architectural alternative for analysis; it does not itself authorize implementation and supersedes no earlier ADR.
 3. **Context and forces:** The system must use AI assistance to propose concept interpretations while preserving an authorized human reviewer's final semantic authority. AI output can be malformed, unsupported, inconsistent, or semantically unsuitable even when it satisfies a schema. Structural validation must neither approve a proposal nor change canonical knowledge, and every failed or refused path must leave accepted output unchanged. The workflow also needs enough evidence to identify the exact candidate that the reviewer examined.
 4. **Alternatives considered:**
    - **Allow the model-access component to write canonical knowledge directly.** This minimizes workflow steps, but it was not selected because provider or generation behavior would then control accepted state and a malformed, unsuitable, or partially failed operation could bypass human decision authority.
@@ -448,7 +446,7 @@ The eight sections make the selected authority rule and the reasoning behind it 
    - **Positive consequences:** malformed output is contained before application; semantic authority remains with the authorized human reviewer; approval is traceable to reviewed content; and provider changes do not acquire canonical-write authority.
    - **Negative consequences and accepted costs:** the application needs proposal and decision artifacts, candidate identity and content-digest handling, explicit refusal paths, additional telemetry, and a human interaction step that increases completion latency.
 7. **Compliance or governance:** automated acceptance tests will verify that validation creates neither approval nor canonical mutation, that approval is bound to the exact candidate, and that malformed, failed, changed, unavailable, rejected, or unapproved candidates leave accepted output unchanged. Review of the operation flow will verify that every canonical application is preceded by the matching candidate, validation result, and authorized human decision. These checks govern the candidate-before-application rule without deciding which model adapter or test fixture must implement it.
-8. **Notes and metadata:** this is an illustrative course record. Original author: course material team. Created: 14 September 2026. Last modified: 17 September 2026. Approval date and approved by: pending; the requirements baseline assigns decision ownership to the course instructor. Related candidate ADRs concern the stable model-access port, the structured candidate contract, and the model-disabled fixture path. Superseded date and superseding ADR: not applicable.
+8. **Notes and metadata:** this is an illustrative course record. Related candidate ADRs concern the stable model-access port, the structured candidate contract, and the model-disabled fixture path. Superseded date and superseding ADR: not applicable.
 
 This decision is architectural because it affects accepted-state authority, multiple logical components, testability, and future change effort. The exact class names, prompt wording, parser library, and adapter internals remain software-design choices unless later evidence makes one of them structurally significant.
 
@@ -499,8 +497,6 @@ The questions require architecture reasoning rather than product preference. Eac
 ## Connection to Laboratory 02 and Module 03
 
 Laboratory 02 will exercise the supplied reference architecture rather than assign a second architecture-design task. A bounded model-backed operation will turn a small source fragment into a structured candidate proposal. Deterministic software will validate its contract, and the student, acting as the authorized human reviewer in the laboratory scenario, will examine its meaning and retain decision authority. No model response will write canonical knowledge directly. Each decision will be bound to the reviewed candidate by a SHA-256 content digest: the digest identifies the exact bytes and detects later change, and it does not replace semantic review or prove identity, authentication, or authorization. Repeated or perturbed runs will make model variability observable, while an offline fixture path will support deterministic verification without model quota.
-
-The exact Laboratory 02 artifact names, required live-model evidence, replay-fixture contract, and minimum portability claim remain outside this theory draft. They must be derived from the reviewed theory and the confirmed project requirements.
 
 Module 03 continues from this architecture boundary into evaluation and experiment design. It will determine how representative cases, repeated runs, component-level checks, end-to-end outcomes, and explicit quality criteria can show whether the model-backed operation is sufficiently reliable and useful.
 

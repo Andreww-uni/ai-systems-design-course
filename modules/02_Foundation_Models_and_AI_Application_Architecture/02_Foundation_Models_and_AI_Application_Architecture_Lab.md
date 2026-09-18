@@ -32,7 +32,7 @@ The required starting conditions are:
 - the workstation satisfies the Laboratory 01 capability requirements (Git, GitHub CLI, `uv`, and Obsidian);
 - an agent path is available for the two live responses: Antigravity CLI as the primary path, or an OpenRouter free profile as the verified contingency when AGY quota is unavailable or exhausted.
 
-The mandatory path does not require purchasing model API access. A no-cost student account may require provider-side payment-card verification; card data must never enter the project, the report, or submitted evidence. The OpenRouter free profile may change or lose free availability over time; the laboratory documents the profile tested at authoring time without claiming that free availability is permanent. Record the actual model and adapter used in `REPORT.md`.
+The mandatory path does not require purchasing model API access. A no-cost student account may require provider-side payment-card verification; card data must never enter the project, the report, or submitted evidence. The OpenRouter free profile may change or lose free availability over time; the laboratory uses the currently verified profile without claiming that free availability is permanent. Record the actual model and adapter used in `REPORT.md`.
 
 ## Starting state
 
@@ -491,7 +491,3 @@ In the Teams assignment text field, record the fork URL, the branch name, and th
 1. Why can syntactically valid JSON remain semantically unacceptable, and who has authority to decide?
 2. How do the identifiers and SHA-256 bindings connect the reviewed candidate to the applied result, and what do they not prove?
 3. What does comparison of two live runs demonstrate, and how does `same-model-variability` differ from `fallback-portability`?
-
-## Optional extension
-
-No optional extension is assigned in the first course delivery. Human revision remains available only as recovery before a successful `apply` when no live candidate is acceptable. Independent component implementation and a post-success revision exercise are deferred until a later delivery.
