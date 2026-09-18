@@ -30,6 +30,7 @@
 | Candidate proposal | Кандидатна пропозиція |
 | Clone | Клон |
 | Commit | Коміт |
+| Constrained sampling | Обмежена вибірка |
 | Content digest | Дайджест вмісту |
 | Context window | Вікно контексту |
 | Continuity | Спадкоємність |
@@ -37,10 +38,12 @@
 | Convergence | Збіжність |
 | Design pattern | Патерн проєктування |
 | Deterministic invariant gate | Шлюз детермінованих інваріантів |
+| Direct model coupling | Пряме зв’язування з моделлю |
 | Embeddings | Векторні подання |
 | Evolvability | Еволюційність |
 | Fallback | Запасний шлях |
 | Fine-tuning | Донавчання |
+| Fitness functions | Функції придатності |
 | Fork | Форк |
 | Foundation model | Фундаментальна модель |
 | Framework | Рамка |
@@ -49,6 +52,7 @@
 | Governance | Врядування |
 | Governed change workflow | Керований процес внесення змін |
 | Greedy decoding | Жадібне декодування |
+| Guardrails | Захисні бар’єри |
 | Host | Хост |
 | Human-in-the-loop | Людина в контурі ухвалення рішень |
 | Inference | Виведення |
@@ -61,10 +65,12 @@
 | Markdown vault | Сховище Markdown-файлів |
 | Model gateway | Шлюз доступу до моделей |
 | Modular monolith | Модульний моноліт |
+| Mutation authority | Повноваження змінювати стан |
 | Next-token generation | Генерування наступного токена |
 | Non-goals | Нецілі |
 | Observability | Спостережуваність |
 | Offline fixture | Детермінована тестова фікстура |
+| Open-weight model | Модель з відкритими вагами |
 | Operator | Оператор |
 | Ports and adapters | Порти та адаптери |
 | Preflight | Передпольотна перевірка |
@@ -81,6 +87,7 @@
 | Requirement | Вимога |
 | Requirements baseline | Базова лінія вимог |
 | Retrieval | Пошук |
+| Retrieval-augmented generation | Генерування, доповнене пошуком |
 | Rollback | Відкат |
 | Sampling | Вибірка |
 | Sanitized | Очищений від чутливих даних |
