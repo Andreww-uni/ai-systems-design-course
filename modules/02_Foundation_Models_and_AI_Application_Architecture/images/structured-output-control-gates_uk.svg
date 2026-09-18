@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="720" viewBox="0 0 1400 720" role="img" aria-labelledby="title desc">
+  <title id="title">Три шлюзи контролю для структурованого виходу моделі</title>
+  <desc id="desc">Вихід моделі проходить синтаксичний шлюз розбору, шлюз детермінованих інваріантів і шлюз семантичного приймання людини. Невдача на будь-якому шлюзі веде до відмови і залишає прийнятий стан незмінним.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#334155"/></marker>
+    <style>
+      .input{fill:#e0f2fe;stroke:#0284c7;stroke-width:3}.gate{fill:#f8fafc;stroke:#334155;stroke-width:3}.human{fill:#fef3c7;stroke:#d97706;stroke-width:3}.ok{fill:#ecfdf5;stroke:#059669;stroke-width:3}.reject{fill:#fff7ed;stroke:#ea580c;stroke-width:3}.line{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}.fail{stroke:#ea580c;stroke-width:2.5;fill:none;marker-end:url(#arrow)}.title{font:700 30px system-ui,sans-serif;fill:#0f172a}.label{font:700 19px system-ui,sans-serif;fill:#0f172a}.small{font:15px system-ui,sans-serif;fill:#334155}.question{font:700 15px system-ui,sans-serif;fill:#334155}.no{font:700 14px system-ui,sans-serif;fill:#c2410c}.yes{font:700 14px system-ui,sans-serif;fill:#047857}.caption{font:700 17px system-ui,sans-serif;fill:#9a3412}
+    </style>
+  </defs>
+  <rect width="1400" height="720" fill="#ffffff"/>
+  <text x="700" y="50" text-anchor="middle" class="title">Структурований вихід має пройти три різні шлюзи контролю</text>
+
+  <rect x="55" y="170" width="200" height="135" rx="16" class="input"/>
+  <text x="155" y="210" text-anchor="middle" class="label">Вихід моделі</text>
+  <text x="155" y="244" text-anchor="middle" class="small">Ймовірнісна послідовність</text>
+  <text x="155" y="270" text-anchor="middle" class="small">токенів</text>
+
+  <rect x="320" y="145" width="240" height="185" rx="16" class="gate"/>
+  <text x="440" y="185" text-anchor="middle" class="label">1 · Синтаксичний шлюз</text>
+  <text x="440" y="224" text-anchor="middle" class="question">Чи можна розібрати відповідь?</text>
+  <text x="440" y="259" text-anchor="middle" class="small">Заявлене подання</text>
+  <text x="440" y="285" text-anchor="middle" class="small">Повна структура</text>
+
+  <rect x="625" y="145" width="250" height="185" rx="16" class="gate"/>
+  <text x="750" y="185" text-anchor="middle" class="label">2 · Шлюз інваріантів</text>
+  <text x="750" y="224" text-anchor="middle" class="question">Чи кандидат дотримується</text>
+  <text x="750" y="246" text-anchor="middle" class="question">правил, перевірюваних машиною?</text>
+  <text x="750" y="280" text-anchor="middle" class="small">Поля · ID · статуси</text>
+  <text x="750" y="304" text-anchor="middle" class="small">міжпольові обмеження</text>
+
+  <rect x="940" y="145" width="260" height="185" rx="16" class="human"/>
+  <text x="1070" y="185" text-anchor="middle" class="label">3 · Семантичний шлюз</text>
+  <text x="1070" y="224" text-anchor="middle" class="question">Чи значення правильне,</text>
+  <text x="1070" y="246" text-anchor="middle" class="question">підкріплене і корисне?</text>
+  <text x="1070" y="280" text-anchor="middle" class="small">Уповноважений рецензент</text>
+  <text x="1070" y="304" text-anchor="middle" class="small">розглядає і вирішує</text>
+
+  <rect x="1225" y="170" width="150" height="135" rx="16" class="ok"/>
+  <text x="1300" y="212" text-anchor="middle" class="label">Придатний</text>
+  <text x="1300" y="238" text-anchor="middle" class="label">до застосування</text>
+  <text x="1300" y="272" text-anchor="middle" class="small">із прив’язаним</text>
+  <text x="1300" y="294" text-anchor="middle" class="small">затвердженням</text>
+
+  <path d="M255 238 H320" class="line"/><text x="284" y="226" text-anchor="middle" class="yes">відповідь</text>
+  <path d="M560 238 H625" class="line"/><text x="592" y="226" text-anchor="middle" class="yes">так</text>
+  <path d="M875 238 H940" class="line"/><text x="907" y="226" text-anchor="middle" class="yes">так</text>
+  <path d="M1200 238 H1225" class="line"/><text x="1212" y="130" text-anchor="middle" class="yes">затвердити</text>
+
+  <rect x="465" y="505" width="470" height="115" rx="16" class="reject"/>
+  <text x="700" y="545" text-anchor="middle" class="label">Відмовити, виправити або запросити іншого кандидата</text>
+  <text x="700" y="579" text-anchor="middle" class="small">Зафіксувати результат · залишити прийнятий стан незмінним</text>
+  <text x="700" y="603" text-anchor="middle" class="small">Пізніший кандидат потребує нового розгляду та рішення</text>
+
+  <path d="M440 330 V445 H590 V505" class="fail"/><text x="455" y="378" class="no">ні</text>
+  <path d="M750 330 V505" class="fail"/><text x="765" y="378" class="no">ні</text>
+  <path d="M1070 330 V445 H810 V505" class="fail"/><text x="1085" y="378" class="no">відхилити</text>
+
+  <text x="700" y="680" text-anchor="middle" class="caption">Коректний синтаксис уможливлює перевірку; успіх перевірки не встановлює семантичної правильності.</text>
+</svg>

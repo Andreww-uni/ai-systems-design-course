@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="780" viewBox="0 0 1400 780" role="img" aria-labelledby="title desc">
+  <title id="title">Відповідь моделі всередині архітектури застосунку</title>
+  <desc id="desc">Ймовірнісний виклик моделі формує відповідь. Навколишня архітектура застосунку постачає контракти входу та виходу, детерміновану перевірку, повноваження людини, межі стану, опрацювання відмов і телеметрію, перш ніж прийнятий стан може змінитися.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#334155"/></marker>
+    <style>
+      .frame{fill:#f8fafc;stroke:#334155;stroke-width:3}.model{fill:#e0f2fe;stroke:#0284c7;stroke-width:3}.control{fill:#ecfdf5;stroke:#059669;stroke-width:2.5}.authority{fill:#fef3c7;stroke:#d97706;stroke-width:2.5}.state{fill:#ede9fe;stroke:#7c3aed;stroke-width:2.5}.risk{fill:#fff7ed;stroke:#ea580c;stroke-width:2.5}.line{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke:#64748b;stroke-width:2.5;stroke-dasharray:9 7;fill:none}.title{font:700 30px system-ui,sans-serif;fill:#0f172a}.label{font:700 19px system-ui,sans-serif;fill:#0f172a}.small{font:15px system-ui,sans-serif;fill:#334155}.caption{font:700 17px system-ui,sans-serif;fill:#9a3412}
+    </style>
+  </defs>
+  <rect width="1400" height="780" fill="#ffffff"/>
+  <text x="700" y="48" text-anchor="middle" class="title">Відповідь — одна подія; архітектура керує повною операцією</text>
+
+  <rect x="380" y="90" width="640" height="410" rx="22" class="frame"/>
+  <text x="700" y="125" text-anchor="middle" class="label">Архітектура застосунку</text>
+
+  <rect x="420" y="165" width="210" height="110" rx="14" class="control"/>
+  <text x="525" y="200" text-anchor="middle" class="label">Контракт входу</text>
+  <text x="525" y="230" text-anchor="middle" class="small">Інструкція · докази</text>
+  <text x="525" y="254" text-anchor="middle" class="small">межа контексту</text>
+
+  <rect x="700" y="155" width="250" height="130" rx="18" class="model"/>
+  <text x="825" y="195" text-anchor="middle" class="label">Фундаментальна модель</text>
+  <text x="825" y="225" text-anchor="middle" class="small">Генерування наступного токена</text>
+  <text x="825" y="250" text-anchor="middle" class="small">вибірка · зупинка</text>
+
+  <path d="M630 220 H700" class="line"/>
+
+  <rect x="515" y="340" width="230" height="110" rx="14" class="control"/>
+  <text x="630" y="375" text-anchor="middle" class="label">Контракт виходу</text>
+  <text x="630" y="405" text-anchor="middle" class="small">Розбір · перевірка</text>
+  <text x="630" y="429" text-anchor="middle" class="small">стримати відмову</text>
+
+  <rect x="790" y="340" width="190" height="110" rx="14" class="authority"/>
+  <text x="885" y="375" text-anchor="middle" class="label">Рішення людини</text>
+  <text x="885" y="405" text-anchor="middle" class="small">Розглянути значення</text>
+  <text x="885" y="429" text-anchor="middle" class="small">затвердити чи відхилити</text>
+
+  <path d="M825 285 V315 H630 V340" class="line"/>
+  <path d="M745 395 H790" class="line"/>
+
+  <rect x="70" y="180" width="240" height="170" rx="14" class="risk"/>
+  <text x="190" y="210" text-anchor="middle" class="label">Прямий виклик моделі</text>
+  <text x="190" y="240" text-anchor="middle" class="small">може повернути вільний текст,</text>
+  <text x="190" y="266" text-anchor="middle" class="small">але не визначає політики</text>
+  <text x="190" y="292" text-anchor="middle" class="small">повноважень, відновлення</text>
+  <text x="190" y="318" text-anchor="middle" class="small">чи доказів</text>
+  <path d="M310 265 H380" class="line"/>
+
+  <rect x="1090" y="180" width="240" height="170" rx="14" class="state"/>
+  <text x="1210" y="210" text-anchor="middle" class="label">Прийнятий стан</text>
+  <text x="1210" y="240" text-anchor="middle" class="small">змінюється лише через</text>
+  <text x="1210" y="266" text-anchor="middle" class="small">уповноважену операцію</text>
+  <text x="1210" y="292" text-anchor="middle" class="small">після відповідного</text>
+  <text x="1210" y="318" text-anchor="middle" class="small">затвердження</text>
+  <path d="M980 395 H1050 V265 H1090" class="line"/>
+
+  <rect x="315" y="570" width="250" height="105" rx="14" class="control"/>
+  <text x="440" y="607" text-anchor="middle" class="label">Стабільні межі</text>
+  <text x="440" y="638" text-anchor="middle" class="small">Замінити модель чи постачальника</text>
+  <text x="440" y="662" text-anchor="middle" class="small">без зміни контрактів</text>
+
+  <rect x="595" y="570" width="210" height="105" rx="14" class="control"/>
+  <text x="700" y="607" text-anchor="middle" class="label">Телеметрія</text>
+  <text x="700" y="638" text-anchor="middle" class="small">Пояснити входи, виходи,</text>
+  <text x="700" y="662" text-anchor="middle" class="small">рішення та відмови</text>
+
+  <rect x="835" y="570" width="250" height="105" rx="14" class="control"/>
+  <text x="960" y="607" text-anchor="middle" class="label">Межі стану</text>
+  <text x="960" y="638" text-anchor="middle" class="small">Кандидат ≠ канонічний</text>
+  <text x="960" y="662" text-anchor="middle" class="small">Похідний ≠ прийнятий</text>
+
+  <path d="M440 570 V525 H560" class="dash"/>
+  <path d="M700 570 V500" class="dash"/>
+  <path d="M960 570 V525 H840" class="dash"/>
+
+  <text x="700" y="735" text-anchor="middle" class="caption">Ймовірнісне генерування залишається корисним, бо його оточують детерміновані та людські засоби керування.</text>
+</svg>

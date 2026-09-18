@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Патерн гексагональної архітектури в навчальній системі знань</title>
+  <desc id="desc">Оригінальна діаграма курсу патерна гексагональної архітектури. Шестикутне ядро застосунку володіє портами сценаріїв використання та зовнішніх залежностей. Адаптери команд і уповноваженого розгляду з’єднують механізми входу застосунку зліва. Адаптери моделі, сховища Markdown-файлів і доказів з’єднують зовнішні механізми справа. З’єднувальні лінії показують приєднання, а не односторонній потік інформації.</desc>
+  <defs>
+    <style>
+      .core{fill:#ecfdf5;stroke:#059669;stroke-width:4}.core-inner{fill:#ffffff;stroke:#34d399;stroke-width:2}.port{fill:#ffffff;stroke:#475569;stroke-width:2.5}.adapter{fill:#e0f2fe;stroke:#0284c7;stroke-width:2.5}.external{fill:#ede9fe;stroke:#7c3aed;stroke-width:2.5}.attach{stroke:#475569;stroke-width:3;fill:none}.boundary-label{font:700 15px system-ui,sans-serif;fill:#64748b;letter-spacing:1.2px}.title{font:700 28px system-ui,sans-serif;fill:#0f172a}.subtitle{font:15px system-ui,sans-serif;fill:#475569}.label{font:700 17px system-ui,sans-serif;fill:#0f172a}.small{font:14px system-ui,sans-serif;fill:#334155}.tiny{font:14px system-ui,sans-serif;fill:#475569}.core-title{font:700 24px system-ui,sans-serif;fill:#065f46}.core-label{font:700 17px system-ui,sans-serif;fill:#064e3b}.caption{font:700 17px system-ui,sans-serif;fill:#9a3412}.legend{font:14px system-ui,sans-serif;fill:#334155}
+    </style>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#ffffff"/>
+  <text x="800" y="48" text-anchor="middle" class="title">Порти та адаптери (патерн гексагональної архітектури) навколо ядра застосунку</text>
+  <text x="800" y="76" text-anchor="middle" class="subtitle">Застосунок володіє портами; адаптери перекладають конкретні механізми входу та залежностей.</text>
+
+  <text x="250" y="125" text-anchor="middle" class="boundary-label">ВХІД ЗАСТОСУНКУ · ПОЗА ЯДРОМ</text>
+  <text x="800" y="125" text-anchor="middle" class="boundary-label">ЛОГІКА ЗАСТОСУНКУ</text>
+  <text x="1370" y="125" text-anchor="middle" class="boundary-label">ЗАЛЕЖНОСТІ · ПОЗА ЯДРОМ</text>
+
+  <!-- Attachment lines are intentionally non-directional. -->
+  <path d="M230 285 H255" class="attach"/>
+  <path d="M420 285 H455" class="attach"/>
+  <path d="M665 285 H720" class="attach"/>
+  <path d="M230 735 H255" class="attach"/>
+  <path d="M420 735 H455" class="attach"/>
+  <path d="M665 735 H720" class="attach"/>
+
+  <path d="M880 255 H925" class="attach"/>
+  <path d="M1115 255 H1140" class="attach"/>
+  <path d="M1325 255 H1330" class="attach"/>
+  <path d="M880 495 H925" class="attach"/>
+  <path d="M1115 495 H1140" class="attach"/>
+  <path d="M1325 495 H1350" class="attach"/>
+  <path d="M880 735 H925" class="attach"/>
+  <path d="M1115 735 H1140" class="attach"/>
+  <path d="M1325 735 H1350" class="attach"/>
+
+  <!-- The hexagon is a boundary metaphor, not a literal deployment shape. -->
+  <polygon points="540,150 960,150 1080,500 960,850 540,850 420,500" class="core"/>
+  <text x="750" y="205" text-anchor="middle" class="core-title">Ядро застосунку</text>
+  <text x="750" y="232" text-anchor="middle" class="tiny">Спроможності пропозиції поняття та керованого приймання</text>
+
+  <rect x="615" y="325" width="270" height="95" rx="14" class="core-inner"/>
+  <text x="750" y="360" text-anchor="middle" class="core-label">Процес кандидата</text>
+  <text x="750" y="388" text-anchor="middle" class="small">оркестрація та переходи стану</text>
+
+  <rect x="615" y="455" width="270" height="95" rx="14" class="core-inner"/>
+  <text x="750" y="490" text-anchor="middle" class="core-label">Політика перевірки</text>
+  <text x="750" y="518" text-anchor="middle" class="small">детерміновані правила застосування</text>
+
+  <rect x="615" y="585" width="270" height="95" rx="14" class="core-inner"/>
+  <text x="750" y="620" text-anchor="middle" class="core-label">Межа повноважень</text>
+  <text x="750" y="643" text-anchor="middle" class="small">застосовувати лише після</text>
+  <text x="750" y="665" text-anchor="middle" class="small">відповідного затвердження</text>
+
+  <text x="750" y="805" text-anchor="middle" class="small">Залежить від контрактів портів застосунку,</text>
+  <text x="750" y="830" text-anchor="middle" class="small">а не від типів постачальника, середовища чи файлової системи</text>
+
+  <!-- Application entry mechanisms and adapters. -->
+  <rect x="30" y="235" width="200" height="100" rx="14" class="external"/>
+  <text x="130" y="272" text-anchor="middle" class="label">CLI курсу</text>
+  <text x="130" y="300" text-anchor="middle" class="small">або лабораторний тест</text>
+
+  <rect x="255" y="235" width="165" height="100" rx="14" class="adapter"/>
+  <text x="337" y="272" text-anchor="middle" class="label">Адаптер</text>
+  <text x="337" y="300" text-anchor="middle" class="small">команди</text>
+
+  <rect x="455" y="240" width="210" height="90" rx="12" class="port"/>
+  <text x="560" y="273" text-anchor="middle" class="label">Пропозиція поняття</text>
+  <text x="560" y="301" text-anchor="middle" class="small">порт сценарію використання</text>
+
+  <rect x="30" y="685" width="200" height="100" rx="14" class="external"/>
+  <text x="130" y="722" text-anchor="middle" class="label">Рецензент</text>
+  <text x="130" y="750" text-anchor="middle" class="small">уповноважене рішення</text>
+
+  <rect x="255" y="685" width="165" height="100" rx="14" class="adapter"/>
+  <text x="337" y="722" text-anchor="middle" class="label">Адаптер</text>
+  <text x="337" y="750" text-anchor="middle" class="small">розгляду</text>
+
+  <rect x="455" y="690" width="210" height="90" rx="12" class="port"/>
+  <text x="560" y="723" text-anchor="middle" class="label">Зафіксувати рішення</text>
+  <text x="560" y="751" text-anchor="middle" class="small">порт сценарію використання</text>
+
+  <!-- External-dependency ports, adapters, and mechanisms. -->
+  <rect x="925" y="210" width="190" height="90" rx="12" class="port"/>
+  <text x="1020" y="243" text-anchor="middle" class="label">Генерування моделі</text>
+  <text x="1020" y="271" text-anchor="middle" class="small">порт залежності</text>
+
+  <rect x="1140" y="205" width="185" height="100" rx="14" class="adapter"/>
+  <text x="1232" y="242" text-anchor="middle" class="label">Адаптер</text>
+  <text x="1232" y="270" text-anchor="middle" class="small">моделі</text>
+
+  <rect x="1330" y="185" width="250" height="140" rx="14" class="external"/>
+  <text x="1455" y="214" text-anchor="middle" class="label">Механізм моделі</text>
+  <text x="1455" y="238" text-anchor="middle" class="tiny">живий · середовище взаємодії</text>
+  <text x="1455" y="262" text-anchor="middle" class="tiny">з ШІ-агентом / API постачальника</text>
+  <text x="1455" y="286" text-anchor="middle" class="tiny">живий · самостійно розміщена модель</text>
+  <text x="1455" y="310" text-anchor="middle" class="tiny">тест · детермінована фікстура</text>
+
+  <rect x="925" y="450" width="190" height="90" rx="12" class="port"/>
+  <text x="1020" y="483" text-anchor="middle" class="label">Доступ до сховища</text>
+  <text x="1020" y="511" text-anchor="middle" class="small">порт залежності</text>
+
+  <rect x="1140" y="445" width="185" height="100" rx="14" class="adapter"/>
+  <text x="1232" y="482" text-anchor="middle" class="label">Сховище Markdown</text>
+  <text x="1232" y="510" text-anchor="middle" class="small">адаптер</text>
+
+  <rect x="1350" y="435" width="220" height="120" rx="14" class="external"/>
+  <text x="1460" y="475" text-anchor="middle" class="label">Сховище власника</text>
+  <text x="1460" y="505" text-anchor="middle" class="small">канонічні записи Markdown</text>
+  <text x="1460" y="531" text-anchor="middle" class="tiny">контрольоване читання та запис</text>
+
+  <rect x="925" y="690" width="190" height="90" rx="12" class="port"/>
+  <text x="1020" y="723" text-anchor="middle" class="label">Телеметрія</text>
+  <text x="1020" y="751" text-anchor="middle" class="small">порт залежності</text>
+
+  <rect x="1140" y="685" width="185" height="100" rx="14" class="adapter"/>
+  <text x="1232" y="722" text-anchor="middle" class="label">Телеметрія</text>
+  <text x="1232" y="750" text-anchor="middle" class="small">адаптер</text>
+
+  <rect x="1350" y="675" width="220" height="120" rx="14" class="external"/>
+  <text x="1460" y="715" text-anchor="middle" class="label">Приймачі телеметрії</text>
+  <text x="1460" y="745" text-anchor="middle" class="small">журнали · записи операцій</text>
+  <text x="1460" y="771" text-anchor="middle" class="tiny">не канонічні знання</text>
+
+  <text x="800" y="875" text-anchor="middle" class="subtitle">З’єднувальні лінії показують приєднання до порту, а не односторонній потік інформації.</text>
+
+  <rect x="470" y="900" width="18" height="18" rx="4" class="port"/>
+  <text x="500" y="915" class="legend">порт: контракт, що належить застосунку</text>
+  <rect x="760" y="900" width="18" height="18" rx="4" class="adapter"/>
+  <text x="790" y="915" class="legend">адаптер: переклад механізму</text>
+  <rect x="1085" y="900" width="18" height="18" rx="4" class="external"/>
+  <text x="1115" y="915" class="legend">зовнішній механізм</text>
+
+  <text x="800" y="966" text-anchor="middle" class="caption">Шестикутник є метафорою межі застосунку, а не одиницею розгортання чи шестичастинною структурою коду.</text>
+</svg>

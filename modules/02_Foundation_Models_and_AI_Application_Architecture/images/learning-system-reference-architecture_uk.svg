@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="980" viewBox="0 0 1500 980" role="img" aria-labelledby="title desc">
+  <title id="title">Еталонна архітектура навчальної системи знань</title>
+  <desc id="desc">Шість груп логічних обов’язків виконуються всередині одного модульного моноліту, розгорнутого на робочій станції. Суцільні стрілки простежують основну операцію з використанням моделі: читання канонічного джерела, нормалізований запит і відповідь моделі, опрацювання структурованого виходу, перевірку та керований канонічний запис. Пунктирні з’єднувачі показують спостереження телеметрії. Стан проєкту в Git, канонічний стан сховища та похідний стан часу виконання мають окремі межі відновлення.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#334155"/></marker>
+    <marker id="write-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#059669"/></marker>
+    <style>
+      .runtime{fill:#f8fafc;stroke:#334155;stroke-width:4}.group{fill:#e0f2fe;stroke:#0284c7;stroke-width:2.5}.govern{fill:#ecfdf5;stroke:#059669;stroke-width:2.5}.telemetry{fill:#fef3c7;stroke:#d97706;stroke-width:2.5}.external{fill:#ede9fe;stroke:#7c3aed;stroke-width:3}.port{fill:#ffffff;stroke:#475569;stroke-width:2.5}.state1{fill:#f1f5f9;stroke:#64748b;stroke-width:2}.state2{fill:#ede9fe;stroke:#7c3aed;stroke-width:2}.state3{fill:#fef3c7;stroke:#d97706;stroke-width:2}.line{stroke:#334155;stroke-width:2.8;fill:none;marker-end:url(#arrow)}.write{stroke:#059669;stroke-width:3;fill:none;marker-end:url(#write-arrow)}.dash{stroke:#64748b;stroke-width:2.2;stroke-dasharray:9 7;fill:none}.title{font:700 30px system-ui,sans-serif;fill:#0f172a}.label{font:700 18px system-ui,sans-serif;fill:#0f172a}.small{font:14px system-ui,sans-serif;fill:#334155}.tiny{font:13px system-ui,sans-serif;fill:#475569}.write-label{font:700 13px system-ui,sans-serif;fill:#047857}.caption{font:700 17px system-ui,sans-serif;fill:#9a3412}
+    </style>
+  </defs>
+  <rect width="1500" height="980" fill="#ffffff"/>
+  <text x="750" y="48" text-anchor="middle" class="title">Логічні обов’язки в одній одиниці розгортання на робочій станції</text>
+
+  <rect x="250" y="95" width="1000" height="610" rx="24" class="runtime"/>
+  <text x="750" y="130" text-anchor="middle" class="label">Середовище виконання курсу · початковий стиль модульного моноліту</text>
+  <text x="750" y="154" text-anchor="middle" class="tiny">Групи технічних обов’язків розташовані всередині зв’язних модулів спроможностей; вони не є модулями предметної області верхнього рівня.</text>
+
+  <rect x="305" y="195" width="250" height="120" rx="15" class="group"/>
+  <text x="430" y="230" text-anchor="middle" class="label">Оркестрація застосунку</text>
+  <text x="430" y="262" text-anchor="middle" class="small">Координує сценарій</text>
+  <text x="430" y="287" text-anchor="middle" class="small">без приховування затвердження</text>
+
+  <rect x="625" y="195" width="250" height="120" rx="15" class="group"/>
+  <text x="750" y="230" text-anchor="middle" class="label">Підказка та контекст</text>
+  <text x="750" y="262" text-anchor="middle" class="small">Обмежена інструкція, докази,</text>
+  <text x="750" y="287" text-anchor="middle" class="small">приклади, контракт виходу</text>
+
+  <rect x="945" y="195" width="250" height="120" rx="15" class="group"/>
+  <text x="1070" y="230" text-anchor="middle" class="label">Доступ до моделі</text>
+  <text x="1070" y="262" text-anchor="middle" class="small">Стабільний порт застосунку</text>
+  <text x="1070" y="287" text-anchor="middle" class="small">і замінювані адаптери</text>
+
+  <rect x="305" y="385" width="250" height="120" rx="15" class="group"/>
+  <text x="430" y="420" text-anchor="middle" class="label">Структурований вихід</text>
+  <text x="430" y="452" text-anchor="middle" class="small">Зберегти · розібрати · нормалізувати</text>
+  <text x="430" y="477" text-anchor="middle" class="small">повідомити пошкоджений вихід</text>
+
+  <rect x="625" y="385" width="250" height="120" rx="15" class="govern"/>
+  <text x="750" y="420" text-anchor="middle" class="label">Перевірити й застосувати</text>
+  <text x="750" y="452" text-anchor="middle" class="small">Окремі операції</text>
+  <text x="750" y="477" text-anchor="middle" class="small">застосовувати лише після затвердження</text>
+
+  <rect x="945" y="385" width="250" height="120" rx="15" class="telemetry"/>
+  <text x="1070" y="420" text-anchor="middle" class="label">Телеметрія</text>
+  <text x="1070" y="452" text-anchor="middle" class="small">Зіставляти входи, виходи,</text>
+  <text x="1070" y="477" text-anchor="middle" class="small">рішення та відмови</text>
+
+  <!-- Primary model-backed operation: request, response, validation, and controlled write. -->
+  <path d="M555 255 H625" class="line"/>
+  <path d="M875 255 H945" class="line"/>
+  <path d="M1070 315 V350 H430 V385" class="line"/>
+  <text x="750" y="340" text-anchor="middle" class="tiny">нормалізована відповідь</text>
+  <path d="M555 445 H625" class="line"/>
+  <path d="M625 470 H585 V590 H235 V285 H215" class="write"/>
+  <text x="400" y="580" text-anchor="middle" class="write-label">керований канонічний запис</text>
+
+  <!-- Telemetry observes the operation; it is not the next business-data stage. -->
+  <path d="M875 445 H945" class="dash"/>
+  <path d="M1070 315 V385" class="dash"/>
+
+  <rect x="55" y="195" width="190" height="120" rx="12" class="port"/>
+  <text x="150" y="230" text-anchor="middle" class="label">Порт сховища</text>
+  <text x="150" y="262" text-anchor="middle" class="tiny">читання джерела</text>
+  <text x="150" y="287" text-anchor="middle" class="tiny">керований запис</text>
+
+  <rect x="25" y="390" width="190" height="150" rx="16" class="external"/>
+  <text x="120" y="420" text-anchor="middle" class="label">Сховище</text>
+  <text x="120" y="443" text-anchor="middle" class="label">Markdown-файлів</text>
+  <text x="120" y="470" text-anchor="middle" class="small">Канонічні джерела,</text>
+  <text x="120" y="494" text-anchor="middle" class="small">поняття, запитання,</text>
+  <text x="120" y="518" text-anchor="middle" class="small">записи змін знань</text>
+
+  <path d="M120 390 V315" class="line"/>
+  <path d="M245 235 H305" class="line"/>
+  <text x="260" y="224" text-anchor="middle" class="tiny">читання</text>
+  <path d="M170 315 V390" class="write"/>
+  <text x="186" y="357" text-anchor="start" class="write-label">запис</text>
+
+  <rect x="1285" y="195" width="190" height="120" rx="12" class="port"/>
+  <text x="1380" y="230" text-anchor="middle" class="label">Порт моделі</text>
+  <text x="1380" y="262" text-anchor="middle" class="tiny">нормалізований запит</text>
+  <text x="1380" y="287" text-anchor="middle" class="tiny">нормалізована відповідь</text>
+
+  <rect x="1285" y="390" width="190" height="150" rx="16" class="external"/>
+  <text x="1380" y="420" text-anchor="middle" class="label">Механізм моделі</text>
+  <text x="1380" y="450" text-anchor="middle" class="tiny">живий · середовище взаємодії</text>
+  <text x="1380" y="472" text-anchor="middle" class="tiny">з ШІ-агентом / API постачальника</text>
+  <text x="1380" y="494" text-anchor="middle" class="tiny">живий · самостійно розміщена модель</text>
+  <text x="1380" y="516" text-anchor="middle" class="tiny">тест · детермінована фікстура</text>
+
+  <path d="M1195 235 H1285" class="line"/>
+  <text x="1240" y="224" text-anchor="middle" class="tiny">запит</text>
+  <path d="M1285 295 H1195" class="line"/>
+  <text x="1240" y="314" text-anchor="middle" class="tiny">відповідь</text>
+  <path d="M1325 315 V390" class="line"/>
+  <path d="M1370 390 V315" class="line"/>
+
+  <text x="750" y="670" text-anchor="middle" class="tiny">Суцільні стрілки показують основний шлях взаємодії; пунктирні з’єднувачі показують спостереження телеметрії.</text>
+
+  <rect x="180" y="760" width="340" height="115" rx="15" class="state1"/>
+  <text x="350" y="798" text-anchor="middle" class="label">Проєкт у Git</text>
+  <text x="350" y="830" text-anchor="middle" class="small">Вимоги · схеми · код</text>
+  <text x="350" y="855" text-anchor="middle" class="small">тести · докази</text>
+
+  <rect x="580" y="760" width="340" height="115" rx="15" class="state2"/>
+  <text x="750" y="798" text-anchor="middle" class="label">Канонічний стан сховища</text>
+  <text x="750" y="830" text-anchor="middle" class="small">Змінні прийняті знання</text>
+  <text x="750" y="855" text-anchor="middle" class="small">потребують окремого захисту</text>
+
+  <rect x="980" y="760" width="340" height="115" rx="15" class="state3"/>
+  <text x="1150" y="798" text-anchor="middle" class="label">Похідний стан часу виконання</text>
+  <text x="1150" y="830" text-anchor="middle" class="small">Кеші · індекси · скомпільовані вигляди</text>
+  <text x="1150" y="855" text-anchor="middle" class="small">відновлювати з контрольованих входів</text>
+
+  <path d="M350 760 V705" class="dash"/>
+  <path d="M750 760 V705" class="dash"/>
+  <path d="M1150 760 V705" class="dash"/>
+
+  <text x="750" y="940" text-anchor="middle" class="caption">Межі розгортання, логічні обов’язки та межі відновлення стану відповідають на різні запитання.</text>
+</svg>
