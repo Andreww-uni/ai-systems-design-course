@@ -3,7 +3,7 @@ name = "ai-engineering-training-project"
 version = "0.1.0"
 description = "Public cumulative training project for AI Engineering laboratories"
 requires-python = ">=3.11"
-dependencies = ["PyYAML>=6.0"]
+dependencies = ["PyYAML>=6.0", "Pillow>=10.0"]
 
 [project.scripts]
 learning-project = "learning_project.cli:main"

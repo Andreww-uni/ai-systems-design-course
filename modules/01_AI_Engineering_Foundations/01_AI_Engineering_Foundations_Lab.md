@@ -30,7 +30,7 @@ After completing the laboratory, the student can:
 
 ## Prerequisites
 
-Complete this laboratory independently before the scheduled session. The session is reserved for demonstrating the result, answering the control questions, and discussing design decisions.
+Complete this laboratory independently before the scheduled session. The session is reserved for demonstrating the result, answering the control questions, and discussing design decisions. The course laboratory standing rules in [`LABORATORY_STANDING_RULES.md`](../../LABORATORY_STANDING_RULES.md) apply to this laboratory.
 
 The required starting conditions on every supported host are:
 
@@ -210,7 +210,9 @@ git push origin main
 git switch lab01/<student-id>
 ```
 
-**Expected result:** `git remote -v` shows the student's fork as `origin` and `sobol-mo/ai-systems-design-course` as `upstream`; `git branch --show-current` reports `lab01/<student-id>`; `training-project\fixtures\windows\lab01-workstation-windows11.dsc.yaml` and `training-project\boundary-proposal.yaml` exist in the clone.
+**Expected result:** `git remote -v` shows the student's fork as `origin` and `sobol-mo/ai-systems-design-course` as `upstream`; `git branch --show-current` reports `lab01/<student-id>`; the Windows workstation fixture and `training-project/boundary-proposal.yaml` exist in the clone.
+
+Save `reports/lab01/screenshots/01-git-remotes.png` from this step. Include `git remote -v` and `Get-Date` (or `date`) in the same terminal. The operating-system account or GitHub login and the system date must be visible.
 
 ### Step 3: Apply the workstation configuration twice
 
@@ -279,14 +281,14 @@ Do not use `--dangerously-skip-permissions`. During the later interactive agent 
 
 Before creating state, read `requirements/SYSTEM_BRIEF.md`, `requirements/REQUIREMENTS_BASELINE.md`, and `requirements/VAULT_STRUCTURE.md` from `training-project`. Identify the fixed system purpose, the three state boundaries, the Laboratory 01 acceptance boundary, and the minimum vault structure. These supplied contracts define the project; this step does not ask for new requirements or an application architecture.
 
-Change to the `training-project` directory of the clone. Create the student-owned design and report directories and the initial report file, then copy the upstream starter proposal into the student report path. Do not edit `training-project/boundary-proposal.yaml` in place.
+Change to the `training-project` directory of the clone. Create the student-owned design and report directories, copy the supplied Ukrainian report template, then copy the upstream starter proposal into the student report path. Do not edit `training-project/boundary-proposal.yaml` in place. Do not replace the template headings. The report is written in Ukrainian.
 
 ```powershell
 Set-Location "$HOME\projects\ai-systems-design-course\training-project"
 New-Item -ItemType Directory -Force .\student\design | Out-Null
 New-Item -ItemType Directory -Force .\reports\lab01\screenshots | Out-Null
 Copy-Item .\boundary-proposal.yaml .\reports\lab01\boundary-proposal.yaml
-if (-not (Test-Path .\reports\lab01\REPORT.md)) { New-Item -ItemType File .\reports\lab01\REPORT.md | Out-Null }
+if (-not (Test-Path .\reports\lab01\REPORT.md)) { Copy-Item .\fixtures\lab01\REPORT.md .\reports\lab01\REPORT.md }
 ```
 
 Create a new external Markdown vault through the Obsidian interface. Name it `ai-systems-learning-vault` or another non-sensitive name and store it **outside** the Git clone. Add one file named `README.md` stating that the vault is student-controlled canonical learning state and is not part of the Git repository. The vault must remain usable as ordinary files without Obsidian. Obsidian may create a hidden `.obsidian/` settings directory; it is interface metadata rather than course knowledge and is not a submission artifact.
@@ -319,7 +321,9 @@ For this laboratory, the vault proves the external system boundary and the first
 
 Laboratory 01 does not ingest a concept corpus or build retrieval, graph, or vector state. Those capabilities are introduced only after their theory and contracts exist in later modules.
 
-**Expected result:** `student/design/`, `reports/lab01/screenshots/`, and `reports/lab01/REPORT.md` exist in the clone, `reports/lab01/boundary-proposal.yaml` exists as a copy, and the external Markdown vault contains its neutral `README.md` and `sources/module-01-ai-engineering-foundations.md` as the only course-required Markdown content. The source record carries the exact clone commit and course path, the vault exists outside the clone, and it does not appear in `git status`.
+**Expected result:** `student/design/`, `reports/lab01/screenshots/`, and `reports/lab01/REPORT.md` exist in the clone, `reports/lab01/REPORT.md` still contains the supplied section headings, `reports/lab01/boundary-proposal.yaml` exists as a copy, and the external Markdown vault contains its neutral `README.md` and `sources/module-01-ai-engineering-foundations.md` as the only course-required Markdown content. The source record carries the exact clone commit and course path, the vault exists outside the clone, and it does not appear in `git status`.
+
+Save `reports/lab01/screenshots/05-external-vault.png` from this step. The screenshot shows Obsidian with the vault `README.md` and the complete YAML front matter of `sources/module-01-ai-engineering-foundations.md`. The operating-system account or an absolute path may remain in order to attribute the vault to the workstation. Credentials and authentication secrets must not appear. The system date must be visible.
 
 ### Step 6: Reproduce and test the project environment
 
@@ -344,6 +348,12 @@ The starter file is structurally valid but contains instructional placeholders. 
 
 **Expected result:** all public tests pass; the environment report records a green supported host and the four required toolchain capabilities; validation identifies a valid proposal; the premature apply exits with an error about the missing decision and creates no accepted contract.
 
+Save the following screenshots from this step, each with the operating-system account or GitHub login and the system date visible:
+
+- `reports/lab01/screenshots/02-workstation-capabilities.png` shows the four green capabilities from `learning-project doctor`. Convergence remains in the sanitized `provision.log`, not in this screenshot.
+- `reports/lab01/screenshots/03-public-tests.png` shows the passing public tests.
+- `reports/lab01/screenshots/06-premature-apply-refused.png` shows the refused apply and that `student/design/learning-system-boundary.yaml` was not created.
+
 ### Step 7: Ask the AI to prepare a bounded proposal
 
 From `training-project`, review `../modules/01_AI_Engineering_Foundations/01_AI_Engineering_Foundations_Theory.md`, especially the sections on AI use-case screening, human authority, usefulness thresholds, production risks, and simpler alternatives. Then read the local supplied contracts `requirements/SYSTEM_BRIEF.md`, `requirements/REQUIREMENTS_BASELINE.md`, and `requirements/VAULT_STRUCTURE.md`. The proposal must preserve the fixed learning knowledge system defined by those contracts. Select one non-sensitive academic or professional area only as a possible later extension recorded in `personal_domain`; it must not redefine the system or authorize personal-data ingestion.
@@ -365,6 +375,8 @@ Give the agent the following task in the interactive session:
 On an agent path, answer any domain question without supplying personal or confidential information. Inspect the explanation and the proposed diff before approving the single-file edit. End the agent session after `reports/lab01/boundary-proposal.yaml` has been updated. On the manual fallback, inspect the completed file against the same task before continuing.
 
 **Expected result:** only `reports/lab01/boundary-proposal.yaml` changes. Its `status` remains `proposed`; it contains a bounded outcome, at least two non-goals, an explicit allocation among AI, deterministic workflow, and human authority, one testable usefulness condition, one material risk, one simpler non-AI baseline, at least two required evidence items, and one honest uncertainty. The agent path preserves proposer evidence. The manual fallback instead preserves the reason for using it and does not claim AI authorship.
+
+On an agent path, save `reports/lab01/screenshots/04-proposer-session.png` showing that the agent edited only `reports/lab01/boundary-proposal.yaml` and did not run `decide` or `apply`. Exclude agent-service account identifiers, authentication content, and unrelated private material. On the manual fallback, do not invent a proposer screenshot. Save `reports/lab01/screenshots/04-manual-fallback.png` only when a genuine access, service, or quota error exists, in sanitized form. The operating-system account or GitHub login and the system date must be visible.
 
 ### Step 8: Validate and review the proposal
 
@@ -421,21 +433,28 @@ Get-Content .\student\design\learning-system-boundary.yaml
 
 **Expected result:** the decision records `approved`, the proposal identifier, a SHA-256 digest of the exact proposal content, the student-supplied identifier, and the decision time. The accepted contract has `status: approved` and an `accepted` section linking it to the same proposal digest and recorded approval.
 
+Save `reports/lab01/screenshots/07-accepted-contract.png` showing `student/design/learning-system-boundary.yaml` with `status: approved`. The operating-system account or GitHub login and the system date must be visible.
+
 ### Step 10: Prepare evidence and commit the result
 
-Complete the `reports/lab01/REPORT.md` file created in Step 5. Explain, in the student's own words:
+Complete `reports/lab01/REPORT.md` from the template copied in Step 5. Keep every supplied heading. Write the report in Ukrainian, in the student's own words. Fill every section, including the identity section with the fork URL, personal branch name, and complete commit hash. Place each required screenshot in the matching section using a relative Markdown image path such as `![git remotes](screenshots/01-git-remotes.png)`, followed by a one-line caption. Do not embed `data:` URIs in this source report.
 
-- why the selected `personal_domain` is only a possible later extension and how the intended learning outcome preserves the fixed learning knowledge system;
-- why AI may be useful and what the simpler non-AI baseline can already do;
-- why the normal AI-assisted system gives AI proposal authority but not approval authority and, on the manual fallback, why the student authored this candidate without changing that intended system boundary;
-- the answers and conclusion for all nine semantic review questions in Step 8;
-- one design trade-off involving usefulness, risk, cost, latency, privacy, or maintainability;
-- whether the second workstation apply converged and any problem encountered;
-- which proposer was used, or that the documented manual no-agent fallback was used, the attempted or unavailable path, the date and observed result, and any available sanitized access, service, or quota failure evidence;
-- how the reproducible environment, Git-backed project artifacts, and mutable Markdown vault would each be recovered, and whether the vault currently has an off-device copy;
-- why a passing schema validator does not prove that the proposal is a good system design.
+The required screenshot files, captured in earlier steps, are:
 
-Use the machine-readable `reports/lab01/environment-report.json` created by `learning-project doctor`. Do not replace it with a hand-written package list or edit a red report into a green one. Record the separate second-apply, public-test, premature-apply, and accepted-contract evidence in `REPORT.md` and screenshots.
+| File | What the image must show |
+|---|---|
+| `01-git-remotes.png` | `git remote -v` with `origin` on the student's fork and `upstream` on `sobol-mo/ai-systems-design-course` |
+| `02-workstation-capabilities.png` | four green workstation capabilities from `learning-project doctor` |
+| `03-public-tests.png` | passing public tests |
+| `04-proposer-session.png` | agent path: the proposer edited only `reports/lab01/boundary-proposal.yaml` and did not run `decide` or `apply` |
+| `04-manual-fallback.png` | manual fallback: sanitized access, service, or quota error, or omitted when no such error exists and the report states that fact |
+| `05-external-vault.png` | Obsidian with the vault `README.md` and the YAML front matter of `sources/module-01-ai-engineering-foundations.md` |
+| `06-premature-apply-refused.png` | refused apply without a decision |
+| `07-accepted-contract.png` | accepted `learning-system-boundary.yaml` with `status: approved` |
+
+Each image must show the operating-system account or GitHub login and the system date. Do not show credentials, tokens, authentication dialogs, or unrelated private material.
+
+Use the machine-readable `reports/lab01/environment-report.json` created by `learning-project doctor`. Do not replace it with a hand-written package list or edit a red report into a green one.
 
 Copy the provisioning log into the report directory after removing credentials, authentication secrets, and unrelated private material:
 
@@ -445,14 +464,13 @@ Copy-Item .\provision.log .\reports\lab01\provision.log
 
 Do not include email addresses, tokens, authentication secrets, model session files, or raw environment-variable dumps. An absolute path or operating-system account may remain when it is needed to attribute evidence to the workstation, but unrelated private paths and account data must be removed. Preserve the package and convergence output in the sanitized log.
 
-Each submitted screenshot must be attributable to the student's workstation through visible operating-system context or a matching caption in `REPORT.md`. Capture screenshots that show only:
+From `training-project`, write the Teams copy of the report. The command leaves the source `REPORT.md` and the PNG files unchanged and writes `reports/lab01/submission/REPORT.md` with the same filename and with local images embedded:
 
-- `git remote -v` with `origin` on the student's fork and `upstream` on `sobol-mo/ai-systems-design-course`;
-- the four installed workstation packages or successful capability checks; convergence is evidenced by the sanitized `provision.log`, not by a screenshot;
-- the passing public tests;
-- on an agent path, the proposer session with agent-service account identifiers, authentication content, and unrelated private material excluded, showing that the agent edited only `reports/lab01/boundary-proposal.yaml` and did not run `decide` or `apply`; on the manual fallback, no proposer screenshot is invented, while any genuine access, service, or quota error is submitted in sanitized form and `REPORT.md` identifies the attempted or unavailable path, date, and observed result;
-- the external Markdown vault opened in Obsidian with its neutral `README.md` and the complete YAML front matter of `sources/module-01-ai-engineering-foundations.md` visible; the screenshot may show the absolute path or operating-system account to attribute the vault to the workstation, but must not show credentials or authentication secrets;
-- the refused premature apply and the later accepted contract.
+```powershell
+uv run learning-project prepare-report .\reports\lab01\REPORT.md
+```
+
+Open the generated file and confirm that each required figure renders as an embedded image rather than a local path. Commit that submission copy with the laboratory evidence.
 
 Review the repository state from `training-project`, then commit only student-owned laboratory artifacts. Do not stage `modules/`, `platform/`, `fixtures/`, `tests/public/`, `boundary-proposal.yaml` at the project root, `.venv/`, or `provision.log` at the project root.
 
@@ -465,6 +483,8 @@ git status --short
 git rev-parse HEAD
 ```
 
+Copy the printed commit hash into the identity section of `reports/lab01/REPORT.md`, run `prepare-report` again if that section changed, and amend or add a follow-up commit so the submitted hash matches the identity section.
+
 Authenticate GitHub CLI, then push the personal branch to the student's fork. The push target is `origin`. It is not `upstream`.
 
 ```powershell
@@ -472,7 +492,7 @@ gh auth login
 git push -u origin HEAD
 ```
 
-**Expected result:** the working tree is clean after the commit, the branch exists in the student's fork, `git remote -v` still shows the required ownership, and the submitted commit contains no upstream-owned edits, `.venv/`, credentials, complete personal vault, or unrelated workstation data.
+**Expected result:** the working tree is clean after the commit, the branch exists in the student's fork, `git remote -v` still shows the required ownership, `reports/lab01/submission/REPORT.md` contains `data:image/` entries, and the submitted commit contains no upstream-owned edits, `.venv/`, credentials, complete personal vault, or unrelated workstation data.
 
 ## Cleanup and rollback
 
@@ -519,18 +539,18 @@ The self-study sequence is ready for the scheduled demonstration only when all o
 
 ## Submission artifacts
 
-Submit the following items individually in Microsoft Teams rather than as an archive:
+The course laboratory standing rules in [`LABORATORY_STANDING_RULES.md`](../../LABORATORY_STANDING_RULES.md) apply. This laboratory does not repeat those rules.
 
-- `reports/lab01/REPORT.md`;
-- `reports/lab01/environment-report.json`;
-- `reports/lab01/provision.log`;
-- `reports/lab01/boundary-proposal.yaml`;
-- `reports/lab01/boundary-decision.json`;
-- `student/design/learning-system-boundary.yaml`;
-- selected files from `reports/lab01/screenshots/`;
-- the URL of the student's fork, branch name, and exact commit hash.
+Attach the following files individually in Microsoft Teams, not as an archive:
 
-The submitted commit is the reviewable implementation state. Microsoft Teams is the official timestamped snapshot. Screenshots and logs supplement the deterministic checks; they do not replace them.
+- `reports/lab01/submission/REPORT.md`
+- `reports/lab01/environment-report.json`
+- `reports/lab01/provision.log`
+- `reports/lab01/boundary-proposal.yaml`
+- `reports/lab01/boundary-decision.json`
+- `student/design/learning-system-boundary.yaml`
+
+The source report `reports/lab01/REPORT.md` remains in Git with relative screenshot paths. The Teams narrative file is the `prepare-report` copy. The fork URL, branch name, and complete commit hash belong in the identity section of that report. The submitted commit is the reviewable implementation state. Microsoft Teams is the official timestamped snapshot.
 
 ## Control questions
 

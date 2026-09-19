@@ -1,12 +1,14 @@
 """Command line for the Laboratory 01 governed-proposal workflow.
 
-Three commands map one to one onto the governed-proposal protocol, and one
-command verifies the workstation:
+Three commands map one to one onto the governed-proposal protocol, one
+command verifies the workstation, and one command writes a Teams submission
+copy of a Markdown report:
 
 * ``validate`` — check a candidate proposal; it changes nothing.
 * ``decide``   — record the explicit human approval or rejection.
 * ``apply``    — turn an approved proposal into the accepted contract.
 * ``doctor``   — write a normalized workstation capability report.
+* ``prepare-report`` — write ``submission/REPORT.md`` with images embedded.
 """
 
 from __future__ import annotations
@@ -35,6 +37,7 @@ from .lab02 import (
     verify_lab02,
 )
 from .openai_compatible import run_openrouter
+from .report_submission import prepare_report
 from .workflow import (
     ACCEPTED_FILENAME,
     DECISION_FILENAME,
@@ -95,6 +98,17 @@ def _build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=Path("environment-report.json"),
         help="Machine-readable capability report (default: environment-report.json).",
+    )
+
+    prepare_report_command = commands.add_parser(
+        "prepare-report",
+        help="Write a Teams submission copy of a Markdown report with images embedded.",
+    )
+    prepare_report_command.add_argument("report", type=Path, help="Source Markdown report.")
+    prepare_report_command.add_argument(
+        "--output",
+        type=Path,
+        help="Submission copy (default: <report-dir>/submission/REPORT.md).",
     )
 
     lab02 = commands.add_parser("lab02", help="Run the Laboratory 02 governed workflow.")
@@ -239,6 +253,13 @@ def _run_doctor(args: argparse.Namespace) -> int:
     )
     print(f"Wrote the environment report to {args.output}.")
     return 0 if report["preflight"] == "green" else 1
+
+
+def _run_prepare_report(args: argparse.Namespace) -> int:
+    output_path, image_count = prepare_report(args.report, output_path=args.output)
+    print(f"Wrote the submission report to {output_path}.")
+    print(f"Embedded images: {image_count}")
+    return 0
 
 
 def _run_lab02(args: argparse.Namespace) -> int:
@@ -391,6 +412,7 @@ def main(argv: list[str] | None = None) -> int:
         "decide": _run_decide,
         "apply": _run_apply,
         "doctor": _run_doctor,
+        "prepare-report": _run_prepare_report,
         "lab02": _run_lab02,
     }
     try:
