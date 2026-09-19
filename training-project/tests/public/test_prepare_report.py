@@ -1,5 +1,6 @@
 import contextlib
 import io
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -112,6 +113,52 @@ class PrepareReportCommandTests(unittest.TestCase):
             self.assertLessEqual(image.height, 600)
         with Image.open(large_image) as original:
             self.assertEqual(original.size, (1600, 1200))
+
+    def test_prepare_report_embeds_the_real_lab01_template_for_both_proposer_paths(self) -> None:
+        fixture = Path(__file__).resolve().parents[2] / "fixtures" / "lab01" / "REPORT.md"
+        shutil.copyfile(fixture, self.report_path)
+        screenshot_names = (
+            "01-git-remotes.png",
+            "02-workstation-capabilities.png",
+            "03-public-tests.png",
+            "04-proposer-session.png",
+            "05-external-vault.png",
+            "06-premature-apply-refused.png",
+            "07-accepted-contract.png",
+        )
+        for name in screenshot_names:
+            write_png(self.screenshots / name, 40, 20)
+
+        code, out, err = run_cli(["prepare-report", str(self.report_path)])
+
+        self.assertEqual(code, 0)
+        self.assertEqual(err, "")
+        self.assertIn("Embedded images: 7", out)
+
+        source = self.report_path.read_text(encoding="utf-8")
+        source = source.replace("04-proposer-session.png", "04-manual-fallback.png")
+        self.report_path.write_text(source, encoding="utf-8")
+        write_png(self.screenshots / "04-manual-fallback.png", 40, 20)
+
+        code, out, err = run_cli(["prepare-report", str(self.report_path)])
+
+        self.assertEqual(code, 0)
+        self.assertEqual(err, "")
+        self.assertIn("Embedded images: 7", out)
+
+        shutil.copyfile(fixture, self.report_path)
+        source = self.report_path.read_text(encoding="utf-8")
+        source = source.replace(
+            "![сеанс пропонувача або запасний шлях](screenshots/04-proposer-session.png)\n",
+            "",
+        )
+        self.report_path.write_text(source, encoding="utf-8")
+
+        code, out, err = run_cli(["prepare-report", str(self.report_path)])
+
+        self.assertEqual(code, 0)
+        self.assertEqual(err, "")
+        self.assertIn("Embedded images: 6", out)
 
 
 if __name__ == "__main__":

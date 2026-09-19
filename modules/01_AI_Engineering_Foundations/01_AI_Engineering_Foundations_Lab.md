@@ -68,6 +68,8 @@ ai-systems-design-course/                  clone root
   README.md                                upstream — course navigation
   00_Curriculum.md                         upstream
   GLOSSARY.md                              upstream
+  LABORATORY_STANDING_RULES.md             upstream — course-wide laboratory rules
+  LABORATORY_STANDING_RULES_uk.md          upstream — Ukrainian laboratory rules
   references/                              upstream
   modules/                                 upstream — theory and laboratory instructions
   training-project/                        working project
@@ -317,13 +319,13 @@ Protect this mutable canonical state against loss of the workstation. On Windows
 
 Off-device synchronization is an initial protection measure, not a complete disaster-recovery design: an unwanted change or deletion may also be synchronized. Backup retention, monitoring, and restoration testing belong to the production-system work in Module 08.
 
-For this laboratory, the vault proves the external system boundary and the first source registration only. Personal notes, credentials, and a full personal vault are neither required nor submitted. Record its location in `REPORT.md` as `external to repository`. A submitted screenshot may show the vault content, absolute path, or operating-system account when needed to attribute it to the workstation, but it must not show credentials, tokens, authentication secrets, or unrelated private material.
+For this laboratory, the vault proves the external system boundary and the first source registration only. Personal notes, credentials, and a full personal vault are neither required nor submitted. Record its location in `REPORT.md` as `external to repository`. A submitted screenshot may show the vault content or absolute path, but the operating-system account or GitHub login and the system date must also be visible to identify the author and capture date. The screenshot must not show credentials, tokens, authentication secrets, or unrelated private material.
 
 Laboratory 01 does not ingest a concept corpus or build retrieval, graph, or vector state. Those capabilities are introduced only after their theory and contracts exist in later modules.
 
 **Expected result:** `student/design/`, `reports/lab01/screenshots/`, and `reports/lab01/REPORT.md` exist in the clone, `reports/lab01/REPORT.md` still contains the supplied section headings, `reports/lab01/boundary-proposal.yaml` exists as a copy, and the external Markdown vault contains its neutral `README.md` and `sources/module-01-ai-engineering-foundations.md` as the only course-required Markdown content. The source record carries the exact clone commit and course path, the vault exists outside the clone, and it does not appear in `git status`.
 
-Save `reports/lab01/screenshots/05-external-vault.png` from this step. The screenshot shows Obsidian with the vault `README.md` and the complete YAML front matter of `sources/module-01-ai-engineering-foundations.md`. The operating-system account or an absolute path may remain in order to attribute the vault to the workstation. Credentials and authentication secrets must not appear. The system date must be visible.
+Save `reports/lab01/screenshots/05-external-vault.png` from this step. The screenshot shows Obsidian with the vault `README.md` and the complete YAML front matter of `sources/module-01-ai-engineering-foundations.md`. The operating-system account or GitHub login and the system date must be visible. An absolute path may remain, but it does not replace that identification. Credentials and authentication secrets must not appear.
 
 ### Step 6: Reproduce and test the project environment
 
@@ -437,7 +439,7 @@ Save `reports/lab01/screenshots/07-accepted-contract.png` showing `student/desig
 
 ### Step 10: Prepare evidence and commit the result
 
-Complete `reports/lab01/REPORT.md` from the template copied in Step 5. Keep every supplied heading. Write the report in Ukrainian, in the student's own words. Fill every section, including the identity section with the fork URL, personal branch name, and complete commit hash. Place each required screenshot in the matching section using a relative Markdown image path such as `![git remotes](screenshots/01-git-remotes.png)`, followed by a one-line caption. Do not embed `data:` URIs in this source report.
+Complete `reports/lab01/REPORT.md` from the template copied in Step 5. Keep every supplied heading. Write the report in Ukrainian, in the student's own words. Fill every section, including the identity section with the fork URL, personal branch name, and complete commit hash. Place each required screenshot in the matching section using a relative Markdown image path such as `![віддалені репозиторії Git](screenshots/01-git-remotes.png)`, followed by a one-line caption. For the proposer section, keep `04-proposer-session.png` on the agent path, replace it with `04-manual-fallback.png` when sanitized fallback evidence exists, or remove that image line and explain the absence when the documented fallback produced no such evidence. Do not embed `data:` URIs in this source report.
 
 The required screenshot files, captured in earlier steps, are:
 
@@ -515,6 +517,7 @@ uv run python -m unittest discover -s tests/public -v
 uv run learning-project doctor --output .\reports\lab01\environment-report.json
 uv run learning-project validate .\reports\lab01\boundary-proposal.yaml
 uv run learning-project apply .\reports\lab01\boundary-proposal.yaml --decision .\reports\lab01\boundary-decision.json --output .\student\design\learning-system-boundary.yaml
+uv run learning-project prepare-report .\reports\lab01\REPORT.md
 Get-Content .\reports\lab01\environment-report.json -Raw | ConvertFrom-Json | Out-Null
 git remote -v
 git branch --show-current

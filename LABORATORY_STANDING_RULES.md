@@ -22,7 +22,7 @@ Reports are uploaded to the corresponding Microsoft Teams assignment. The narrat
 
 The laboratory may also require a small set of machine-readable evidence files. Those files are attached individually. An archive is not accepted.
 
-The source report in Git uses relative Markdown image paths into `reports/labNN/screenshots/`. The Teams narrative file is the copy produced by `learning-project prepare-report`, which embeds those images so Teams can render one Markdown attachment. The student runs that command as written in the laboratory. The generated file `reports/labNN/submission/REPORT.md` may be committed to the fork.
+The source report in Git uses relative Markdown image paths into `reports/labNN/screenshots/`. The Teams narrative file is the copy produced by `learning-project prepare-report`, which embeds those images so Teams can render one Markdown attachment. The student runs that command as written in the laboratory. The generated file `reports/labNN/submission/REPORT.md` may be committed to the fork and must be committed when the laboratory explicitly requires it.
 
 ## Academic integrity
 
