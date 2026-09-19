@@ -160,6 +160,34 @@ class PrepareReportCommandTests(unittest.TestCase):
         self.assertEqual(err, "")
         self.assertIn("Embedded images: 6", out)
 
+    def test_prepare_report_embeds_all_images_from_the_real_lab02_template(self) -> None:
+        fixture = Path(__file__).resolve().parents[2] / "fixtures" / "lab02" / "REPORT.md"
+        shutil.copyfile(fixture, self.report_path)
+        screenshot_names = (
+            "01-offline-gates.png",
+            "02-refusal-unchanged.png",
+            "03-live-comparison.png",
+            "04-review-decision.png",
+            "05-controlled-apply.png",
+            "06-final-result.png",
+        )
+        for name in screenshot_names:
+            write_png(self.screenshots / name, 40, 20)
+        source_before = self.report_path.read_text(encoding="utf-8")
+
+        code, out, err = run_cli(["prepare-report", str(self.report_path)])
+
+        self.assertEqual(code, 0)
+        self.assertEqual(err, "")
+        self.assertIn("Embedded images: 6", out)
+        self.assertEqual(self.report_path.read_text(encoding="utf-8"), source_before)
+        self.assertEqual(source_before.count("screenshots/"), 6)
+        self.assertNotIn("data:image/", source_before)
+        submission = (self.report_dir / "submission" / "REPORT.md").read_text(encoding="utf-8")
+        self.assertEqual(submission.count("data:image/png;base64,"), 6)
+        for name in screenshot_names:
+            self.assertNotIn(f"screenshots/{name}", submission)
+
 
 if __name__ == "__main__":
     unittest.main()

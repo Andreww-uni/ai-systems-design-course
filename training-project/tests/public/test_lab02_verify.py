@@ -207,7 +207,7 @@ class Lab02FinalVerificationTests(unittest.TestCase):
             (screenshot_dir / name).write_bytes(b"\x89PNG\r\n\x1a\nfixture")
         report_dir.joinpath("REPORT.md").write_text(
             "# Laboratory 02 report\n\nSynthetic fixture evidence, not live inference.\n"
-            + "\n".join(SCREENSHOTS)
+            + "\n".join(f"![checkpoint](screenshots/{name})" for name in SCREENSHOTS)
             + "\n",
             encoding="utf-8",
         )
@@ -315,6 +315,52 @@ class Lab02FinalVerificationTests(unittest.TestCase):
             self.assertIn("artifacts", result)
             self.assertIn("selected_candidate", result)
             self.assertEqual(result["comparison_kind"], "same-model-variability")
+
+    def test_verify_requires_relative_markdown_links_for_every_screenshot(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            vault, report_dir, fixture_dir, project_root = self._build_submission(root)
+            report_dir.joinpath("REPORT.md").write_text(
+                "# Laboratory 02 report\n\n" + "\n".join(SCREENSHOTS) + "\n",
+                encoding="utf-8",
+            )
+
+            result = verify_lab02(
+                vault=vault,
+                report_dir=report_dir,
+                course_root=project_root,
+                fixture_dir=fixture_dir,
+            )
+
+            submission_check = next(
+                check for check in result["checks"] if check["check_id"] == "submission-files"
+            )
+            self.assertEqual(submission_check["status"], "failed")
+            self.assertIn("relative Markdown image link", submission_check["message"])
+
+    def test_verify_refuses_embedded_images_in_the_source_report(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            vault, report_dir, fixture_dir, project_root = self._build_submission(root)
+            report_path = report_dir / "REPORT.md"
+            report_path.write_text(
+                report_path.read_text(encoding="utf-8")
+                + "\n![embedded](data:image/png;base64,AAAA)\n",
+                encoding="utf-8",
+            )
+
+            result = verify_lab02(
+                vault=vault,
+                report_dir=report_dir,
+                course_root=project_root,
+                fixture_dir=fixture_dir,
+            )
+
+            submission_check = next(
+                check for check in result["checks"] if check["check_id"] == "submission-files"
+            )
+            self.assertEqual(submission_check["status"], "failed")
+            self.assertIn("Source REPORT.md must keep relative image links", submission_check["message"])
 
     def test_verify_fails_when_a_canonical_record_gains_a_provider_field(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

@@ -123,7 +123,16 @@ The captured `course_commit` is the immutable source baseline, not the later sub
 
 ### Step 2: Exercise the offline fixtures
 
-Run the read-only fixture check. It executes the three approved deterministic substitutes in temporary state, never touching the vault or the accepted concept.
+Initialize the source report and screenshot directory before capturing the first checkpoint. The report starts from the supplied Ukrainian template, retains relative image links throughout verification, and is not replaced on a later run:
+
+```powershell
+New-Item -ItemType Directory -Force .\reports\lab02\screenshots | Out-Null
+if (-not (Test-Path .\reports\lab02\REPORT.md)) { Copy-Item .\fixtures\lab02\REPORT.md .\reports\lab02\REPORT.md }
+```
+
+On Linux or macOS, use `mkdir -p reports/lab02/screenshots` and `test -f reports/lab02/REPORT.md || cp fixtures/lab02/REPORT.md reports/lab02/REPORT.md`.
+
+Then run the read-only fixture check. It executes the three approved deterministic substitutes in temporary state, never touching the vault or the accepted concept.
 
 ```powershell
 uv run learning-project lab02 check-fixtures --vault "$vault"
@@ -381,16 +390,7 @@ A full restart after a successful apply is not a reuse of `live-primary-01`. It 
 
 `lab02 verify` requires the six approved PNG files under `reports/lab02/screenshots/` and those exact filenames inside `REPORT.md`. Write the report and save screenshots `01`–`05` before running the verifier. Screenshot `06` is captured in Step 12 beside a passing result.
 
-Create the report directory and copy the supplied Ukrainian template without replacing its headings:
-
-```powershell
-New-Item -ItemType Directory -Force .\reports\lab02\screenshots | Out-Null
-if (-not (Test-Path .\reports\lab02\REPORT.md)) { Copy-Item .\fixtures\lab02\REPORT.md .\reports\lab02\REPORT.md }
-```
-
-On Linux or macOS, use `mkdir -p reports/lab02/screenshots` and `test -f reports/lab02/REPORT.md || cp fixtures/lab02/REPORT.md reports/lab02/REPORT.md`.
-
-Write every report section in Ukrainian, in the student's own words. Keep every supplied heading and complete the identity section with the fork URL, personal branch name, and complete commit hash. Keep the six supplied relative Markdown image paths and short captions that include each exact filename, including `06-final-result.png`. Do not embed `data:` URIs in this source report. Explain:
+Complete the source report copied in Step 2. Write every section in Ukrainian, in the student's own words. Keep every supplied heading and enter the fork URL and personal branch name in the identity section. Leave the evidence commit hash blank until Step 12 creates that commit. Keep the six supplied relative Markdown image paths and short captions that include each exact filename, including `06-final-result.png`. Do not embed `data:` URIs in this source report. Explain:
 
 - which adapter and model were used for each live run, and whether the comparison is `same-model-variability` or `fallback-portability` and why; classification follows the recorded adapter and model metadata, not whether the responses differ;
 - one concrete difference between the two candidates if one exists, or an explicit statement that no difference was observed; identical correct live responses satisfy this requirement and do not prove that the model is deterministic; an observed difference under the same adapter and model does not by itself prove that sampling was the sole cause; do not spend another generation only to force a difference;
@@ -412,7 +412,7 @@ Run the read-only final verifier from `training-project`:
 uv run learning-project lab02 verify --vault "$vault" --report-dir reports/lab02
 ```
 
-The command writes only `reports/lab02/verification-report.json` and exits `0` for a complete pass, `1` for completed verification with failed checks, or `2` when required inputs cannot be read. It verifies the registered source and fragment digest, that the source baseline commit exists and is an ancestor of `HEAD` with upstream-owned paths unchanged relative to that baseline, the three approved fixtures, the two live runs with the shared request digest, the comparison classification, the selected candidate's ancestry and validation, the semantic review and decision bindings, the accepted concept and single operation, provider-field isolation, and the six screenshot references.
+The command writes only `reports/lab02/verification-report.json` and exits `0` for a complete pass, `1` for completed verification with failed checks, or `2` when required inputs cannot be read. It verifies the registered source and fragment digest, that the source baseline commit exists and is an ancestor of `HEAD` with upstream-owned paths unchanged relative to that baseline, the three approved fixtures, the two live runs with the shared request digest, the comparison classification, the selected candidate's ancestry and validation, the semantic review and decision bindings, the accepted concept and single operation, provider-field isolation, and the six exact relative Markdown screenshot links in the source report. It refuses embedded `data:` image URIs in that source report.
 
 The verifier checks internal consistency and attribution of live evidence but does not claim cryptographic proof that an external model performed inference, and it does not evaluate semantic correctness. A passing report proves the chain and the boundaries; it does not replace the semantic judgment recorded in Step 8.
 
@@ -420,15 +420,7 @@ If the first run fails only because `06-final-result.png` is missing, capture th
 
 **Expected result:** `verification-report.json` reports `status: passed` with all checks passing and a nonzero artifact map, the exit status is `0`, and `06-final-result.png` shows the Obsidian concept beside that passing result.
 
-After the last passing `lab02 verify`, create the self-contained Teams copy. This command leaves the source report and PNG files unchanged and writes `reports/lab02/submission/REPORT.md` with the six images embedded:
-
-```powershell
-uv run learning-project prepare-report .\reports\lab02\REPORT.md
-```
-
-Open the generated file and confirm that all six figures render as embedded images. The source `reports/lab02/REPORT.md` must retain relative image paths and must not contain `data:` URIs; the generated submission copy must contain `data:image/` entries.
-
-Commit only the student-owned paths from `training-project`. If the terminal was restarted, `cd` into that directory first; `git add reports/lab02` is valid only there. The registered `course_commit` remains the Step 1 source baseline; the submitted commit is a later descendant and must not require source re-registration.
+Create an immutable evidence commit before inserting its hash into the report. If the terminal was restarted, `cd` into `training-project` first; `git add reports/lab02` is valid only there. The registered `course_commit` remains the Step 1 source baseline and must not be replaced.
 
 ```powershell
 cd "$HOME\projects\ai-systems-design-course\training-project"
@@ -436,15 +428,33 @@ git status --short
 git diff --check
 git add reports/lab02
 git commit -m "feat(lab02): govern a structured-output concept"
-git push -u origin HEAD
-git rev-parse HEAD
+$evidenceCommit = git rev-parse HEAD
+$evidenceCommit
 ```
 
 Do not stage `modules/`, `platform/`, `fixtures/`, `tests/public/`, `schemas/`, `.venv/`, or the external vault.
 
-Copy the printed complete commit hash into the identity section of `reports/lab02/REPORT.md`, run `prepare-report` again, and add a follow-up commit containing the updated source and submission reports. Do not put this identity information in the Teams assignment text field.
+Copy `$evidenceCommit` into the report field `Повний хеш коміту зі свідченнями`. The hash identifies the immutable evidence commit; it is not the hash of the later packaging commit, which cannot contain its own hash. Because this edit changes the source report bytes, run `lab02 verify` again. This must be the last passing verifier run against the source working tree:
 
-Do not re-run `lab02 verify` against the submitted working tree after the evidence commit: the command rewrites `verification-report.json` with a new timestamp and would dirty the submission. To read back the submitted evidence, copy the report directory and verify the copy against the original external vault:
+```powershell
+uv run learning-project lab02 verify --vault "$vault" --report-dir reports/lab02
+uv run learning-project prepare-report .\reports\lab02\REPORT.md
+```
+
+`prepare-report` runs only after that final pass. It leaves the source report and PNG files unchanged and writes `reports/lab02/submission/REPORT.md` with the six images embedded. Open the generated file and confirm that all six figures render. The source report must still contain six relative `screenshots/...` image links and no `data:` URI; the generated copy must contain six `data:image/` entries and no local screenshot dependency.
+
+Commit only the report identity update, the regenerated verification report, and the generated Teams copy, then push the branch to the fork:
+
+```powershell
+git add reports/lab02/REPORT.md reports/lab02/verification-report.json reports/lab02/submission/REPORT.md
+git commit -m "docs(lab02): package report for submission"
+git push -u origin HEAD
+git status --short
+```
+
+The source report, `verification-report.json`, and generated submission report in this packaging commit now describe the same report content. Identity lives only in the report, not in the Teams assignment text field.
+
+Do not re-run `lab02 verify` against the working tree after the packaging commit: the command rewrites `verification-report.json` with a new timestamp and would dirty the submission. To read back the submitted evidence, copy the report directory and verify the copy against the original external vault:
 
 ```powershell
 $checkDir = Join-Path $env:TEMP ("lab02-submitted-verify-" + [guid]::NewGuid().ToString())
@@ -458,9 +468,9 @@ cp -a reports/lab02/. "$check_dir/"
 uv run learning-project lab02 verify --vault "$vault" --report-dir "$check_dir"
 ```
 
-Do not amend or reset the submitted commit to chase a rewritten timestamp.
+Do not amend or reset either commit to chase a rewritten timestamp.
 
-**Expected result:** the working tree is clean after the commit, the branch exists in the fork, and the submitted commit contains only `reports/lab02/` evidence with no credentials, no upstream-owned edits, and no vault content.
+**Expected result:** the working tree is clean, the branch exists in the fork, the report identifies the immutable evidence commit, and the later packaging commit contains the source report, verification result, and self-contained Teams report without credentials, upstream-owned edits, or vault content.
 
 ## Cleanup and rollback
 
@@ -506,7 +516,7 @@ Follow the course laboratory standing rules in [`LABORATORY_STANDING_RULES.md`](
 - `reports/lab02/live-comparison.json`;
 - `reports/lab02/semantic-review.yaml`.
 
-Do not attach the six PNG files separately; they are embedded in the Teams copy and remain individually reviewable in the fork. The fork URL, branch name, and complete submitted commit hash live only in the report identity section, not in the Teams assignment text field. Detailed run evidence remains reviewable in that immutable commit; the external vault, authentication state, payment-card data, unfiltered logs, and a PDF duplicate of `REPORT.md` are excluded.
+Do not attach the six PNG files separately; they are embedded in the Teams copy and remain individually reviewable in the fork. The fork URL, branch name, and complete evidence-commit hash live only in the report identity section, not in the Teams assignment text field. Detailed run evidence remains reviewable in that immutable evidence commit; the later packaging commit contains the finalized report files. The external vault, authentication state, payment-card data, unfiltered logs, and a PDF duplicate of `REPORT.md` are excluded.
 
 ## Control questions
 
