@@ -1,6 +1,6 @@
 # Module 02: Foundation Models and AI Application Architecture — Laboratory
 
-> **Status:** Ready for Students — English laboratory approved as part of the Module 02 English pair on 2026-09-17
+> **Status:** Ready for Students — English laboratory re-approved after report-packaging alignment on 2026-09-19
 
 ## Goal
 
@@ -23,7 +23,7 @@ After completing the laboratory, the student can:
 
 ## Prerequisites
 
-Complete this laboratory independently before the scheduled session. The session is reserved for demonstrating the result, answering the control questions, and discussing design decisions.
+Complete this laboratory independently before the scheduled session. The session is reserved for demonstrating the result, answering the control questions, and discussing design decisions. The course laboratory standing rules in [`LABORATORY_STANDING_RULES.md`](../../LABORATORY_STANDING_RULES.md) apply to this laboratory.
 
 The required starting conditions are:
 
@@ -72,6 +72,8 @@ reports/lab02/
   live-comparison.json
   semantic-review.yaml
   verification-report.json
+  submission/
+    REPORT.md                 (generated Teams copy with embedded images)
   revisions/                  (only when a human revision is used)
   reviews/                    (only when a candidate is rejected)
   runs/<run-id>/
@@ -133,7 +135,7 @@ The three fixtures exercise three different gates:
 2. `malformed-response.txt` is not one valid JSON value and is refused at the syntactic gate before any proposal record is created;
 3. `semantic-unsupported-response.json` is structurally valid and passes deterministic gates, but its definition and quotations must still be judged by the authorized human reviewer at the semantic acceptance gate.
 
-**Expected result:** the command prints a normalized summary naming the valid, malformed, and semantically unsupported fixtures and confirming that accepted state is unchanged. Capture the terminal output as `01-offline-gates.png`. Do not capture `02-refusal-unchanged.png` here; that checkpoint is taken after the successful apply in Step 10.
+**Expected result:** the command prints a normalized summary naming the valid, malformed, and semantically unsupported fixtures and confirming that accepted state is unchanged. Capture the terminal output as `reports/lab02/screenshots/01-offline-gates.png`; the normalized fixture summary, the operating-system account or GitHub login, and the system date must be visible in the image. Do not capture `02-refusal-unchanged.png` here; that checkpoint is taken after the successful apply in Step 10.
 
 ### Step 3: Prepare the first live request
 
@@ -245,7 +247,7 @@ uv run learning-project lab02 compare-live --vault "$vault" --report-dir reports
 
 The command writes `reports/lab02/live-comparison.json`. When both runs used the same adapter and model, `comparison_kind` is `same-model-variability`. When one run used a different model or access path, it is `fallback-portability`. The comparison records the shared request digest, both run digests, both proposal digests, and deterministic structural differences.
 
-**Expected result:** `live-comparison.json` identifies the two run identifiers, their adapter and model paths, the shared request digest, and the correct `comparison_kind`. Capture this evidence for `03-live-comparison.png`; a contingency path must be visibly labeled rather than presented as pure same-model variability.
+**Expected result:** `live-comparison.json` identifies the two run identifiers, their adapter and model paths, the shared request digest, and the correct `comparison_kind`. Capture this evidence as `reports/lab02/screenshots/03-live-comparison.png`; the two run identifiers, adapter and model paths, comparison result, operating-system account or GitHub login, and system date must be visible. A contingency path must be visibly labeled rather than presented as pure same-model variability.
 
 ### Step 8: Review and select one candidate
 
@@ -329,7 +331,7 @@ The revised candidate is a new candidate. A decision on the parent proposal neve
 
 A human revision is not a third live run and does not change `compare-live` classification, which still reads adapter and model metadata from the two compared live runs.
 
-**Expected result:** the semantic review exists, names the selected proposal and validation identifiers, binds both exact digests, and records a justified verdict. Capture the review beside the later decision for `04-review-decision.png`.
+**Expected result:** the semantic review exists, names the selected proposal and validation identifiers, binds both exact digests, and records a justified verdict. After recording the decision in Step 9, capture the review and decision together as `reports/lab02/screenshots/04-review-decision.png`; the semantic verdict, approved decision, matching proposal digest, operating-system account or GitHub login, and system date must be visible.
 
 ### Step 9: Record the decision and apply once
 
@@ -357,7 +359,7 @@ uv run learning-project lab02 apply --vault "$vault" --proposal-id lab02-structu
 
 `decide` refuses an approval unless the semantic review verdict is `acceptable` and binds the exact proposal, validation, and review digests. `apply` refuses unless the decision is `approved`, the candidate descends from a live response, the registered source has not changed, and the target `concepts/structured-output.md` is absent. On success it writes the accepted concept and one matching operation record. A rejected candidate must not be applied.
 
-**Expected result:** the vault contains the selected candidate's `decisions/...-decision.md`, one `operations/...-apply.md`, and `concepts/structured-output.md`, with the accepted concept carrying `accepted_from` that binds the proposal and decision digests. Capture the concept and operation records for `05-controlled-apply.png`.
+**Expected result:** the vault contains the selected candidate's `decisions/...-decision.md`, one `operations/...-apply.md`, and `concepts/structured-output.md`, with the accepted concept carrying `accepted_from` that binds the proposal and decision digests. Capture the concept and operation records as `reports/lab02/screenshots/05-controlled-apply.png`; the created concept and successful operation identifiers and digests, operating-system account or GitHub login, and system date must be visible.
 
 ### Step 10: Demonstrate refusal with unchanged accepted state
 
@@ -373,13 +375,22 @@ The command exits with an error, creates no second operation record, and leaves 
 
 A full restart after a successful apply is not a reuse of `live-primary-01`. It requires a new run identifier and removal of the accepted concept and its operation record, as described in Cleanup and rollback.
 
-**Expected result:** the repeated apply is refused with exit status 1, exactly one successful `*-apply.md` operation remains in the vault, and the accepted concept digest is unchanged. Capture this as `02-refusal-unchanged.png`.
+**Expected result:** the repeated apply is refused with exit status 1, exactly one successful `*-apply.md` operation remains in the vault, and the accepted concept digest is unchanged. Capture this as `reports/lab02/screenshots/02-refusal-unchanged.png`; the refusal, matching before-and-after concept digest, single successful operation, operating-system account or GitHub login, and system date must be visible.
 
 ### Step 11: Prepare the report and screenshots 01–05
 
 `lab02 verify` requires the six approved PNG files under `reports/lab02/screenshots/` and those exact filenames inside `REPORT.md`. Write the report and save screenshots `01`–`05` before running the verifier. Screenshot `06` is captured in Step 12 beside a passing result.
 
-Complete `reports/lab02/REPORT.md` with short captions that include each of the six filenames, including `06-final-result.png`, and a written explanation, in the student's own words, of:
+Create the report directory and copy the supplied Ukrainian template without replacing its headings:
+
+```powershell
+New-Item -ItemType Directory -Force .\reports\lab02\screenshots | Out-Null
+if (-not (Test-Path .\reports\lab02\REPORT.md)) { Copy-Item .\fixtures\lab02\REPORT.md .\reports\lab02\REPORT.md }
+```
+
+On Linux or macOS, use `mkdir -p reports/lab02/screenshots` and `test -f reports/lab02/REPORT.md || cp fixtures/lab02/REPORT.md reports/lab02/REPORT.md`.
+
+Write every report section in Ukrainian, in the student's own words. Keep every supplied heading and complete the identity section with the fork URL, personal branch name, and complete commit hash. Keep the six supplied relative Markdown image paths and short captions that include each exact filename, including `06-final-result.png`. Do not embed `data:` URIs in this source report. Explain:
 
 - which adapter and model were used for each live run, and whether the comparison is `same-model-variability` or `fallback-portability` and why; classification follows the recorded adapter and model metadata, not whether the responses differ;
 - one concrete difference between the two candidates if one exists, or an explicit statement that no difference was observed; identical correct live responses satisfy this requirement and do not prove that the model is deterministic; an observed difference under the same adapter and model does not by itself prove that sampling was the sole cause; do not spend another generation only to force a difference;
@@ -389,7 +400,7 @@ Complete `reports/lab02/REPORT.md` with short captions that include each of the 
 - how credentials and payment-card data were kept out of the project and evidence, and whether the OpenRouter contingency (if used) required provider-side card verification;
 - which file is canonical accepted knowledge, which files are immutable audit or run evidence, and which files are rebuildable derived results.
 
-Place `01-offline-gates.png`, `02-refusal-unchanged.png`, `03-live-comparison.png`, `04-review-decision.png`, and `05-controlled-apply.png` under `reports/lab02/screenshots/` with those exact filenames. Each screenshot must be attributable to the workstation through visible operating-system context or a matching caption, and must not show credentials, tokens, payment-card data, authentication dialogs, unfiltered terminal history, or unrelated private vault content.
+Place `01-offline-gates.png`, `02-refusal-unchanged.png`, `03-live-comparison.png`, `04-review-decision.png`, and `05-controlled-apply.png` under `reports/lab02/screenshots/` with those exact filenames. In every screenshot, the operating-system account or GitHub login and the system date must be visible. A report caption does not replace that visible attribution. The screenshots must not show credentials, tokens, payment-card data, authentication dialogs, unfiltered terminal history, or unrelated private vault content.
 
 **Expected result:** `REPORT.md` exists, names all six PNG files, and screenshots `01`–`05` are present at the approved paths. Screenshot `06` is still absent; the first verify in Step 12 is expected to fail only for that reason.
 
@@ -405,9 +416,17 @@ The command writes only `reports/lab02/verification-report.json` and exits `0` f
 
 The verifier checks internal consistency and attribution of live evidence but does not claim cryptographic proof that an external model performed inference, and it does not evaluate semantic correctness. A passing report proves the chain and the boundaries; it does not replace the semantic judgment recorded in Step 8.
 
-If the first run fails only because `06-final-result.png` is missing, capture the accepted concept in Obsidian beside that command output, save it as `reports/lab02/screenshots/06-final-result.png`, and re-run the same verify command. After a passing run, recapture `06` if it does not yet show `status: passed` and exit status `0`, then re-run verify once more. The submitted `verification-report.json` must come from the last passing run after the final screenshot bytes exist, because the report hashes those files.
+If the first run fails only because `06-final-result.png` is missing, capture the accepted concept in Obsidian beside that command output, save it as `reports/lab02/screenshots/06-final-result.png`, and re-run the same verify command. After a passing run, recapture `06` if it does not yet show `status: passed` and exit status `0`, then re-run verify once more. The final image must visibly include the operating-system account or GitHub login and the system date as well as the accepted concept and passing result. The submitted `verification-report.json` must come from the last passing run after the final screenshot bytes exist, because the report hashes those files.
 
 **Expected result:** `verification-report.json` reports `status: passed` with all checks passing and a nonzero artifact map, the exit status is `0`, and `06-final-result.png` shows the Obsidian concept beside that passing result.
+
+After the last passing `lab02 verify`, create the self-contained Teams copy. This command leaves the source report and PNG files unchanged and writes `reports/lab02/submission/REPORT.md` with the six images embedded:
+
+```powershell
+uv run learning-project prepare-report .\reports\lab02\REPORT.md
+```
+
+Open the generated file and confirm that all six figures render as embedded images. The source `reports/lab02/REPORT.md` must retain relative image paths and must not contain `data:` URIs; the generated submission copy must contain `data:image/` entries.
 
 Commit only the student-owned paths from `training-project`. If the terminal was restarted, `cd` into that directory first; `git add reports/lab02` is valid only there. The registered `course_commit` remains the Step 1 source baseline; the submitted commit is a later descendant and must not require source re-registration.
 
@@ -423,7 +442,9 @@ git rev-parse HEAD
 
 Do not stage `modules/`, `platform/`, `fixtures/`, `tests/public/`, `schemas/`, `.venv/`, or the external vault.
 
-Do not re-run `lab02 verify` against the submitted working tree after that commit: the command rewrites `verification-report.json` with a new timestamp and would dirty the submission. To read back the submitted evidence, copy the report directory and verify the copy against the original external vault:
+Copy the printed complete commit hash into the identity section of `reports/lab02/REPORT.md`, run `prepare-report` again, and add a follow-up commit containing the updated source and submission reports. Do not put this identity information in the Teams assignment text field.
+
+Do not re-run `lab02 verify` against the submitted working tree after the evidence commit: the command rewrites `verification-report.json` with a new timestamp and would dirty the submission. To read back the submitted evidence, copy the report directory and verify the copy against the original external vault:
 
 ```powershell
 $checkDir = Join-Path $env:TEMP ("lab02-submitted-verify-" + [guid]::NewGuid().ToString())
@@ -458,6 +479,7 @@ uv run python -m unittest discover -s tests/public -v
 $checkDir = Join-Path $env:TEMP ("lab02-submitted-verify-" + [guid]::NewGuid().ToString())
 Copy-Item -Recurse reports/lab02 $checkDir
 uv run learning-project lab02 verify --vault "$vault" --report-dir $checkDir
+uv run learning-project prepare-report .\reports\lab02\REPORT.md
 ```
 
 The self-study sequence is ready for the scheduled demonstration only when all of the following conditions are observable:
@@ -471,20 +493,20 @@ The self-study sequence is ready for the scheduled demonstration only when all o
 - the accepted concept and exactly one operation record exist, and a repeated apply refuses with an unchanged concept digest;
 - `verification-report.json` reports `status: passed` and the command exits `0`;
 - the six screenshots are present with the approved filenames and are referenced from `REPORT.md`;
+- `reports/lab02/submission/REPORT.md` contains the same report with all six images embedded;
 - committed paths are under `training-project/reports/` and `training-project/student/` only;
 - the submitted evidence contains no credentials, tokens, payment-card data, or complete vault content.
 
 ## Submission artifacts
 
-Submit the following items individually in Microsoft Teams rather than as an archive:
+Follow the course laboratory standing rules in [`LABORATORY_STANDING_RULES.md`](../../LABORATORY_STANDING_RULES.md). Submit exactly these four items individually in Microsoft Teams rather than as an archive:
 
-- `reports/lab02/REPORT.md`;
+- `reports/lab02/submission/REPORT.md`;
 - `reports/lab02/verification-report.json`;
 - `reports/lab02/live-comparison.json`;
-- `reports/lab02/semantic-review.yaml`;
-- `01-offline-gates.png`, `02-refusal-unchanged.png`, `03-live-comparison.png`, `04-review-decision.png`, `05-controlled-apply.png`, `06-final-result.png` from `reports/lab02/screenshots/`.
+- `reports/lab02/semantic-review.yaml`.
 
-In the Teams assignment text field, record the fork URL, the branch name, and the complete submitted commit hash. Detailed run evidence remains reviewable in that immutable commit; the external vault, authentication state, payment-card data, unfiltered logs, and a PDF duplicate of `REPORT.md` are excluded.
+Do not attach the six PNG files separately; they are embedded in the Teams copy and remain individually reviewable in the fork. The fork URL, branch name, and complete submitted commit hash live only in the report identity section, not in the Teams assignment text field. Detailed run evidence remains reviewable in that immutable commit; the external vault, authentication state, payment-card data, unfiltered logs, and a PDF duplicate of `REPORT.md` are excluded.
 
 ## Control questions
 

@@ -1048,8 +1048,10 @@ def _verify_approved_fixtures(vault: Path, report_dir: Path, fixture_dir: Path) 
         "malformed-response.txt",
         "semantic-unsupported-response.json",
     }
+    allowed_support_files = {"REPORT.md"}
+    actual = {path.name for path in fixture_dir.iterdir() if path.is_file()}
     _require(
-        expected == {path.name for path in fixture_dir.iterdir() if path.is_file()},
+        expected.issubset(actual) and actual <= expected | allowed_support_files,
         "Approved Laboratory 02 fixture set is incomplete or contains unexpected files.",
     )
     with tempfile.TemporaryDirectory() as temp_dir:
