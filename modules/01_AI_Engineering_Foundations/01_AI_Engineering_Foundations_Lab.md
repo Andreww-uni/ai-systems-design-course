@@ -1,10 +1,20 @@
 # Module 01: AI Engineering Foundations — Laboratory
 
-> **Status:** Ready for Students — English laboratory approved as part of the Module 01 English pair on 2026-09-06
+> **Status:** Ready for Students — revised opening structure approved by the instructor on 2026-09-22
 
 ## Goal
 
-Initialize and verify the working contour for the supplied cumulative learning knowledge system: obtain the project through the required Git ownership path, reproduce the supported workstation environment, create the student-owned project areas and external Markdown vault, register the first course source, and preserve evidence of the result. A bounded, normally AI-generated system-boundary proposal then verifies the authority split without granting the agent authority to accept its own proposal. If no usable agent is available, the documented manual fallback preserves the candidate, validation, decision, and application boundaries without fabricating an agent session; it does not demonstrate live separation between AI and student actors.
+The goal of this laboratory is to create and verify a reproducible working infrastructure for the supplied cumulative learning knowledge system that will be used throughout the subsequent laboratory work in this course.
+
+## Tasks
+
+- obtain the course project through a personal GitHub fork and establish the ownership boundary among `origin`, `upstream`, upstream-owned files, and student-owned paths;
+- reproduce the required workstation and project toolchain, then initialize the student-owned project areas and external Markdown vault;
+- register the first course source and establish the vault boundary and initial protection against workstation loss;
+- verify the infrastructure's authority boundaries by preparing a bounded system-boundary proposal through an agent or the documented manual fallback, then validating, reviewing, approving, and applying it without granting the proposer acceptance authority;
+- preserve the required design, execution, machine-readable, and visual evidence in a final student commit.
+
+## Expected result
 
 The completed laboratory produces five observable results. The environment and initialized project state are the primary result; the governed proposal is a bounded verification activity within that result:
 
