@@ -1,12 +1,21 @@
 # Module 02: Foundation Models and AI Application Architecture — Laboratory
 
-> **Status:** Ready for Students — English laboratory re-approved after report-packaging alignment on 2026-09-19
+> **Status:** Ready for Students — revised opening structure approved by the instructor on 2026-09-22
 
 ## Goal
 
-Build one governed, model-backed concept-proposal operation for the supplied learning knowledge system and prove where deterministic control ends and human authority begins. The student registers the exact Module 02 theory fragment as a source, exercises three deterministic offline fixtures, obtains two live structured responses to the same bounded request, imports and validates the resulting candidates, compares the two live runs, reviews and selects one candidate, records a digest-bound decision, applies it once under controlled rules, demonstrates that a repeated application refuses without changing accepted state, and preserves machine-readable and visual evidence of the whole chain.
+Establish and demonstrate the authority boundary in one governed, model-backed concept-proposal operation: deterministic software constrains admissible candidates, an authorized human decides semantic acceptance, and only an approved candidate may change canonical state.
 
-The completed laboratory produces one observable result: a provider-neutral canonical concept `Structured Output` that descends from a live response, is bound by SHA-256 digests through validation, review, decision, and application, and is confirmed by a passing final verifier. The three offline fixtures demonstrate that parseable syntax, deterministic invariants, and semantic acceptance are distinct gates; the two live runs demonstrate run variability or fallback portability; the refusal demonstrates that accepted state cannot be overwritten outside the controlled workflow.
+## Tasks
+
+- register an exact, version-bound source fragment and obtain two structured candidates from the same bounded, provider-neutral request;
+- exercise and distinguish the syntactic, deterministic-invariant, and human semantic-acceptance gates;
+- compare the live candidates, review their meaning, and bind an explicit human decision to the exact selected candidate;
+- apply the approved candidate once, demonstrate refusal of repeated application, and preserve evidence of the governed chain.
+
+## Expected result
+
+A provider-neutral canonical concept `Structured Output` that descends from a live response, is bound by SHA-256 digests through validation, review, decision, and one-time application, and is confirmed by a passing final verifier. The preserved fixture, comparison, and refusal evidence demonstrates distinct control gates, run variability or fallback portability, and protection of accepted state from repeated application.
 
 ## Expected competencies
 
