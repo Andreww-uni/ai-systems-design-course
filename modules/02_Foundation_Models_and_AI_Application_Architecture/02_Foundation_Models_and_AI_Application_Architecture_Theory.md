@@ -160,7 +160,7 @@ A **requirement** states a need, capability, condition, or constraint. A require
 
 A logical architecture describes functional components and their interactions without first deciding that each component is a separate service or deployment unit. A physical architecture adds processes, deployables, databases, external services, communication mechanisms, and deployment boundaries. Moving directly to a physical diagram can conceal unexamined assumptions, such as equating every responsibility with a network service.
 
-An architecture style must also be distinguished from an **architectural pattern**. A style describes an overall organization. A pattern is a contextualized solution to a recurring problem. Ports and adapters can protect application logic from an external model API, but that pattern does not state whether the complete application is one deployable or many services [2, Chapter 9, “Styles Versus Patterns,” and Chapter 20, “Hexagonal architecture”].
+An architecture style must also be distinguished from an **architectural pattern**. A style describes an overall organization. A pattern is a contextualized solution to a recurring problem. Ports and adapters can protect application logic from an external model application programming interface (API), but that pattern does not state whether the complete application is one deployable or many services [2, Chapter 9, “Styles Versus Patterns,” and Chapter 20, “Hexagonal architecture”].
 
 ### 2.3 Architecture is trade-off reasoning
 
@@ -283,7 +283,7 @@ Ports and adapters does not remove external dependency risk. A provider can stil
 
 - become unavailable;
 - change model behavior;
-- alter an application programming interface (API); or
+- alter an API; or
 - expose a different set of control features.
 
 A filesystem can also become unavailable. The pattern localizes these effects and gives the application one place to enforce translation, failure normalization, and telemetry. Evolvability is achieved only when tests and operational evidence show that the boundary works; drawing a hexagon does not establish it.
