@@ -1,0 +1,150 @@
+﻿**********************
+Начало записи сценария Windows PowerShell
+Время начала: 20260925170056
+Имя пользователя: DESKTOP-RKEG1E6\Andrii
+Запуск от имени пользователя: DESKTOP-RKEG1E6\Andrii
+Имя конфигурации: 
+Компьютер: DESKTOP-RKEG1E6 (Microsoft Windows NT 10.0.26200.0)
+Ведущее приложение: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+ИД процесса: 12508
+PSVersion: 5.1.26100.9444
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9444
+BuildVersion: 10.0.26100.9444
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Транскрибирование запущено, выходной файл .\provision.log
+PS D:\projects\ai-systems-design-course\training-project> winget configure --file .\fixtures\windows\lab01-workstation-windows11.dsc.yaml --accept-configuration-agreements
+Extended features are not enabled. Run `winget configure --enable` to enable them.
+PS D:\projects\ai-systems-design-course\training-project> winget configure --enable
+Enabling extended features. Requires store access.
+  ████████████████████████████▌   95%
+PS D:\projects\ai-systems-design-course\training-project> winget configure --file .\fixtures\windows\lab01-workstation-windows11.dsc.yaml --accept-configuration-agreements
+  Модуль: Microsoft.Windows.Developer от Microsoft Corporation [PSGallery]
+    DSC Resource for Windows
+  Параметры:
+    MinVersion: 10.0.22000
+WinGetPackage [git]
+  Git for Windows.
+  Модуль: Microsoft.WinGet.DSC от Microsoft Corporation [PSGallery]
+    PowerShell Module with DSC resources related to WinGet configurations
+  Параметры:
+    id: Git.Git
+    source: winget
+WinGetPackage [uv]
+  uv, the Python project and environment manager.
+  Модуль: Microsoft.WinGet.DSC от Microsoft Corporation [PSGallery]
+    PowerShell Module with DSC resources related to WinGet configurations
+  Параметры:
+    id: astral-sh.uv
+    source: winget
+WinGetPackage [github-cli]
+  GitHub CLI for fork and pull-request delivery.
+  Модуль: Microsoft.WinGet.DSC от Microsoft Corporation [PSGallery]
+    PowerShell Module with DSC resources related to WinGet configurations
+  Параметры:
+    id: GitHub.cli
+    source: winget
+WinGetPackage [obsidian]
+  Obsidian, the Markdown vault editor.
+  Модуль: Microsoft.WinGet.DSC от Microsoft Corporation [PSGallery]
+    PowerShell Module with DSC resources related to WinGet configurations
+  Параметры:
+    id: Obsidian.Obsidian
+    source: winget
+Вы самостоятельно отвечаете за понимание параметров конфигурации, которую собираетесь выполнить. Корпорация Майкрософт не несет ответственности за файл конфигурации, который вы соз
+дали или импортировали. Эта конфигурация может изменить параметры Windows, установить программное обеспечение, изменить параметры установленного программного обеспечения (включая п
+араметры безопасности), а также принять от вашего имени пользовательские соглашения для сторонних пакетов программ и служб. Запуская этот файл конфигурации, вы подтверждаете, что п
+онимаете состав этих ресурсов и параметров и соглашаетесь их применить. Любые установленные приложения лицензируются их владельцами. Майкрософт не несет ответственности за сторонни
+е пакеты программ или службы и не предоставляет для них никаких лицензий.
+OsVersion
+  Элемент успешно применен.
+WinGetPackage [git]
+  Элемент успешно применен.
+WinGetPackage [uv]
+  Элемент успешно применен.
+WinGetPackage [github-cli]
+  Элемент успешно применен.
+WinGetPackage [obsidian]
+  Элемент успешно применен.
+Конфигурация применена.
+PS D:\projects\ai-systems-design-course\training-project> winget configure --file .\fixtures\windows\lab01-workstation-windows11.dsc.yaml --accept-configuration-agreements
+OsVersion
+  Require Windows 11 or newer.
+  Модуль: Microsoft.Windows.Developer от Microsoft Corporation [Локальный]
+    https://github.com/microsoft/winget-dsc
+    DSC Resource for Windows
+  Параметры:
+    MinVersion: 10.0.22000
+WinGetPackage [git]
+  Git for Windows.
+  Модуль: Microsoft.WinGet.DSC от Microsoft Corporation [Локальный]
+    https://github.com/microsoft/winget-cli
+    PowerShell Module with DSC resources related to WinGet configurations
+  Параметры:
+    id: Git.Git
+    source: winget
+WinGetPackage [uv]
+  uv, the Python project and environment manager.
+  Модуль: Microsoft.WinGet.DSC от Microsoft Corporation [Локальный]
+    https://github.com/microsoft/winget-cli
+    PowerShell Module with DSC resources related to WinGet configurations
+  Параметры:
+    id: astral-sh.uv
+    source: winget
+WinGetPackage [github-cli]
+  GitHub CLI for fork and pull-request delivery.
+  Модуль: Microsoft.WinGet.DSC от Microsoft Corporation [Локальный]
+    https://github.com/microsoft/winget-cli
+    PowerShell Module with DSC resources related to WinGet configurations
+  Параметры:
+    id: GitHub.cli
+    source: winget
+WinGetPackage [obsidian]
+  Obsidian, the Markdown vault editor.
+  Модуль: Microsoft.WinGet.DSC от Microsoft Corporation [Локальный]
+    https://github.com/microsoft/winget-cli
+    PowerShell Module with DSC resources related to WinGet configurations
+  Параметры:
+    id: Obsidian.Obsidian
+    source: winget
+Вы самостоятельно отвечаете за понимание параметров конфигурации, которую собираетесь выполнить. Корпорация Майкрософт не несет ответственности за файл конфигурации, который вы соз
+дали или импортировали. Эта конфигурация может изменить параметры Windows, установить программное обеспечение, изменить параметры установленного программного обеспечения (включая п
+араметры безопасности), а также принять от вашего имени пользовательские соглашения для сторонних пакетов программ и служб. Запуская этот файл конфигурации, вы подтверждаете, что п
+онимаете состав этих ресурсов и параметров и соглашаетесь их применить. Любые установленные приложения лицензируются их владельцами. Майкрософт не несет ответственности за сторонни
+е пакеты программ или службы и не предоставляет для них никаких лицензий.
+OsVersion
+  Элемент успешно применен.
+WinGetPackage [git]
+  Элемент успешно применен.
+WinGetPackage [uv]
+  Элемент успешно применен.
+WinGetPackage [github-cli]
+  Элемент успешно применен.
+WinGetPackage [obsidian]
+  Элемент успешно применен.
+Конфигурация применена.
+PS D:\projects\ai-systems-design-course\training-project> winget list --id Git.Git --exact --source winget
+Имя ИД      Версия   Доступно
+-----------------------------
+Git Git.Git 2.53.0.2 2.55.0.3
+PS D:\projects\ai-systems-design-course\training-project> winget list --id GitHub.cli --exact --source winget
+Имя        ИД         Версия
+-----------------------------
+GitHub CLI GitHub.cli 2.101.0
+PS D:\projects\ai-systems-design-course\training-project> winget list --id astral-sh.uv --exact --source winget
+Имя ИД           Версия
+------------------------
+uv  astral-sh.uv 0.12.19
+PS D:\projects\ai-systems-design-course\training-project> winget list --id Obsidian.Obsidian --exact --source winget
+Имя      ИД                Версия
+---------------------------------
+Obsidian Obsidian.Obsidian 1.13.7
+PS D:\projects\ai-systems-design-course\training-project> Stop-Transcript
+**********************
+Конец записи протокола Windows PowerShell
+Время окончания: 20260925170717
+**********************

@@ -1,21 +1,22 @@
 # Candidate for Laboratory 01: normally AI-generated; student-authored only on the documented no-agent fallback.
 # Replace the instructional values, but preserve every field and keep status proposed.
 schema_version: "1.0"
-proposal_id: lab01-authority-boundary
+proposal_id: lab01-learning-boundary-v2
 status: proposed
 personal_domain: Machine learning, as a non-sensitive academic domain for a later bounded personal extension (e.g. registering machine-learning course sources and concepts under the same vault contract), without redefining the system's identity.
 intended_learning_outcome: The student can demonstrate that a technical source is registered with resolvable provenance, and that the authority boundary separating AI proposal, deterministic structural validation, and human decision is enforced before any canonical boundary artifact is produced or applied.
 non_goals:
   - Structured concept extraction, duplicate/ambiguity/contradiction detection, prerequisite identification, evidence-grounded question answering, and graph or vector indexing are out of scope for this laboratory; those capabilities are introduced by later course laboratories.
   - The AI assistant does not gain authority to approve, decide, or apply any change to canonical or accepted-boundary state; that authority remains exclusively with the student.
+  - This laboratory and its bounded personal-domain extension MUST NOT extend into a system operating in production or industrial deployment, and MUST NOT extend into medical, financial, legal, or other safety-critical decision-making.
 governance:
   ai_role: Propose a bounded system description and expose uncertainty without accepting changes.
   deterministic_role: Validate the candidate, bind the decision to its digest, and apply only approved content.
   human_role: Review meaning and explicitly approve or reject the proposal before application.
-usefulness_condition: The workflow is useful when a student needs to establish, and later audit, that a boundary change was proposed by the AI, structurally validated without creating a decision or accepted output, and explicitly approved by the student before being applied — not merely when the AI produces plausible-sounding text.
+usefulness_condition: The workflow is useful when a student can trace a registered technical concept back to a resolvable source record and its recorded commit stored as evidence — for example, confirming that the vault entry `sources/module-01-ai-engineering-foundations.md` resolves its `course_path` at the recorded `course_commit` in the student's fork — giving an auditable link between a claim and its origin, not merely when the AI produces plausible-sounding text.
 material_risk: The most material failure is an accepted boundary artifact being produced, or perceived as approved, without a genuine, digest-bound student review — for example if `apply` were run against a proposal that changed after review, silently binding approval to different content than the student actually read.
-non_ai_baseline: A student could hand-author `boundary-proposal.yaml` directly, following the documented manual fallback, and self-review it without any AI proposal step; this is simpler but forgoes the separation-of-duties exercise this laboratory is meant to demonstrate and does not exercise the AI-authorship path.
+non_ai_baseline: A student could instead read the Module 01 theory directly and keep manual notes in Obsidian, linking each note to its source via a `course_path`/`course_commit` reference; this closes the source-traceability part of the learning outcome without any AI proposal step, but it forgoes the separation-of-duties exercise (AI proposal, deterministic validation, human decision) this laboratory is meant to demonstrate.
 uncertainty: It is not yet established whether structural validation and digest-binding alone give the student enough signal to catch a subtly incorrect but well-formed proposal, since `recorded_by` is unauthenticated attribution rather than proof of who actually operated `decide`.
 required_evidence:
-  - A passing `validate` run on this proposal that produces no decision file and no accepted-boundary output (GOV-003, GOV-004, L01-011).
-  - A `boundary-decision.json` recording the student's explicit approval of this exact `proposal_id` and its SHA-256 digest, followed by an `apply` result whose content matches this proposal (GOV-007, GOV-013, L01-013, L01-014).
+  - A passing `validate` run on this proposal that produces no decision file and no accepted-boundary output, followed by a `boundary-decision.json` recording the student's explicit approval of this exact `proposal_id` and its SHA-256 digest, and an `apply` result whose content matches this proposal (GOV-003, GOV-004, GOV-007, GOV-013, L01-011, L01-013, L01-014).
+  - The student's recorded answers and conclusion for the nine semantic-review questions in `REPORT.md`, completed before `decide` is run, or an explicit justification of the decision grounded in the registered source evidence (L01-012).
