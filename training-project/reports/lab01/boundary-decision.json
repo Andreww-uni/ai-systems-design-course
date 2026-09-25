@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "proposal_id": "lab01-authority-boundary",
+  "proposal_sha256": "451e99fbdeffe1179132a639b46e9aea56b1159f31633a48574bba27ac26247f",
+  "decision": "rejected",
+  "recorded_at": "2026-09-25T18:13:45.272323+00:00",
+  "recorded_by": "lepskyi-kn1223b",
+  "reason": "Negative review on questions 3, 5, 7 and 8: usefulness not source-grounded, baseline not a learning alternative, no human-review evidence, non-goals miss production and high-consequence limits."
+}
