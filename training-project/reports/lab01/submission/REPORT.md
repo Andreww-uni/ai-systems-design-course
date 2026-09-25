@@ -6,7 +6,7 @@
 
 - URL форку: https://github.com/Andreww-uni/ai-systems-design-course
 - Назва гілки: lab01/lepskyi-kn1223b
-- Повний хеш коміту: (c6e7ed9207fcd7c52040dfd1ff45e7116af458f1)
+- Повний хеш коміту: c6e7ed9207fcd7c52040dfd1ff45e7116af458f1
 
 ## Середовище
 
