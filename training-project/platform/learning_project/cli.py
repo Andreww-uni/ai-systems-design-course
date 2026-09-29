@@ -253,7 +253,8 @@ def _build_parser() -> argparse.ArgumentParser:
     dev_run.add_argument("--report-dir", type=Path, required=True)
     dev_run.add_argument("--position-id", required=True)
     dev_run.add_argument("--adapter", choices=("offline-fixture", "openrouter"), required=True)
-    dev_run.add_argument("--model-id", required=True)
+    dev_run.add_argument("--model-id", default="offline-fixture",
+                         help="Model id; defaults to 'offline-fixture' for the offline adapter.")
     dev_run.add_argument("--by", required=True)
 
     freeze = lab03_commands.add_parser("freeze", help="Freeze the comparison protocol.")
@@ -271,8 +272,18 @@ def _build_parser() -> argparse.ArgumentParser:
     run_cmd.add_argument("--freeze-id", required=True)
     run_cmd.add_argument("--position-id", required=True)
     run_cmd.add_argument("--adapter", choices=("offline-fixture", "openrouter"), required=True)
-    run_cmd.add_argument("--model-id", required=True)
+    run_cmd.add_argument("--model-id", default="offline-fixture",
+                         help="Model id; defaults to 'offline-fixture' for the offline adapter.")
     run_cmd.add_argument("--by", required=True)
+
+    list_pos = lab03_commands.add_parser("list-positions", help="List the scheduled position ids for a comparison.")
+    list_pos.add_argument("--report-dir", type=Path, required=True)
+    list_pos.add_argument("--freeze-id", required=True)
+
+    struct_check = lab03_commands.add_parser("structural-check", help="Validate one returned response against the envelope contract.")
+    struct_check.add_argument("--report-dir", type=Path, required=True)
+    struct_check.add_argument("--freeze-id", required=True)
+    struct_check.add_argument("--position-id", required=True)
 
     close_cmd = lab03_commands.add_parser("close-unstarted", help="Close remaining unstarted positions honestly.")
     close_cmd.add_argument("--report-dir", type=Path, required=True)
@@ -292,6 +303,7 @@ def _build_parser() -> argparse.ArgumentParser:
     assess.add_argument("--source-pointer", required=True)
     assess.add_argument("--rationale", required=True)
     assess.add_argument("--shares-rationale-with")
+    assess.add_argument("--by", required=True)
 
     agg = lab03_commands.add_parser("aggregate", help="Join identities and compute nested counts.")
     agg.add_argument("--report-dir", type=Path, required=True)
@@ -318,6 +330,7 @@ def _build_parser() -> argparse.ArgumentParser:
     completion.add_argument("--report-dir", type=Path, required=True)
     completion.add_argument("--status", required=True, choices=("complete", "honest-partial"))
     completion.add_argument("--detail", type=Path, required=True)
+    completion.add_argument("--by", required=True)
 
     verify_lab03_cmd = lab03_commands.add_parser("verify", help="Commit-first verification of Laboratory 03.")
     verify_lab03_cmd.add_argument("--report-dir", type=Path, required=True)
@@ -586,7 +599,7 @@ def _run_lab03(args: argparse.Namespace) -> int:
         dev_schedule_path = dev_dir / "schedule.json"
         if not dev_schedule_path.exists():
             dev_family = load_family(
-                training_project / "cases" / "lab03" / "development" / "dev-common-family.json",
+                training_project / "cases" / "lab03" / "development" / "dev-common-inputs.json",
                 expected_cases=2,
             )
             transfer = yaml.safe_load((dev_dir / "transfer-case.yaml").read_text(encoding="utf-8"))
@@ -683,6 +696,20 @@ def _run_lab03(args: argparse.Namespace) -> int:
         print(f"Position {args.position_id}: {result['outcome']}"
               + (f" ({result['failure_class']})" if "failure_class" in result else "") + ".")
         return 0
+    if command == "list-positions":
+        cmp_dir = comparison_dir(args.freeze_id)
+        schedule = json.loads((cmp_dir / "schedule.json").read_text(encoding="utf-8"))
+        for position in schedule["positions"]:
+            print(f"{position['position_id']}\t{position['state']}")
+        return 0
+    if command == "structural-check":
+        result = structural_check(
+            comparison_dir=comparison_dir(args.freeze_id), position_id=args.position_id
+        )
+        print(f"Structural check for {args.position_id}: {'valid' if result['valid'] else 'invalid'}.")
+        for error in result["errors"]:
+            print(f"  - {error}")
+        return 0 if result["valid"] else 1
     if command == "close-unstarted":
         closure = close_unstarted_positions(
             comparison_dir=comparison_dir(args.freeze_id),
@@ -702,6 +729,7 @@ def _run_lab03(args: argparse.Namespace) -> int:
             "category": args.category,
             "source_pointer": args.source_pointer,
             "rationale": args.rationale,
+            "assessed_by": args.by,
         }
         if args.shares_rationale_with:
             assessment["shares_rationale_with"] = args.shares_rationale_with
@@ -741,6 +769,7 @@ def _run_lab03(args: argparse.Namespace) -> int:
         return 0
     if command == "record-completion":
         detail = yaml.safe_load(args.detail.read_text(encoding="utf-8"))
+        detail = {**detail, "recorded_by": args.by}
         path = record_completion_status(
             report_dir=report_dir, status=args.status, detail=detail
         )

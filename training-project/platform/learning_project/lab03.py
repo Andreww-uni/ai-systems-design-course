@@ -174,7 +174,8 @@ def load_family(family_path: Path, *, expected_cases: int | None = None) -> dict
         )
     _require(sorted(behavior_ids) == sorted(case_ids), "Expected behaviors must match the family cases exactly.")
     origin = family.get("origin")
-    _require(origin in {"course-reserve", "curator-generated"}, "Family origin is not supported.")
+    _require(origin in {"course-reserve", "curator-generated", "course-development"},
+             "Family origin is not supported.")
     if origin == "curator-generated":
         provenance = family.get("provenance")
         _require(isinstance(provenance, dict) and provenance.get("curator_session") and provenance.get("inputs_sha256"),

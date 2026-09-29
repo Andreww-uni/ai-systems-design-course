@@ -54,8 +54,8 @@ class Lab03FamilyContractTests(unittest.TestCase):
         self.assertEqual(len(families), 3)
         check_near_duplicates(families)
 
-    def test_development_family_loads_with_two_cases(self) -> None:
-        family = load_family(CASES / "development" / "dev-common-family.json", expected_cases=2)
+    def test_development_inputs_load_with_two_cases(self) -> None:
+        family = load_family(CASES / "development" / "dev-common-inputs.json", expected_cases=2)
         self.assertEqual(len(family["cases"]), 2)
 
     def test_family_with_a_missing_evidence_situation_is_rejected(self) -> None:

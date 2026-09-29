@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "family_id": "dev-common",
-  "origin": "course-reserve",
+  "origin": "course-development",
   "provenance": {
     "authored_by": "course",
     "material_version": "teaching-cases-v1",
-    "note": "Development cases D1 and D2 from Module 03 Section 8.1; inspectable before freeze."
+    "note": "Development inputs D1 and D2 from Module 03 Section 8.1; inspectable before freeze. Development inputs are NOT held-out reserve families: they contribute two of the four development inputs (the student transfer case and its perturbation supply the other two)."
   },
   "cases": [
     {

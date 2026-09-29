@@ -118,7 +118,7 @@ def cases_for(comparison_dir: Path, training_project: Path, report_dir: Path) ->
         revealed = json.loads((comparison_dir / "revealed-family.json").read_text(encoding="utf-8"))
         return {c["case_id"]: c for c in revealed["family"]["cases"]}
     dev_family_path = (
-        training_project / "cases" / "lab03" / "development" / "dev-common-family.json"
+        training_project / "cases" / "lab03" / "development" / "dev-common-inputs.json"
     )
     dev_family = json.loads(dev_family_path.read_text(encoding="utf-8"))
     cases = {c["case_id"]: c for c in dev_family["cases"]}

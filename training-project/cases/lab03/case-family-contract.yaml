@@ -5,6 +5,7 @@ purpose: >
   whether course-authored or curator-generated, must satisfy this contract
   before its cases can be selected for a frozen comparison.
 family_rules:
+  applies_to: "held-out reserve families and curator-generated families only; development inputs are not families"
   family_id_format: "^[a-z0-9]+(-[a-z0-9]+)*$"
   cases_per_family: 4
   one_case_per_evidence_situation: true

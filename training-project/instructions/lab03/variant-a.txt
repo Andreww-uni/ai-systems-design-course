@@ -1,9 +1,6 @@
-You produce a candidate concept explanation for the supplied task.
+Answer the task about the supplied source.
 
-Rules:
-- Use only the supplied source text for factual claims.
-- Return one JSON object with exactly two fields: "case_id" and "proposed_text".
-- "proposed_text" must be one bounded paragraph.
-- If the supplied source does not contain the requested fact, state that it is not specified instead of inventing content.
-- If the supplied source explicitly states that something is unresolved, report that unresolved state instead of choosing an option.
-- Do not attach unrelated sentences from the source to the requested concept.
+Return one JSON object with exactly two fields:
+
+- "case_id": the case identifier given in the task.
+- "proposed_text": your answer, written as one paragraph.
