@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "family_id": "dev-common",
+  "origin": "course-development",
+  "provenance": {
+    "authored_by": "course",
+    "material_version": "teaching-cases-v1",
+    "note": "Development inputs D1 and D2 from Module 03 Section 8.1; inspectable before freeze. Development inputs are NOT held-out reserve families: they contribute two of the four development inputs (the student transfer case and its perturbation supply the other two)."
+  },
+  "cases": [
+    {
+      "schema_version": "1.0",
+      "case_id": "dev-source-baseline-definition",
+      "family_id": "dev-common",
+      "evidence_situation": "sufficient-evidence",
+      "task": "Define what a source baseline identifies.",
+      "supplied_source": "A source baseline identifies the material against which a proposal is reviewed.",
+      "constructed": true,
+      "mutation_note": "Original course-authored teaching case (D1, Module 03 Table 8.1).",
+      "source_pointers": [
+        { "theory_section": "8.1", "pointer": "Table 8.1 row D1" }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "case_id": "dev-approval-authority-absent",
+      "family_id": "dev-common",
+      "evidence_situation": "missing-fact",
+      "task": "State who is permitted to approve a proposal.",
+      "supplied_source": "The review record stores the reviewer's identity and decision.",
+      "constructed": true,
+      "mutation_note": "Original course-authored teaching case (D2, Module 03 Table 8.1); approval authority is absent from the source.",
+      "source_pointers": [
+        { "theory_section": "4.1", "pointer": "constructed development case D2" },
+        { "theory_section": "8.1", "pointer": "Table 8.1 row D2" }
+      ]
+    }
+  ],
+  "expected_behaviors": [
+    {
+      "case_id": "dev-source-baseline-definition",
+      "expected_category": "S",
+      "expected_behavior": "A supported response preserves the relation between the source baseline and the material used to review a proposal. 'Identifies material' alone omits the defining review relationship."
+    },
+    {
+      "case_id": "dev-approval-authority-absent",
+      "expected_category": "Q",
+      "expected_behavior": "The source names no approval authority, so a supported response states that the permitted approver is not specified instead of inventing one."
+    }
+  ]
+}

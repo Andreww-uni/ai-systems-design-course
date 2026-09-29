@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://course.example/schemas/lab03-case.schema.json",
+  "title": "Laboratory 03 evaluation case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "family_id",
+    "evidence_situation",
+    "task",
+    "supplied_source",
+    "constructed",
+    "source_pointers"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "case_id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "family_id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "evidence_situation": {
+      "type": "string",
+      "enum": ["sufficient-evidence", "distractor", "missing-fact", "explicit-ambiguity"]
+    },
+    "task": { "type": "string", "minLength": 1 },
+    "supplied_source": { "type": "string", "minLength": 1 },
+    "constructed": { "type": "boolean" },
+    "mutation_note": { "type": "string", "minLength": 1 },
+    "source_pointers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["theory_section", "pointer"],
+        "properties": {
+          "theory_section": { "type": "string", "minLength": 1 },
+          "pointer": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

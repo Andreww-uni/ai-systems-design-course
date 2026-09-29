@@ -6,13 +6,18 @@ import json
 from pathlib import Path
 from queue import Queue
 from threading import Thread
+from typing import cast
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 from .lab02 import REQUEST_ID, SLUG_RE, record_run_metadata
 from .workflow import WorkflowError
 
 OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
-OPENROUTER_FREE_MODEL = "nex-agi/nex-n2.5-mini:free"
+# ``:free`` model slugs are rotated by OpenRouter.  The router alias is the
+# stable free profile and filters for providers that accept the requested
+# structured-output parameters.
+OPENROUTER_FREE_MODEL = "openrouter/free"
 
 
 def run_openrouter(
@@ -95,6 +100,12 @@ def run_openrouter(
         try:
             with opener(request, timeout=120) as response:
                 response_queue.put(("ok", response.read()))
+        except HTTPError as exc:
+            try:
+                detail = exc.read().decode("utf-8", errors="replace")
+            except OSError:
+                detail = ""
+            response_queue.put(("http-error", (exc.code, detail)))
         except Exception as exc:
             response_queue.put(("error", exc))
 
@@ -106,6 +117,15 @@ def run_openrouter(
             f"OpenRouter request timed out after {deadline_seconds:g} seconds without writing evidence."
         )
     result_kind, result_value = response_queue.get_nowait()
+    if result_kind == "http-error":
+        status, detail = cast(tuple[int, str], result_value)
+        try:
+            payload = json.loads(detail)
+            message = payload.get("error", {}).get("message")
+        except (TypeError, json.JSONDecodeError):
+            message = None
+        suffix = f": {message}" if isinstance(message, str) and message else ""
+        raise WorkflowError(f"OpenRouter request failed with HTTP {status}{suffix}") from None
     if result_kind == "error":
         raise WorkflowError("OpenRouter response could not be read.") from None
 

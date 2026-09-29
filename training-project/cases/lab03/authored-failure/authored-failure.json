@@ -1,0 +1,15 @@
+{
+  "fixture_id": "authored-failure-supported-plus-invented",
+  "schema_version": "1.0",
+  "purpose": "Explicitly labeled authored faulty response for Laboratory 03 regression-case construction. No model produced this output. Use only when a completed comparison contains no confirmed observed failure suitable for the regression exercise.",
+  "case_id": "packet-baseline-plain",
+  "task": "Define what a source baseline identifies.",
+  "supplied_source": "The evaluation packet contains a review source. Its source baseline points to that source so that a proposal can be checked against it.",
+  "authored_response": {
+    "case_id": "packet-baseline-plain",
+    "proposed_text": "The baseline identifies the source material used to check a proposal, and it also archives every rejected proposal automatically."
+  },
+  "authored_failure_note": "The first clause is supported; the added automatic-archiving claim has no source support, making the response unsupported (U) overall.",
+  "failing_boundary": "unsupported-added-claim",
+  "expected_behavior": "A supported response preserves the checking relationship and adds no archival or approval behavior."
+}

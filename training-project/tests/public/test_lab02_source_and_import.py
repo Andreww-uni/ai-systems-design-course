@@ -110,6 +110,38 @@ class Lab02SourceRegistrationTests(unittest.TestCase):
             )
             self.assertEqual(fragments[0]["boundary_end"], "> **Further reading:**")
 
+    def test_register_source_normalizes_crlf_theory_to_canonical_lf_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            course_root = root / "course"
+            vault = root / "vault"
+            report_dir = course_root / "reports/lab02"
+            theory_path = course_root / "module-02-theory.md"
+            theory_path.parent.mkdir()
+            theory_path.write_bytes(THEORY_TEXT.replace("\n", "\r\n").encode("utf-8"))
+
+            source_path = register_source(
+                course_root=course_root,
+                theory_path=theory_path,
+                vault=vault,
+                course_repository="https://example.test/course.git",
+                course_commit="a" * 40,
+                registered_by="student-01",
+            )
+            request_path = prepare_request(
+                vault=vault,
+                report_dir=report_dir,
+                run_id="live-primary-01",
+            )
+
+            self.assertNotIn(b"\r", source_path.read_bytes())
+            request = json.loads(request_path.read_bytes())
+            self.assertEqual(request["source"]["text"], EXPECTED_FRAGMENT)
+            self.assertEqual(
+                request["source"]["fragment_sha256"],
+                hashlib.sha256(EXPECTED_FRAGMENT.encode("utf-8")).hexdigest(),
+            )
+
     def test_register_source_refuses_a_vault_inside_the_course_clone(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             course_root = Path(temp_dir) / "course"

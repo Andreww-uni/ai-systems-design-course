@@ -11,6 +11,47 @@ from learning_project.workflow import WorkflowError
 
 
 class Lab02AgyAdapterTests(unittest.TestCase):
+    def test_agy_profile_preserves_provider_error_in_failed_envelope(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            report_dir = root / "reports/lab02"
+            run_dir = report_dir / "runs/live-primary-01"
+            run_dir.mkdir(parents=True)
+            (run_dir / "model-request.json").write_text(
+                json.dumps({"request_id": "lab02-structured-output-v1"}), encoding="utf-8"
+            )
+            schema_path = root / "candidate.schema.json"
+            schema_path.write_text("{}", encoding="utf-8")
+
+            def runner(command, **_kwargs):
+                return subprocess.CompletedProcess(
+                    command,
+                    0,
+                    stdout=json.dumps(
+                        {
+                            "status": "ERROR",
+                            "response": "",
+                            "error": "INVALID_ARGUMENT: schema rejected",
+                        }
+                    ),
+                    stderr="",
+                )
+
+            with self.assertRaisesRegex(
+                WorkflowError, "successful structured result: INVALID_ARGUMENT: schema rejected"
+            ):
+                run_agy(
+                    report_dir=report_dir,
+                    run_id="live-primary-01",
+                    schema_path=schema_path,
+                    model_id="gemini-3.8-flash-low",
+                    recorded_by="student-01",
+                    runner=runner,
+                )
+
+            self.assertFalse((run_dir / "raw-response.txt").exists())
+            self.assertFalse((run_dir / "run-metadata.json").exists())
+
     def test_agy_profile_refuses_multiple_json_values_without_writing_partial_evidence(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -98,12 +139,92 @@ class Lab02AgyAdapterTests(unittest.TestCase):
             self.assertIn("definition, syntax-vs-semantics, authority-boundary", command[2])
             self.assertIn("in that exact order", command[2])
             self.assertEqual(command[command.index("--model") + 1], "gemini-3.8-flash-low")
-            self.assertEqual(command[command.index("--json-schema") + 1], str(schema_path))
+            self.assertEqual(
+                command[command.index("--json-schema") + 1],
+                schema_path.resolve().as_posix(),
+            )
             self.assertEqual(command[command.index("--output-format") + 1], "json")
             self.assertIn("--sandbox", command)
+            self.assertNotIn("--dangerously-skip-permissions", command)
             self.assertEqual(captured["kwargs"]["timeout"], 330)
             self.assertTrue(captured["kwargs"]["capture_output"])
             self.assertTrue(captured["kwargs"]["text"])
+
+    def test_agy_profile_ignores_trailing_jetski_logs_after_the_result_envelope(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            report_dir = root / "reports/lab02"
+            run_dir = report_dir / "runs/live-primary-01"
+            run_dir.mkdir(parents=True)
+            (run_dir / "model-request.json").write_text(
+                json.dumps({"request_id": "lab02-structured-output-v1"}), encoding="utf-8"
+            )
+            schema_path = root / "candidate.schema.json"
+            schema_path.write_text("{}", encoding="utf-8")
+            candidate_text = '{"schema_version":"1.0"}'
+
+            def runner(command, **_kwargs):
+                return subprocess.CompletedProcess(
+                    command,
+                    0,
+                    stdout=(
+                        json.dumps({"status": "SUCCESS", "response": candidate_text})
+                        + "\njetski: service shutdown complete\n"
+                    ),
+                    stderr="",
+                )
+
+            run_agy(
+                report_dir=report_dir,
+                run_id="live-primary-01",
+                schema_path=schema_path,
+                model_id="gemini-3.8-flash-low",
+                recorded_by="student-01",
+                runner=runner,
+            )
+
+            self.assertEqual(
+                (run_dir / "raw-response.txt").read_bytes(), candidate_text.encode("utf-8")
+            )
+
+    @patch("learning_project.agy_adapter.platform.system", return_value="Windows")
+    def test_agy_profile_disables_the_sandbox_on_windows_without_bypassing_permissions(
+        self, _mocked_system
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            report_dir = root / "reports/lab02"
+            run_dir = report_dir / "runs/live-primary-01"
+            run_dir.mkdir(parents=True)
+            (run_dir / "model-request.json").write_text(
+                json.dumps({"request_id": "lab02-structured-output-v1"}), encoding="utf-8"
+            )
+            schema_path = root / "candidate.schema.json"
+            schema_path.write_text("{}", encoding="utf-8")
+            captured = {}
+
+            def runner(command, **_kwargs):
+                captured["command"] = command
+                return subprocess.CompletedProcess(
+                    command,
+                    0,
+                    stdout=json.dumps(
+                        {"status": "SUCCESS", "response": '{"schema_version":"1.0"}'}
+                    ),
+                    stderr="",
+                )
+
+            run_agy(
+                report_dir=report_dir,
+                run_id="live-primary-01",
+                schema_path=schema_path,
+                model_id="gemini-3.8-flash-low",
+                recorded_by="student-01",
+                runner=runner,
+            )
+
+            self.assertNotIn("--sandbox", captured["command"])
+            self.assertNotIn("--dangerously-skip-permissions", captured["command"])
 
 
 class Lab02AgyCommandTests(unittest.TestCase):

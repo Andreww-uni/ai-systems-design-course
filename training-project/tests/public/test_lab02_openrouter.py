@@ -4,6 +4,8 @@ import json
 import tempfile
 import threading
 import unittest
+from email.message import Message
+from urllib.error import HTTPError
 from pathlib import Path
 from unittest.mock import patch
 
@@ -27,6 +29,45 @@ class _Response:
 
 
 class Lab02OpenRouterAdapterTests(unittest.TestCase):
+    def test_openrouter_profile_reports_http_status_and_provider_message(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            report_dir = root / "reports/lab02"
+            run_dir = report_dir / "runs/live-fallback-01"
+            run_dir.mkdir(parents=True)
+            (run_dir / "model-request.json").write_text(
+                json.dumps({"request_id": "lab02-structured-output-v1"}), encoding="utf-8"
+            )
+            schema_path = root / "candidate.schema.json"
+            schema_path.write_text("{}", encoding="utf-8")
+
+            def opener(*_args, **_kwargs):
+                raise HTTPError(
+                    "https://openrouter.ai/api/v1/chat/completions",
+                    400,
+                    "Bad Request",
+                    Message(),
+                    io.BytesIO(
+                        b'{"error":{"message":"model does not support structured outputs"}}'
+                    ),
+                )
+
+            with self.assertRaisesRegex(
+                WorkflowError,
+                "HTTP 400: model does not support structured outputs",
+            ):
+                run_openrouter(
+                    report_dir=report_dir,
+                    run_id="live-fallback-01",
+                    schema_path=schema_path,
+                    api_key="secret-test-key",
+                    recorded_by="student-01",
+                    opener=opener,
+                )
+
+            self.assertFalse((run_dir / "raw-response.txt").exists())
+            self.assertFalse((run_dir / "run-metadata.json").exists())
+
     def test_openrouter_profile_enforces_an_overall_deadline_without_writing_partial_evidence(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -213,7 +254,7 @@ class Lab02OpenRouterAdapterTests(unittest.TestCase):
             self.assertEqual(captured["timeout"], 120)
             self.assertEqual(request_object.get_header("Authorization"), "Bearer secret-test-key")
             body = json.loads(request_object.data)
-            self.assertEqual(body["model"], "nex-agi/nex-n2.5-mini:free")
+            self.assertEqual(body["model"], "openrouter/free")
             self.assertFalse(body["stream"])
             self.assertTrue(body["provider"]["require_parameters"])
             self.assertEqual(body["response_format"]["type"], "json_schema")

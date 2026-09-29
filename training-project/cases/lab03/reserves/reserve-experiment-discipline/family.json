@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "family_id": "reserve-experiment-discipline",
+  "origin": "course-reserve",
+  "provenance": {
+    "authored_by": "course",
+    "material_version": "teaching-cases-v1",
+    "note": "Held-out family built on Module 03 experiment-discipline concepts (baseline, freeze, held-out evidence); all four cases are course-authored constructed inputs."
+  },
+  "cases": [
+    {
+      "schema_version": "1.0",
+      "case_id": "experiment-baseline-plain",
+      "family_id": "reserve-experiment-discipline",
+      "evidence_situation": "sufficient-evidence",
+      "task": "Explain what an experiment baseline is in a controlled comparison.",
+      "supplied_source": "An experiment baseline is the comparison configuration that observed alternatives are measured against; it is distinct from the source baseline that identifies reviewed material.",
+      "constructed": true,
+      "mutation_note": "Course-authored case summarizing the experiment-baseline distinction from Module 03 Section 5.",
+      "source_pointers": [
+        { "theory_section": "5", "pointer": "experiment baseline versus source baseline" }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "case_id": "experiment-baseline-distractor",
+      "family_id": "reserve-experiment-discipline",
+      "evidence_situation": "distractor",
+      "task": "Explain what an experiment baseline is in a controlled comparison.",
+      "supplied_source": "An experiment baseline is the comparison configuration that observed alternatives are measured against; it is distinct from the source baseline that identifies reviewed material. A separate announcement states that the office library keeps printed standards for anyone to borrow.",
+      "constructed": true,
+      "mutation_note": "Course-authored mutation: the library announcement is a distractor that must not be merged into the baseline explanation.",
+      "source_pointers": [
+        { "theory_section": "5", "pointer": "experiment baseline versus source baseline" }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "case_id": "experiment-freeze-cost-absent",
+      "family_id": "reserve-experiment-discipline",
+      "evidence_situation": "missing-fact",
+      "task": "State the monetary cost recorded for the frozen comparison in this note.",
+      "supplied_source": "The protocol freezes the hypothesis, the compared configurations, the attempt budget, and the timing boundary before held-out execution. The record lists scheduled attempts and their observed durations.",
+      "constructed": true,
+      "mutation_note": "Course-authored constructed case: the source describes a frozen protocol but records no monetary cost.",
+      "source_pointers": [
+        { "theory_section": "5.3", "pointer": "freeze before held-out execution; unknown rather than zero" }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "case_id": "experiment-heldout-ambiguous-split",
+      "family_id": "reserve-experiment-discipline",
+      "evidence_situation": "explicit-ambiguity",
+      "task": "State which split the duplicated case belongs to under this note's rules.",
+      "supplied_source": "Development cases may be inspected while configurations change. Held-out cases are reserved from that process. The note lists one case text under both splits and does not say which designation is current.",
+      "constructed": true,
+      "mutation_note": "Course-authored constructed case: the note itself declares that the current split designation for the duplicated case is unresolved.",
+      "source_pointers": [
+        { "theory_section": "4.3", "pointer": "development and held-out splits" }
+      ]
+    }
+  ],
+  "expected_behaviors": [
+    {
+      "case_id": "experiment-baseline-plain",
+      "expected_category": "S",
+      "expected_behavior": "A supported response preserves both parts: the baseline is the configuration alternatives are measured against, and it is distinct from the source baseline. Naming only the comparison role omits the distinction."
+    },
+    {
+      "case_id": "experiment-baseline-distractor",
+      "expected_category": "S",
+      "expected_behavior": "A supported response preserves the comparison-role and distinction-from-source-baseline parts and does not import the library, printed standards, or borrowing into the explanation."
+    },
+    {
+      "case_id": "experiment-freeze-cost-absent",
+      "expected_category": "Q",
+      "expected_behavior": "The note records no monetary cost, so a supported response states that the cost is unknown rather than reporting zero or an invented figure."
+    },
+    {
+      "case_id": "experiment-heldout-ambiguous-split",
+      "expected_category": "Q",
+      "expected_behavior": "The note declares that it does not resolve the current split designation, so a supported response reports that unresolved membership rather than assigning the case to a split."
+    }
+  ]
+}

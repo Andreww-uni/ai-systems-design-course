@@ -1,0 +1,45 @@
+{
+  "packet_id": "calibration-b",
+  "schema_version": "1.0",
+  "purpose": "Replacement rubric calibration packet used only when the first packet's reviewed labels were opened before student labels were frozen. Authored evaluator exercises, not generator-performance evidence.",
+  "tasks": [
+    {
+      "task_id": "criterion-metric-relation",
+      "task": "Explain how a criterion and a metric are related.",
+      "supplied_source": "A criterion states the quality property the system must satisfy. A metric is a defined measurement whose values can be compared against the criterion."
+    },
+    {
+      "task_id": "rubric-category-count",
+      "task": "State how many categories the quoted evaluation rubric defines.",
+      "supplied_source": "An evaluation rubric is a written set of categories, rules for assigning those categories, and examples that show the boundaries between them."
+    }
+  ],
+  "authored_outputs": [
+    {
+      "output_id": "cal-b-1",
+      "task_id": "criterion-metric-relation",
+      "proposed_text": "The criterion states the required property, and the metric measures it, so metric values are compared against the criterion."
+    },
+    {
+      "output_id": "cal-b-2",
+      "task_id": "criterion-metric-relation",
+      "proposed_text": "The metric is a defined measurement."
+    },
+    {
+      "output_id": "cal-b-3",
+      "task_id": "rubric-category-count",
+      "proposed_text": "The rubric defines seven categories covering every engineering situation."
+    },
+    {
+      "output_id": "cal-b-4",
+      "task_id": "rubric-category-count",
+      "proposed_text": "The source does not specify a number of categories."
+    }
+  ],
+  "reviewed_labels": [
+    { "output_id": "cal-b-1", "category": "S", "rationale": "Supported and complete: preserves both roles and the comparison direction." },
+    { "output_id": "cal-b-2", "category": "I", "rationale": "Supported but incomplete: omits the criterion side and the comparison against it." },
+    { "output_id": "cal-b-3", "category": "U", "rationale": "Unsupported invented count: the source names no number and no universal coverage claim." },
+    { "output_id": "cal-b-4", "category": "Q", "rationale": "Justified uncertainty: identifies the absent count instead of inventing one." }
+  ]
+}

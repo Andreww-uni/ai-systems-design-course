@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import platform
 import subprocess
 from pathlib import Path
 
@@ -60,13 +61,14 @@ def run_agy(
         "--model",
         model_id.strip(),
         "--json-schema",
-        str(schema_path),
+        schema_path.resolve().as_posix(),
         "--output-format",
         "json",
-        "--sandbox",
         "--print-timeout",
         "5m",
     ]
+    if platform.system() != "Windows":
+        command.append("--sandbox")
     try:
         completed = runner(
             command,
@@ -81,9 +83,19 @@ def run_agy(
         raise WorkflowError("AGY request failed without writing run evidence.")
 
     try:
-        envelope = json.loads(completed.stdout)
+        stdout = completed.stdout.lstrip()
+        envelope, end = json.JSONDecoder().raw_decode(stdout)
+        trailing = stdout[end:].lstrip()
+        if trailing.startswith(("{", "[")):
+            raise WorkflowError("AGY response envelope contained multiple JSON values.")
         content = envelope["response"]
         if envelope.get("status") != "SUCCESS" or not isinstance(content, str) or not content.strip():
+            detail = envelope.get("error")
+            if isinstance(detail, str) and detail.strip():
+                raise WorkflowError(
+                    "AGY response did not contain a successful structured result: "
+                    f"{detail.strip()}"
+                )
             raise WorkflowError("AGY response did not contain a successful structured result.")
     except WorkflowError:
         raise

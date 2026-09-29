@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "family_id": "reserve-packet-baseline",
+  "origin": "course-reserve",
+  "provenance": {
+    "authored_by": "course",
+    "material_version": "teaching-cases-v1",
+    "note": "Held-out family from Module 03 Section 8.1: evaluation-packet baseline scenario (H1, H2) plus two course-authored variants covering the remaining evidence situations."
+  },
+  "cases": [
+    {
+      "schema_version": "1.0",
+      "case_id": "packet-baseline-plain",
+      "family_id": "reserve-packet-baseline",
+      "evidence_situation": "sufficient-evidence",
+      "task": "Define what a source baseline identifies.",
+      "supplied_source": "The evaluation packet contains a review source. Its source baseline points to that source so that a proposal can be checked against it.",
+      "constructed": true,
+      "mutation_note": "Course-authored teaching case (H1, Module 03 Table 8.1) using a distinct source passage for the source-baseline concept.",
+      "source_pointers": [
+        { "theory_section": "8.1", "pointer": "Table 8.1 row H1" }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "case_id": "packet-baseline-with-distractor",
+      "family_id": "reserve-packet-baseline",
+      "evidence_situation": "distractor",
+      "task": "Define what a source baseline identifies.",
+      "supplied_source": "The evaluation packet contains a review source. Its source baseline points to that source so that a proposal can be checked against it. In the separate equipment-maintenance process, a supervisor approves replacement requests.",
+      "constructed": true,
+      "mutation_note": "Course-authored teaching case (H2, Module 03 Table 8.1): the equipment-maintenance supervisor is a distractor that must not be attached to the baseline concept.",
+      "source_pointers": [
+        { "theory_section": "8.1", "pointer": "Table 8.1 row H2" }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "case_id": "packet-baseline-retention-absent",
+      "family_id": "reserve-packet-baseline",
+      "evidence_situation": "missing-fact",
+      "task": "State the retention duration of the review records named in this packet.",
+      "supplied_source": "The evaluation packet contains a review source and review records. Each record contains the source identifier and the review decision.",
+      "constructed": true,
+      "mutation_note": "Course-authored mutation of the H3 retention scenario (Module 03 Table 8.1) reworded into the evaluation-packet scenario; retention duration is absent.",
+      "source_pointers": [
+        { "theory_section": "8.1", "pointer": "Table 8.1 row H3" }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "case_id": "packet-baseline-ambiguous-scope",
+      "family_id": "reserve-packet-baseline",
+      "evidence_situation": "explicit-ambiguity",
+      "task": "Describe the scope of the source baseline recorded in this note.",
+      "supplied_source": "The review workspace stores a source excerpt and a snapshot of the entire repository. The reviewer records a baseline before reviewing the proposal. This note does not specify which of the two stored objects the baseline identifies.",
+      "constructed": true,
+      "mutation_note": "Course-authored teaching case (H4, Module 03 Table 8.1): the note explicitly states the ambiguity that must remain unresolved.",
+      "source_pointers": [
+        { "theory_section": "8.1", "pointer": "Table 8.1 row H4" }
+      ]
+    }
+  ],
+  "expected_behaviors": [
+    {
+      "case_id": "packet-baseline-plain",
+      "expected_category": "S",
+      "expected_behavior": "A supported response preserves the relation between the baseline and the review source used to check a proposal. 'Identifies material' alone omits the checking relationship."
+    },
+    {
+      "case_id": "packet-baseline-with-distractor",
+      "expected_category": "S",
+      "expected_behavior": "A supported response preserves the checking relationship and does not attach the equipment-maintenance supervisor or approval authority to the source baseline."
+    },
+    {
+      "case_id": "packet-baseline-retention-absent",
+      "expected_category": "Q",
+      "expected_behavior": "The source names no retention duration, so a supported response states that the duration is not specified instead of inventing one."
+    },
+    {
+      "case_id": "packet-baseline-ambiguous-scope",
+      "expected_category": "Q",
+      "expected_behavior": "The note states that it does not specify which stored object the baseline identifies, so a supported response reports that unresolved scope rather than choosing the excerpt or the snapshot."
+    }
+  ]
+}
