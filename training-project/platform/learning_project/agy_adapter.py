@@ -90,6 +90,12 @@ def run_agy(
             raise WorkflowError("AGY response envelope contained multiple JSON values.")
         content = envelope["response"]
         if envelope.get("status") != "SUCCESS" or not isinstance(content, str) or not content.strip():
+            detail = envelope.get("error")
+            if isinstance(detail, str) and detail.strip():
+                raise WorkflowError(
+                    "AGY response did not contain a successful structured result: "
+                    f"{detail.strip()}"
+                )
             raise WorkflowError("AGY response did not contain a successful structured result.")
     except WorkflowError:
         raise

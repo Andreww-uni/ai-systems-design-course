@@ -11,6 +11,47 @@ from learning_project.workflow import WorkflowError
 
 
 class Lab02AgyAdapterTests(unittest.TestCase):
+    def test_agy_profile_preserves_provider_error_in_failed_envelope(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            report_dir = root / "reports/lab02"
+            run_dir = report_dir / "runs/live-primary-01"
+            run_dir.mkdir(parents=True)
+            (run_dir / "model-request.json").write_text(
+                json.dumps({"request_id": "lab02-structured-output-v1"}), encoding="utf-8"
+            )
+            schema_path = root / "candidate.schema.json"
+            schema_path.write_text("{}", encoding="utf-8")
+
+            def runner(command, **_kwargs):
+                return subprocess.CompletedProcess(
+                    command,
+                    0,
+                    stdout=json.dumps(
+                        {
+                            "status": "ERROR",
+                            "response": "",
+                            "error": "INVALID_ARGUMENT: schema rejected",
+                        }
+                    ),
+                    stderr="",
+                )
+
+            with self.assertRaisesRegex(
+                WorkflowError, "successful structured result: INVALID_ARGUMENT: schema rejected"
+            ):
+                run_agy(
+                    report_dir=report_dir,
+                    run_id="live-primary-01",
+                    schema_path=schema_path,
+                    model_id="gemini-3.8-flash-low",
+                    recorded_by="student-01",
+                    runner=runner,
+                )
+
+            self.assertFalse((run_dir / "raw-response.txt").exists())
+            self.assertFalse((run_dir / "run-metadata.json").exists())
+
     def test_agy_profile_refuses_multiple_json_values_without_writing_partial_evidence(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

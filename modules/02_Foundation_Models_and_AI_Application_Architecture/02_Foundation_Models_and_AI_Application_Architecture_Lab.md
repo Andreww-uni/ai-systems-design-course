@@ -200,7 +200,7 @@ uv run learning-project lab02 run-openrouter --report-dir reports/lab02 --run-id
 unset OPENROUTER_API_KEY
 ```
 
-`run-openrouter` uses the pinned free profile `nex-agi/nex-n2.5-mini:free`, reads the key only from `OPENROUTER_API_KEY`, enforces a 120-second overall deadline, and records `adapter: openai-compatible`. The key never appears in arguments, run metadata, or submitted evidence. Free model availability may change; if the profile is no longer available, report the limitation and use AGY.
+`run-openrouter` uses the OpenRouter free router profile `openrouter/free`, which selects an available free provider supporting the requested structured-output parameters. It reads the key only from `OPENROUTER_API_KEY`, enforces a 120-second overall deadline, and records `adapter: openai-compatible`. The key never appears in arguments, run metadata, or submitted evidence. If OpenRouter reports an HTTP error, preserve the displayed status and message in the report and use AGY or an additional run only when the profile becomes available.
 
 **Expected result:** `reports/lab02/runs/live-primary-01/raw-response.txt` contains exactly one JSON candidate and `run-metadata.json` records the live adapter and the model actually used. `git status` does not show the key, and no key value appears in any artifact.
 
