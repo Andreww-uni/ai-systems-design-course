@@ -1,0 +1,45 @@
+{
+  "packet_id": "calibration-a",
+  "schema_version": "1.0",
+  "purpose": "Rubric calibration packet: four authored outputs over the two Module 03 constructed calibration tasks. Authored evaluator exercises, not generator-performance evidence.",
+  "tasks": [
+    {
+      "task_id": "source-baseline-definition",
+      "task": "Define what a source baseline identifies.",
+      "supplied_source": "A source baseline identifies the material against which a proposal is reviewed."
+    },
+    {
+      "task_id": "retention-duration",
+      "task": "State how long review records are retained.",
+      "supplied_source": "Review records are stored in the knowledge system."
+    }
+  ],
+  "authored_outputs": [
+    {
+      "output_id": "cal-a-1",
+      "task_id": "source-baseline-definition",
+      "proposed_text": "The baseline identifies the material used to review a proposal."
+    },
+    {
+      "output_id": "cal-a-2",
+      "task_id": "source-baseline-definition",
+      "proposed_text": "The baseline identifies material."
+    },
+    {
+      "output_id": "cal-a-3",
+      "task_id": "source-baseline-definition",
+      "proposed_text": "The baseline identifies the material a proposal is reviewed against and automatically approves later changes."
+    },
+    {
+      "output_id": "cal-a-4",
+      "task_id": "retention-duration",
+      "proposed_text": "The source does not specify a retention duration."
+    }
+  ],
+  "reviewed_labels": [
+    { "output_id": "cal-a-1", "category": "S", "rationale": "Supported and complete: preserves the review relationship from the source." },
+    { "output_id": "cal-a-2", "category": "I", "rationale": "Supported but incomplete: omits the defining review relationship." },
+    { "output_id": "cal-a-3", "category": "U", "rationale": "Unsupported added claim: automatic approval has no source support." },
+    { "output_id": "cal-a-4", "category": "Q", "rationale": "Justified uncertainty: identifies the missing duration instead of inventing one." }
+  ]
+}

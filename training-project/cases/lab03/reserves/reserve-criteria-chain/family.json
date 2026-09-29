@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "family_id": "reserve-criteria-chain",
+  "origin": "course-reserve",
+  "provenance": {
+    "authored_by": "course",
+    "material_version": "teaching-cases-v1",
+    "note": "Held-out family built on the Module 03 criterion/metric/rubric concept chain; all four cases are course-authored constructed inputs."
+  },
+  "cases": [
+    {
+      "schema_version": "1.0",
+      "case_id": "criterion-metric-chain-plain",
+      "family_id": "reserve-criteria-chain",
+      "evidence_situation": "sufficient-evidence",
+      "task": "Explain how a criterion and a metric are related in evaluation design.",
+      "supplied_source": "A criterion states the quality property the system must satisfy. A metric is a defined measurement whose values can be compared against the criterion to judge whether that property holds.",
+      "constructed": true,
+      "mutation_note": "Course-authored case summarizing the criterion-metric relation from Module 03 Section 1.1.",
+      "source_pointers": [
+        { "theory_section": "1.1", "pointer": "criterion and metric definitions" }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "case_id": "criterion-metric-chain-distractor",
+      "family_id": "reserve-criteria-chain",
+      "evidence_situation": "distractor",
+      "task": "Explain how a criterion and a metric are related in evaluation design.",
+      "supplied_source": "A criterion states the quality property the system must satisfy. A metric is a defined measurement whose values can be compared against the criterion to judge whether that property holds. In an unrelated deployment note, nightly backups keep the shared drive available for every regional office.",
+      "constructed": true,
+      "mutation_note": "Course-authored mutation: the nightly-backup sentence is a distractor that must not enter the criterion-metric explanation.",
+      "source_pointers": [
+        { "theory_section": "1.1", "pointer": "criterion and metric definitions" }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "case_id": "criterion-metric-chain-rubric-absent",
+      "family_id": "reserve-criteria-chain",
+      "evidence_situation": "missing-fact",
+      "task": "State how many rubric categories the department's evaluation rubric defines.",
+      "supplied_source": "An evaluation rubric is a written set of categories, rules for assigning those categories, and examples that show the boundaries between them.",
+      "constructed": true,
+      "mutation_note": "Course-authored mutation: the source defines what a rubric contains but names no department and no category count.",
+      "source_pointers": [
+        { "theory_section": "2.3", "pointer": "evaluation rubric definition" }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "case_id": "criterion-metric-chain-ambiguous-acceptance",
+      "family_id": "reserve-criteria-chain",
+      "evidence_situation": "explicit-ambiguity",
+      "task": "State which measurement the acceptance condition of this note refers to.",
+      "supplied_source": "The acceptance condition passes when the checked value is within the declared bound. The note records two checked values for the same run and does not say which one the bound applies to.",
+      "constructed": true,
+      "mutation_note": "Course-authored constructed case: the note itself declares that it does not resolve which checked value the bound applies to.",
+      "source_pointers": [
+        { "theory_section": "1.1", "pointer": "acceptance condition" }
+      ]
+    }
+  ],
+  "expected_behaviors": [
+    {
+      "case_id": "criterion-metric-chain-plain",
+      "expected_category": "S",
+      "expected_behavior": "A supported response preserves the relation: the criterion states the property, the metric measures it, and metric values are compared against the criterion. Omitting the comparison direction leaves the relation incomplete."
+    },
+    {
+      "case_id": "criterion-metric-chain-distractor",
+      "expected_category": "S",
+      "expected_behavior": "A supported response preserves the criterion-metric-comparison relation and does not import backups, drives, or offices into it."
+    },
+    {
+      "case_id": "criterion-metric-chain-rubric-absent",
+      "expected_category": "Q",
+      "expected_behavior": "The source names no department rubric and no count, so a supported response states that the number of categories is not specified instead of inventing one."
+    },
+    {
+      "case_id": "criterion-metric-chain-ambiguous-acceptance",
+      "expected_category": "Q",
+      "expected_behavior": "The note declares that it does not say which checked value the bound applies to, so a supported response reports that unresolved reference rather than selecting a value."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://course.example/schemas/lab03-envelope.schema.json",
+  "title": "Laboratory 03 evaluated-component envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "proposed_text"],
+  "properties": {
+    "case_id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "proposed_text": { "type": "string", "minLength": 1 }
+  }
+}
