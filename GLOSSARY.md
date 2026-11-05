@@ -98,6 +98,8 @@
 | Generation variability | Мінливість генерування |
 | Governance | Врядування |
 | Governed change workflow | Керований процес внесення змін |
+| Graph query | Запит до графа |
+| Graph traversal | Обхід графа |
 | Greedy decoding | Жадібне декодування |
 | Guardrails | Захисні бар’єри |
 | Held-out case | Відкладений випадок |
@@ -119,6 +121,7 @@
 | Lexical similarity | Лексична подібність |
 | Live run | Живий запуск |
 | Logical component | Логічний компонент |
+| Logical inference | Логічне виведення |
 | Machine-learning engineering | Інженерія машинного навчання |
 | Maintainability | Супроводжуваність |
 | Markdown vault | Сховище Markdown-файлів |
