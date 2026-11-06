@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "run_id": "live-primary-01",
+  "evidence_kind": "live",
+  "adapter": "openai-compatible",
+  "model_id": "dots-studio/dots-3-note-preview:free",
+  "request_id": "lab02-structured-output-v1",
+  "request_sha256": "950c97a1147c439e4d0ce0ed7f2b29352add66b52feda2f7281aa74c3d47c27b",
+  "raw_response_sha256": "2440cbf3bd3ce265f942b7767e7d4dc3f72123cdd69a7a85e83e195ceebf82e6",
+  "recorded_at": "2026-11-06T19:04:47.515902+00:00",
+  "recorded_by": "lepskyi-kn1223b",
+  "attribution_limit": "Declared run metadata is not cryptographic proof of external inference."
+}

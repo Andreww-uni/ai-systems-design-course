@@ -1,0 +1,12 @@
+schema_version: "1.0"
+revision_id: human-01
+derived_from:
+  proposal_id: lab02-structured-output-live-primary-02
+  proposal_sha256: "3c9d9f40e1417d06cedb5acd4a0d0a01b94ddcf98993dc61346bf1a7003f69e2"
+changes:
+  key_points:
+    - "Structured output controls syntax, not meaning: a schema can prove that a field exists, not that its value is true or supported by evidence."
+    - "A model-backed operation needs three distinct gates: a syntactic gate, a deterministic invariant gate, and a semantic acceptance gate."
+    - "The model emits a candidate proposal; an authorized human reviewer decides, and only a separately authorized operation writes accepted state."
+rationale: "The parent candidate has an acceptable definition and exact, relevant quotes, but its key points are fragments of the formatting-method list and omit the three control gates and the authority boundary. The replacement key points restate only what section 1.3 says, so the concept conveys its central lesson without adding unsupported meaning."
+revised_by: "lepskyi-kn1223b"

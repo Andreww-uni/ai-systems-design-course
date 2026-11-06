@@ -1,0 +1,13 @@
+schema_version: "1.0"
+review_id: lab02-structured-output-live-primary-02-review
+proposal_id: lab02-structured-output-live-primary-02
+proposal_sha256: "3c9d9f40e1417d06cedb5acd4a0d0a01b94ddcf98993dc61346bf1a7003f69e2"
+validation_id: lab02-structured-output-live-primary-02-validation
+validation_sha256: "8338a830cd542aba31244df2023e0e8b6c08729cf32c03d978810473dd819483"
+findings:
+  definition: "Acceptable. The definition reproduces the first sentence of section 1.3 without distortion, although it omits why structured output is useful."
+  control_gates: "Not acceptable. All three quotes are exact and support their claim kinds, but the key points never distinguish the syntactic gate, the deterministic invariant gate, and the semantic acceptance gate; only one quote implies that syntax differs from meaning."
+  authority_boundary: "Partially acceptable. The authority-boundary quote states that the model emits a candidate and an authorized human reviewer decides, but no key point preserves this boundary and the separate apply operation is not mentioned."
+rationale: "The candidate adds no meaning unsupported by the source, and the tags are learning-oriented rather than provider or harness metadata. However, the key points are fragments of the list of formatting methods, the third one merges four methods without punctuation, and none of them conveys the central lesson that structured output controls syntax, not meaning. A learner reading only the key points would not understand the concept, so the candidate is unsupported and will be corrected by a human revision of key_points."
+verdict: unsupported
+reviewed_by: "lepskyi-kn1223b"

@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "request_id": "lab02-structured-output-v1",
+  "operation": "create",
+  "target_concept_id": "structured-output",
+  "source": {
+    "source_id": "module-02-foundation-models-and-ai-application-architecture",
+    "fragment_id": "module-02-1-3-structured-output-controls-v1",
+    "fragment_sha256": "7d7d5ce2d33d4852985c2337292fbf257ae554cefbbf7e4b9e4ef8090a797063",
+    "text": "### 1.3 Structured output controls syntax, not meaning\n\n**Structured output** is model output intended to follow an explicit machine-readable organization, such as a JSON object with named fields. It is useful when downstream software must parse a response, when a task returns one of a fixed set of labels, or when a model proposes data for a controlled workflow.\n\nA team can improve structural conformance through several methods:\n\n- explicit format instructions;\n- examples;\n- post-processing;\n- retries;\n- constrained sampling; or\n- model adaptation.\n\nThese methods provide different strengths of control. A prompt can request a format but cannot guarantee that the model will follow it. A provider's JSON mode may guarantee valid JSON syntax without guaranteeing the required fields or the truth of their values. Constrained sampling can restrict token choices to a grammar, but it still does not establish whether the resulting statement is supported by evidence [1, Chapter 2, “Structured Outputs”].\n\nA model-backed operation therefore needs three distinct gates. Each gate answers a different question:\n\n1. **Syntactic gate:** Can the response be parsed as the declared representation?\n2. **Deterministic invariant gate:** Does the parsed candidate contain the required fields, identifiers, statuses, allowed values, and cross-field relationships?\n3. **Semantic acceptance gate:** Does the candidate interpret the source correctly, preserve relevant uncertainty, avoid unsupported claims, and serve the intended learning purpose?\n\n![Three distinct gates between model output and accepted state](images/structured-output-control-gates.svg)\n\n**Figure 2.** Parseable syntax permits deterministic validation, but neither operation grants semantic authority. An authorized human reviewer examines meaning and decides whether the exact candidate may proceed toward accepted state.\n\nThe first two gates can be implemented by deterministic software. For the same controlled input and validator version, they should return the same structural result. The third gate requires judgment about meaning and evidence. A schema can prove that a `definition` field exists; it cannot prove that the definition accurately represents the source. A successful validator must therefore never be reported as proof of semantic correctness.\n\nThe separation also protects accepted state. The model emits a **candidate proposal**, not a canonical record. Deterministic validation reads the candidate without approving it or changing canonical knowledge. An **authorized human reviewer** is the person accountable for examining the meaning and evidence and recording an explicit decision. In the supplied course project, the student performs this role; the architectural responsibility itself is not specific to an educational setting. Only a separately authorized application operation may write accepted state, and only when the decision still identifies the exact candidate that was reviewed. This authority arrangement is a course application of the structured-output distinction rather than a claim made by the model source itself.\n\n"
+  },
+  "constraints": {
+    "source_only": true,
+    "exact_quotes": true,
+    "external_knowledge_allowed": false
+  },
+  "output_schema_version": "1.0"
+}
