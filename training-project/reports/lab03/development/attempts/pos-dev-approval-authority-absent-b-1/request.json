@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "lab_id": "lab03",
+  "case_id": "dev-approval-authority-absent",
+  "task": "State who is permitted to approve a proposal.",
+  "supplied_source": "The review record stores the reviewer's identity and decision.",
+  "instruction": "Answer the task about the supplied source. Use only the supplied source; if the source does not state what the task asks for, say explicitly that the source does not specify it instead of inferring an answer.\n\nReturn one JSON object with exactly two fields:\n\n- \"case_id\": the case identifier given in the task.\n- \"proposed_text\": your answer, written as one paragraph.\n",
+  "output_contract": {
+    "type": "object",
+    "fields": [
+      "case_id",
+      "proposed_text"
+    ],
+    "case_id_value": "dev-approval-authority-absent"
+  }
+}

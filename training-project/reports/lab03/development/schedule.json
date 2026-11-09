@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "kind": "development",
+  "family_id": "dev-development",
+  "order": [
+    "pos-dev-source-baseline-definition-a-1",
+    "pos-dev-approval-authority-absent-a-1",
+    "pos-dev-source-baseline-definition-b-1",
+    "pos-dev-approval-authority-absent-b-1"
+  ],
+  "positions": [
+    {
+      "position_id": "pos-dev-source-baseline-definition-a-1",
+      "case_id": "dev-source-baseline-definition",
+      "case_index": 0,
+      "variant": "a",
+      "attempt": 1,
+      "state": "returned"
+    },
+    {
+      "position_id": "pos-dev-source-baseline-definition-b-1",
+      "case_id": "dev-source-baseline-definition",
+      "case_index": 0,
+      "variant": "b",
+      "attempt": 1,
+      "state": "returned"
+    },
+    {
+      "position_id": "pos-dev-approval-authority-absent-a-1",
+      "case_id": "dev-approval-authority-absent",
+      "case_index": 1,
+      "variant": "a",
+      "attempt": 1,
+      "state": "returned"
+    },
+    {
+      "position_id": "pos-dev-approval-authority-absent-b-1",
+      "case_id": "dev-approval-authority-absent",
+      "case_index": 1,
+      "variant": "b",
+      "attempt": 1,
+      "state": "returned"
+    }
+  ]
+}

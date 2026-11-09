@@ -1,0 +1,4 @@
+{
+  "case_id": "dev-source-baseline-definition",
+  "proposed_text": "A source baseline identifies the material against which a proposal is reviewed."
+}

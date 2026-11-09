@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "position_id": "pos-criterion-metric-chain-ambiguous-acceptance-b-1",
+  "valid": false,
+  "errors": [
+    "Response is not one valid JSON value: Expecting value: line 3 column 1 (char 2)"
+  ],
+  "checked_at": "2026-11-09T14:30:55.395703+00:00"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "lab_id": "lab03",
+  "case_id": "criterion-metric-chain-rubric-absent",
+  "task": "State how many rubric categories the department's evaluation rubric defines.",
+  "supplied_source": "An evaluation rubric is a written set of categories, rules for assigning those categories, and examples that show the boundaries between them.",
+  "instruction": "Answer the task about the supplied source.\n\nReturn one JSON object with exactly two fields:\n\n- \"case_id\": the case identifier given in the task.\n- \"proposed_text\": your answer, written as one paragraph.\n",
+  "output_contract": {
+    "type": "object",
+    "fields": [
+      "case_id",
+      "proposed_text"
+    ],
+    "case_id_value": "criterion-metric-chain-rubric-absent"
+  }
+}

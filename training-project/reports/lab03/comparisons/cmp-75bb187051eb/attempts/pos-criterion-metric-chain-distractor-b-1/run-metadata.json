@@ -1,0 +1,9 @@
+{
+  "position_id": "pos-criterion-metric-chain-distractor-b-1",
+  "adapter": "openrouter",
+  "model_id": "openrouter/free",
+  "started_at": "2026-11-09T14:29:28.203476+00:00",
+  "finished_at": "2026-11-09T14:29:31.686823+00:00",
+  "recorded_by": "lepskyi-kn1223b",
+  "observed_model": "recursive/flint-v1.0:free"
+}

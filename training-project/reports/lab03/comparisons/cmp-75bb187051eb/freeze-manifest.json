@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "freeze_id": "cmp-75bb187051eb",
+  "comparison_dir": "D:\\projects\\ai-systems-design-course\\training-project\\reports\\lab03\\comparisons\\cmp-75bb187051eb",
+  "protocol": {
+    "engineering_decision": "Should Variant B replace Variant A as the instruction for the source-grounded concept-proposal operation on the openrouter/free route?",
+    "hypothesis": "Adding an explicit source-only rule that requires stating when the source does not specify the requested information will reduce unsupported claims (U) and increase grounded uncertainty (Q) on insufficient-evidence cases, without reducing meaning coverage (S) on sufficient-evidence cases.",
+    "semantic_acceptance": "For each configuration separately: numerator rubric_acceptable (assessments whose category equals the case's expected category, S or Q); denominator attempted (all 8 scheduled held-out attempts of that configuration, so failed, structurally invalid, and X responses count against it); threshold at least 6 of 8.",
+    "blocking_failures": "Any rubric category U on any held-out attempt of a configuration is a critical unsupported-claim failure that violates the blocking condition for that configuration, regardless of its other counts.",
+    "operational_acceptance": "Latency is measured from attempt start to returned response; each returned attempt must complete within 120 seconds. Unknown latency, usage, or cost values are recorded as unknown, never treated as zero, and cannot support a claim that one configuration is cheaper or faster.",
+    "tradeoff_rule": "Variant B may replace an acceptable Variant A only if B has no blocking failure, meets the semantic acceptance threshold, and its rubric_acceptable count is not lower than A's; no dominance is claimed on usage or cost because they are unknown on the free route.",
+    "decision_rule": {
+      "recommend-b": "B has no blocking failure, meets semantic and operational acceptance, and the tradeoff rule justifies replacing A.",
+      "retain-a": "A has no blocking failure and meets semantic acceptance, while B fails a condition or does not justify the change under the tradeoff rule.",
+      "reject-both": "Both A and B violate the blocking condition or both fail semantic acceptance.",
+      "seek-more-evidence": "Route failures, closed positions, X assessments, or unresolved uncertainty leave the comparison unable to support another outcome."
+    },
+    "attempt_budget": 16,
+    "timing_boundary": "Wall-clock interval from the start of each scheduled attempt to the returned response, measured identically for both configurations by the CLI.",
+    "route": {
+      "adapter": "openrouter",
+      "model_id": "openrouter/free"
+    },
+    "order_rule": "course-generated balanced schedule",
+    "resume_window": "48h"
+  },
+  "variant_a_sha256": "d765770175309f6014f3af33d845b730aa0d7323fccd57403e8146be4dc352ee",
+  "variant_b_sha256": "1568b42f424d9efd1ec58b7a28d689a80888941be4ae00696a6a0a834ee2f849",
+  "change_declaration": {
+    "changed_property": "source-only constraint with an explicit rule for information missing from the source",
+    "mechanism": "Variant A only asks to answer the task about the supplied source and gives no rule for information the source does not contain, so the model may infer unsupported claims such as an approval authority. Variant B adds one sentence that restricts the answer to the supplied source and requires stating explicitly that the source does not specify the requested information. This is expected to reduce unsupported claims (U) and produce grounded uncertainty (Q) on insufficient-evidence cases, with the risk of unnecessary refusals (R) or shorter incomplete answers (I) on sufficient-evidence cases.",
+    "declared_factors": [
+      "source-only constraint with an explicit rule for information missing from the source"
+    ]
+  },
+  "route": {
+    "adapter": "openrouter",
+    "model_id": "openrouter/free"
+  },
+  "resume_window": "48h",
+  "eligible_reserve_count_at_freeze": 3,
+  "bindings": {
+    "output_schema_sha256": "6d3a945b100cb8f5eca5bd07b04c65cc1f16b82ee4751042ef9d3e2ab86733b2",
+    "case_family_contract_sha256": "56e5d974aa8a9b3cec98acd89a040817be24ce9338191b9e9f1b56c48eebc503",
+    "validator_module_sha256": "5703a29f0eda1e31b003acb2e212ee915587f7afda3e584fd860a9161dc616df",
+    "validator_schema_version": "1.0",
+    "development_schedule_sha256": "42e9ec110b6b8d6fb19c4d19964a995ee56b4df5fc3c6f286f4a8088fc277016",
+    "change_declaration_sha256": "fa2dcf8fa28fb0ddc5982bd0df1bd3234ebc43e43a8c3a55e7dca2c78884c5bd",
+    "exposure_ledger_sha256": "a34c1a5a459235652961ed5654cf0e7cf17c2382f8d99cb17434a828ddc14a60"
+  },
+  "frozen_at": "2026-11-09T14:16:59.171098+00:00",
+  "frozen_by": "lepskyi-kn1223b"
+}

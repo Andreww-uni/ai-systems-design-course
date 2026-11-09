@@ -1,0 +1,6 @@
+```json
+{
+  "case_id": "criterion-metric-chain-ambiguous-acceptance",
+  "proposed_text": "The acceptance condition refers to the checked value being within the declared bound, but the note records two checked values for the same run and does not specify which one the bound applies to."
+}
+```

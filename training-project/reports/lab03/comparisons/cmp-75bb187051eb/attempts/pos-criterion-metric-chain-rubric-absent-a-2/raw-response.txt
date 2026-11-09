@@ -1,0 +1,4 @@
+{
+  "case_id": "criterion-metric-chain-rubric-absent",
+  "proposed_text": The supplied source does not state how many rubric categories the department's evaluation rubric defines; it only provides a general definition of an evaluation rubric as a written set of categories, rules for assigning them, and examples of boundaries, without referencing any specific department or giving a category count."
+}

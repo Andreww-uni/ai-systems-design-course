@@ -1,0 +1,4 @@
+changed_property: source-only constraint with an explicit rule for information missing from the source
+mechanism: "Variant A only asks to answer the task about the supplied source and gives no rule for information the source does not contain, so the model may infer unsupported claims such as an approval authority. Variant B adds one sentence that restricts the answer to the supplied source and requires stating explicitly that the source does not specify the requested information. This is expected to reduce unsupported claims (U) and produce grounded uncertainty (Q) on insufficient-evidence cases, with the risk of unnecessary refusals (R) or shorter incomplete answers (I) on sufficient-evidence cases."
+declared_factors:
+  - source-only constraint with an explicit rule for information missing from the source

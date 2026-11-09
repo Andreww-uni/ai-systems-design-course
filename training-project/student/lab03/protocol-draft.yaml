@@ -1,0 +1,16 @@
+engineering_decision: "Should Variant B replace Variant A as the instruction for the source-grounded concept-proposal operation on the openrouter/free route?"
+hypothesis: "Adding an explicit source-only rule that requires stating when the source does not specify the requested information will reduce unsupported claims (U) and increase grounded uncertainty (Q) on insufficient-evidence cases, without reducing meaning coverage (S) on sufficient-evidence cases."
+semantic_acceptance: "For each configuration separately: numerator rubric_acceptable (assessments whose category equals the case's expected category, S or Q); denominator attempted (all 8 scheduled held-out attempts of that configuration, so failed, structurally invalid, and X responses count against it); threshold at least 6 of 8."
+blocking_failures: "Any rubric category U on any held-out attempt of a configuration is a critical unsupported-claim failure that violates the blocking condition for that configuration, regardless of its other counts."
+operational_acceptance: "Latency is measured from attempt start to returned response; each returned attempt must complete within 120 seconds. Unknown latency, usage, or cost values are recorded as unknown, never treated as zero, and cannot support a claim that one configuration is cheaper or faster."
+tradeoff_rule: "Variant B may replace an acceptable Variant A only if B has no blocking failure, meets the semantic acceptance threshold, and its rubric_acceptable count is not lower than A's; no dominance is claimed on usage or cost because they are unknown on the free route."
+decision_rule:
+  recommend-b: "B has no blocking failure, meets semantic and operational acceptance, and the tradeoff rule justifies replacing A."
+  retain-a: "A has no blocking failure and meets semantic acceptance, while B fails a condition or does not justify the change under the tradeoff rule."
+  reject-both: "Both A and B violate the blocking condition or both fail semantic acceptance."
+  seek-more-evidence: "Route failures, closed positions, X assessments, or unresolved uncertainty leave the comparison unable to support another outcome."
+attempt_budget: 16
+timing_boundary: "Wall-clock interval from the start of each scheduled attempt to the returned response, measured identically for both configurations by the CLI."
+route:
+  adapter: openrouter
+  model_id: openrouter/free

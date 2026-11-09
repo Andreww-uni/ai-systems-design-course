@@ -1,0 +1,4 @@
+{
+  "case_id": "dev-approval-authority-absent",
+  "proposed_text": "The supplied source does not specify who is permitted to approve a proposal; it only states that the review record stores the reviewer's identity and decision."
+}

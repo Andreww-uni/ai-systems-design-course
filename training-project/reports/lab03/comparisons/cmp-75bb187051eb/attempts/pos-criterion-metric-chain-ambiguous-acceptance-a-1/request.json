@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "lab_id": "lab03",
+  "case_id": "criterion-metric-chain-ambiguous-acceptance",
+  "task": "State which measurement the acceptance condition of this note refers to.",
+  "supplied_source": "The acceptance condition passes when the checked value is within the declared bound. The note records two checked values for the same run and does not say which one the bound applies to.",
+  "instruction": "Answer the task about the supplied source.\n\nReturn one JSON object with exactly two fields:\n\n- \"case_id\": the case identifier given in the task.\n- \"proposed_text\": your answer, written as one paragraph.\n",
+  "output_contract": {
+    "type": "object",
+    "fields": [
+      "case_id",
+      "proposed_text"
+    ],
+    "case_id_value": "criterion-metric-chain-ambiguous-acceptance"
+  }
+}

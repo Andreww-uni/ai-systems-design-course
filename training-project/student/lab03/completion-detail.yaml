@@ -1,0 +1,5 @@
+stopped_at_step: "Step 10"
+limitation: "none; student-authored evidence is ready for commit-first verification"
+preserved_evidence: |
+  reports/lab03/
+  student/lab03/

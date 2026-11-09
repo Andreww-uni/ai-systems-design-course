@@ -1,0 +1,9 @@
+{
+  "position_id": "pos-criterion-metric-chain-ambiguous-acceptance-a-2",
+  "adapter": "openrouter",
+  "model_id": "openrouter/free",
+  "started_at": "2026-11-09T14:31:08.668050+00:00",
+  "finished_at": "2026-11-09T14:31:16.020542+00:00",
+  "recorded_by": "lepskyi-kn1223b",
+  "observed_model": "liquid/lfm-2.5-2.6b:free"
+}

@@ -1,0 +1,4 @@
+{
+  "case_id": "criterion-metric-chain-distractor",
+  "proposed_text": "A criterion states the quality property the system must satisfy, and a metric is a defined measurement whose values are compared against that criterion to judge whether the property holds."
+}

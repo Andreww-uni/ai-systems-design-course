@@ -1,0 +1,9 @@
+schema_version: '1.0'
+blind_id: blind-006
+category: S
+source_pointer: A metric is a defined measurement whose values can be compared against the criterion to
+  judge whether that property holds.
+rationale: Restates the relation verbatim from the relevant source sentences and ignores the unrelated
+  deployment note.
+assessed_by: lepskyi-kn1223b
+recorded_at: '2026-11-09T14:34:51.452174+00:00'

@@ -1,0 +1,3 @@
+
+
+{"case_id":"criterion-metric-chain-distractor","proposed_text":"A criterion defines the quality property a system must satisfy, while a metric is a measurement whose values are compared against that criterion to determine whether the property holds."}

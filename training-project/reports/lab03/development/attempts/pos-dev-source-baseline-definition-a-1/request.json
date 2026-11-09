@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "lab_id": "lab03",
+  "case_id": "dev-source-baseline-definition",
+  "task": "Define what a source baseline identifies.",
+  "supplied_source": "A source baseline identifies the material against which a proposal is reviewed.",
+  "instruction": "Answer the task about the supplied source.\n\nReturn one JSON object with exactly two fields:\n\n- \"case_id\": the case identifier given in the task.\n- \"proposed_text\": your answer, written as one paragraph.\n",
+  "output_contract": {
+    "type": "object",
+    "fields": [
+      "case_id",
+      "proposed_text"
+    ],
+    "case_id_value": "dev-source-baseline-definition"
+  }
+}

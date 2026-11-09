@@ -1,0 +1,6 @@
+Answer the task about the supplied source.
+
+Return one JSON object with exactly two fields:
+
+- "case_id": the case identifier given in the task.
+- "proposed_text": your answer, written as one paragraph.

@@ -1,0 +1,9 @@
+{
+  "position_id": "pos-dev-source-baseline-definition-b-1",
+  "adapter": "openrouter",
+  "model_id": "openrouter/free",
+  "started_at": "2026-11-09T14:09:02.377682+00:00",
+  "finished_at": "2026-11-09T14:09:08.422899+00:00",
+  "recorded_by": "lepskyi-kn1223b",
+  "observed_model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
+}

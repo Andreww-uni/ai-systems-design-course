@@ -1,0 +1,44 @@
+schema_version: '1.0'
+comparison_id: cmp-75bb187051eb
+outcome: recommend-b
+rationale: 'Frozen protocol applied: neither configuration has a critical U (0 and 0), so no blocking
+  condition is violated. Semantic acceptance requires rubric_acceptable/attempted of at least 6/8: A reaches
+  5/8 and fails, B reaches 6/8 and passes. All returned attempts were within the 120-second timing boundary.
+  Under the tradeoff rule B has no blocking failure, meets the threshold, and its rubric_acceptable count
+  (6) is not lower than A''s (5), so the decision rule selects recommend-b. B gained on the missing-fact
+  slice (2 Q versus 0 for A, whose responses there were not valid JSON) but scored 0/2 on the ambiguous
+  slice because both responses were not valid JSON.'
+limitations:
+- 'small designed set: 4 held-out cases x 2 attempts per configuration, decided by a one-response margin'
+- 'uncontrolled model variation: openrouter/free resolved attempts to 7 different free models, so differences
+  may come from the model rather than the instruction'
+- structural failures were concentrated in one model per slice (nemotron-3.5-super-vl for A missing-fact,
+  dots-3-note-preview for B ambiguous)
+- token usage, quota usage and cost are unknown, so no cost dominance is claimed
+- single human evaluator, evaluator variability not measured
+blocking_failures: Any rubric category U on any held-out attempt of a configuration is a critical unsupported-claim
+  failure that violates the blocking condition for that configuration, regardless of its other counts.
+decision_rule:
+  recommend-b: B has no blocking failure, meets semantic and operational acceptance, and the tradeoff
+    rule justifies replacing A.
+  retain-a: A has no blocking failure and meets semantic acceptance, while B fails a condition or does
+    not justify the change under the tradeoff rule.
+  reject-both: Both A and B violate the blocking condition or both fail semantic acceptance.
+  seek-more-evidence: Route failures, closed positions, X assessments, or unresolved uncertainty leave
+    the comparison unable to support another outcome.
+nested_counts:
+  a:
+    attempted: 8
+    returned: 8
+    structurally_valid: 5
+    assessable: 5
+    rubric_acceptable: 5
+  b:
+    attempted: 8
+    returned: 8
+    structurally_valid: 6
+    assessable: 6
+    rubric_acceptable: 6
+protocol_freeze_id: cmp-75bb187051eb
+recorded_by: lepskyi-kn1223b
+recorded_at: '2026-11-09T14:36:19.753400+00:00'

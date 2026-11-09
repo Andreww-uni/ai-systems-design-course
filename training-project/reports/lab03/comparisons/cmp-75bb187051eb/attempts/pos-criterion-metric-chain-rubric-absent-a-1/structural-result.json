@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "position_id": "pos-criterion-metric-chain-rubric-absent-a-1",
+  "valid": false,
+  "errors": [
+    "Response is not one valid JSON value: Expecting value: line 3 column 20 (char 74)"
+  ],
+  "checked_at": "2026-11-09T14:30:07.082769+00:00"
+}
