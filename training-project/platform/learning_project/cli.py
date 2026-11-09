@@ -675,6 +675,18 @@ def _build_parser() -> argparse.ArgumentParser:
     verify_graph = lab06_commands.add_parser("verify-graph")
     verify_graph.add_argument("--collection", type=Path, required=True)
     verify_graph.add_argument("--graph", type=Path, required=True)
+    query_paths = lab06_commands.add_parser("query-paths")
+    query_paths.add_argument("--collection", type=Path, required=True)
+    query_paths.add_argument("--graph", type=Path, required=True)
+    query_paths.add_argument("--start", required=True)
+    query_paths.add_argument("--max-edges", type=int, choices=(1, 2), required=True)
+    query_paths.add_argument("--output", type=Path, required=True)
+    direct_edge = lab06_commands.add_parser("inspect-direct-edge")
+    direct_edge.add_argument("--collection", type=Path, required=True)
+    direct_edge.add_argument("--graph", type=Path, required=True)
+    direct_edge.add_argument("--start", required=True)
+    direct_edge.add_argument("--target", required=True)
+    direct_edge.add_argument("--output", type=Path, required=True)
 
     return parser
 
@@ -1437,6 +1449,16 @@ def _run_lab06(args: argparse.Namespace) -> int:
     if args.lab06_command == "verify-graph":
         result = lab06.verify_graph(collection=args.collection, graph_path=args.graph)
         print(f"Graph verification passed for {result['nodes']} nodes and {result['edges']} edges; source support remains a human judgment.")
+        return 0
+    if args.lab06_command == "query-paths":
+        path = lab06.query_paths(collection=args.collection, graph_path=args.graph, start=args.start,
+                                 max_edges=args.max_edges, output=args.output)
+        print(f"Wrote bounded graph paths at {path}; graph and collection unchanged.")
+        return 0
+    if args.lab06_command == "inspect-direct-edge":
+        path = lab06.inspect_direct_edge(collection=args.collection, graph_path=args.graph, start=args.start,
+                                         target=args.target, output=args.output)
+        print(f"Wrote complete outgoing-edge inspection at {path}; no domain-level absence inferred.")
         return 0
     raise WorkflowError(f"Unknown Laboratory 06 command: {args.lab06_command}")
 

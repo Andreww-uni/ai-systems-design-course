@@ -124,6 +124,59 @@ def verify_graph(*, collection: Path, graph_path: Path) -> dict:
     return {"nodes": len(expected["nodes"]), "edges": len(expected["edges"])}
 
 
+def _query_graph(collection: Path, graph_path: Path) -> dict:
+    graph = _read(graph_path)
+    if graph != _compiled(collection):
+        raise WorkflowError("Compiled graph differs from the accepted collection.")
+    return graph
+
+
+def _bounded_paths(graph: dict, start: str, max_edges: int) -> list[dict]:
+    if type(max_edges) is not int or max_edges not in (1, 2):
+        raise WorkflowError("Maximum path length must be one or two edges for the teaching route.")
+    paths = []
+
+    def visit(ids: list[str], edges: list[dict]) -> None:
+        # At the limit, do not inspect the frontier's possible continuation.
+        eligible = None if len(edges) == max_edges else [
+            e for e in graph["edges"] if e["from"] == ids[-1] and e["type"] == "requires" and e["to"] not in ids]
+        if edges:
+            paths.append({"concept_ids": ids,
+                          "relation_record_ids": [e["relation_record_id"] for e in edges],
+                          "support_fragment_ids": [e["support_fragment_ids"] for e in edges],
+                          "qualifications": [e["qualification"] for e in edges],
+                          "extension_status": "depth limit: continuation not inspected" if eligible is None
+                                              else "extended" if eligible else "no eligible outgoing requires edge"})
+        for edge in eligible or []:
+            visit([*ids, edge["to"]], [*edges, edge])
+
+    visit([start], [])
+    return sorted(paths, key=lambda p: (len(p["relation_record_ids"]), p["concept_ids"], p["relation_record_ids"]))
+
+
+def query_paths(*, collection: Path, graph_path: Path, start: str, max_edges: int, output: Path) -> Path:
+    graph = _query_graph(collection, graph_path)
+    paths = _bounded_paths(graph, start, max_edges)
+    return _write(output, {"collection_version": graph["collection_version"],
+                  "request": {"start": start, "relation_type": "requires", "direction": "outgoing",
+                              "max_edges": max_edges, "cycle_policy": "no repeated node within a path"},
+                  "start_status": "present" if any(n["id"] == start for n in graph["nodes"]) else "absent",
+                  "paths": paths})
+
+
+def inspect_direct_edge(*, collection: Path, graph_path: Path, start: str, target: str, output: Path) -> Path:
+    graph = _query_graph(collection, graph_path)
+    nodes = {n["id"] for n in graph["nodes"]}
+    outgoing = sorted([e for e in graph["edges"] if e["from"] == start and e["type"] == "requires"],
+                      key=lambda e: (e["to"], e["relation_record_id"]))
+    matches = [e for e in outgoing if e["to"] == target]
+    return _write(output, {"collection_version": graph["collection_version"],
+                  "request": {"start": start, "target": target, "relation_type": "requires", "direction": "outgoing"},
+                  "start_status": "present" if start in nodes else "absent",
+                  "target_status": "present" if target in nodes else "absent",
+                  "outgoing_edges": outgoing, "matching_edges": matches, "direct_edge_present": bool(matches)})
+
+
 def prepare_graph_review(*, output: Path) -> Path:
     source = _read(DEFAULT_INPUT)
     return _write(output, {
