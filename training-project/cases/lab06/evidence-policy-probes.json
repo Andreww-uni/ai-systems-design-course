@@ -1,0 +1,18 @@
+{
+  "schema_version": "lab06-evidence-v1",
+  "input_kind": "Course-owned policy probes only; not evaluation cases or additional live generation positions.",
+  "collection_version": "lab06-teaching-v1",
+  "context_budget_characters": 250,
+  "inputs": [
+    {
+      "input_id": "duplicate-only",
+      "target_label": "Embedding-based retrieval",
+      "original_fragment_ids": ["F-1", "F-2"]
+    },
+    {
+      "input_id": "unresolved-target",
+      "target_label": "Embedding-based retrieval",
+      "original_fragment_ids": ["F-2"]
+    }
+  ]
+}

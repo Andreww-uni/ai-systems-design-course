@@ -688,6 +688,18 @@ def _build_parser() -> argparse.ArgumentParser:
     direct_edge.add_argument("--target", required=True)
     direct_edge.add_argument("--output", type=Path, required=True)
 
+    prepare_evidence = lab06_commands.add_parser("prepare-evidence")
+    prepare_evidence.add_argument("--collection", type=Path, required=True)
+    prepare_evidence.add_argument("--graph", type=Path, required=True)
+    prepare_evidence.add_argument("--fixture", type=Path, default=Path(__file__).resolve().parents[2] / "cases" / "lab06" / "evidence-preparation.json")
+    prepare_evidence.add_argument("--output", type=Path, required=True)
+
+    verify_evidence = lab06_commands.add_parser("verify-evidence")
+    verify_evidence.add_argument("--collection", type=Path, required=True)
+    verify_evidence.add_argument("--graph", type=Path, required=True)
+    verify_evidence.add_argument("--fixture", type=Path, default=Path(__file__).resolve().parents[2] / "cases" / "lab06" / "evidence-preparation.json")
+    verify_evidence.add_argument("--evidence", type=Path, required=True)
+
     return parser
 
 
@@ -1459,6 +1471,16 @@ def _run_lab06(args: argparse.Namespace) -> int:
         path = lab06.inspect_direct_edge(collection=args.collection, graph_path=args.graph, start=args.start,
                                          target=args.target, output=args.output)
         print(f"Wrote complete outgoing-edge inspection at {path}; no domain-level absence inferred.")
+        return 0
+    if args.lab06_command == "prepare-evidence":
+        path = lab06.prepare_evidence(collection=args.collection, graph_path=args.graph,
+                                      fixture_path=args.fixture, output=args.output)
+        print(f"Wrote paired evidence preparation at {path}; no model call or accepted-state write.")
+        return 0
+    if args.lab06_command == "verify-evidence":
+        result = lab06.verify_evidence(collection=args.collection, graph_path=args.graph,
+                                       fixture_path=args.fixture, evidence_path=args.evidence)
+        print(f"Evidence preparation verification passed for {result['inputs']} teaching inputs and {result['requests']} requests; no model output or support judgment verified.")
         return 0
     raise WorkflowError(f"Unknown Laboratory 06 command: {args.lab06_command}")
 
