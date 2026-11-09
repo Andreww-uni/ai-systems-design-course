@@ -78,6 +78,32 @@ class PrepareReportCommandTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_generated_submission_reports_are_ignored_for_current_and_future_labs(self) -> None:
+        project_root = Path(__file__).resolve().parents[2]
+        subprocess.run(["git", "init", "-q", str(self.root)], check=True)
+        shutil.copyfile(project_root / ".gitignore", self.root / ".gitignore")
+        for lab in ("lab04", "lab05", "lab06", "lab99"):
+            with self.subTest(lab=lab):
+                result = subprocess.run(
+                    ["git", "-C", str(self.root), "check-ignore", f"reports/{lab}/submission/REPORT.md"],
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_source_reports_and_evidence_are_not_ignored_by_submission_rule(self) -> None:
+        project_root = Path(__file__).resolve().parents[2]
+        subprocess.run(["git", "init", "-q", str(self.root)], check=True)
+        shutil.copyfile(project_root / ".gitignore", self.root / ".gitignore")
+        for path in ("reports/lab05/REPORT.md", "reports/lab05/screenshots/01-query-rewriting.png", "reports/lab05/evaluation/judgment.json"):
+            with self.subTest(path=path):
+                result = subprocess.run(
+                    ["git", "-C", str(self.root), "check-ignore", path],
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(result.returncode, 1, result.stderr)
+
     def test_prepare_report_leaves_data_uris_and_http_links_unchanged(self) -> None:
         self.report_path.write_text(
             "![already](data:image/png;base64,AAAA)\n"
