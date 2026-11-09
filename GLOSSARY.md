@@ -51,6 +51,8 @@
 | Claim citation | Цитування твердження |
 | Clone | Клон |
 | Commit | Коміт |
+| Concept mention | Згадка поняття |
+| Concept record | Запис поняття |
 | Confidence interval | Довірчий інтервал |
 | Confidence level | Рівень довіри |
 | Configuration comparison | Порівняння конфігурацій |
@@ -76,6 +78,9 @@
 | Embedding space | Простір ембедингів |
 | Embedding-based retrieval | Пошук на основі ембедингів |
 | Embeddings | Ембединги |
+| Entity | Сутність |
+| Entity resolution | Entity resolution |
+| Entry-node lookup | Пошук вхідного вузла |
 | Evaluation case | Випадок для оцінювання |
 | Evaluation case for the retrieval operation | Випадок для оцінювання операції інформаційного пошуку |
 | Evaluation set | Набір даних для оцінювання |
@@ -95,11 +100,16 @@
 | Front matter | YAML-передмова |
 | Functional check | Функціональна перевірка |
 | Gate | Шлюз |
+| Generated prerequisite explanation | Згенероване пояснення передумов |
 | Generation variability | Мінливість генерування |
 | Governance | Врядування |
 | Governed change workflow | Керований процес внесення змін |
+| Graph expansion | Розширення вибірки вузлів графа |
+| Graph path | Шлях у графі |
 | Graph query | Запит до графа |
+| Graph schema | Схема графа |
 | Graph traversal | Обхід графа |
+| GraphRAG | GraphRAG |
 | Greedy decoding | Жадібне декодування |
 | Guardrails | Захисні бар’єри |
 | Held-out case | Відкладений випадок |
@@ -114,7 +124,10 @@
 | Inference | Виведення |
 | Information need | Інформаційна потреба |
 | Iterative AI-system lifecycle | Ітеративний життєвий цикл системи ШІ |
+| Knowledge extraction | Видобування знань |
+| Knowledge graph | Граф знань |
 | Knowledge owner | Власник знань |
+| Labeled property graph | Граф властивостей із мітками |
 | Latency | Затримка |
 | Learning knowledge system | Навчальна система знань |
 | Lexical retrieval | Лексичний пошук |
@@ -129,6 +142,7 @@
 | Model gateway | Шлюз доступу до моделей |
 | Model under consideration | Модель, яку розглядають |
 | Model-backed concept-proposal operation | Операція пропозиції поняття з використанням моделі |
+| Model-backed prerequisite-explanation operation | Операція пояснення передумов із використанням моделі |
 | Modular monolith | Модульний моноліт |
 | Mutation authority | Повноваження змінювати стан |
 | Next-token generation | Генерування наступного токена |
@@ -137,6 +151,7 @@
 | Observation boundary | Межа спостереження |
 | Offline comparison | Офлайн-порівняння |
 | Offline fixture | Детермінована тестова фікстура |
+| Ontology | Онтологія |
 | Open-weight model | Модель з відкритими вагами |
 | Operational evidence | Операційні свідчення |
 | Operator | Оператор |
@@ -223,6 +238,7 @@
 | Syntactic gate | Синтаксичний шлюз |
 | System boundary | Межа системи |
 | Task instruction | Інструкція завдання |
+| Taxonomy | Таксономія |
 | Telemetry | Телеметрія |
 | Tenant | Орендар |
 | Text query | Текстовий запит |
@@ -233,6 +249,7 @@
 | Trade-off | Компроміс |
 | Trade-off analysis | Аналіз компромісів |
 | Transcript | Транскрипт |
+| Typed relation | Типізоване відношення |
 | Unsolvable rewrite | Нерозв’язне переписування запиту |
 | Unsupported generation | Непідкріплене генерування |
 | Use case | Сценарій використання |

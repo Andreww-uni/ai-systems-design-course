@@ -662,6 +662,44 @@ def _build_parser() -> argparse.ArgumentParser:
     lab05_verify.add_argument("--report-dir", type=Path, required=True)
     lab05_verify.add_argument("--final-commit", required=True)
 
+    lab06 = commands.add_parser("lab06", help="Prepare a reviewed prerequisite graph.")
+    lab06_commands = lab06.add_subparsers(dest="lab06_command", required=True)
+    prepare_graph_review = lab06_commands.add_parser("prepare-graph-review")
+    prepare_graph_review.add_argument("--output", type=Path, required=True)
+    apply_graph_review = lab06_commands.add_parser("apply-graph-review")
+    apply_graph_review.add_argument("--review", type=Path, required=True)
+    apply_graph_review.add_argument("--collection", type=Path, required=True)
+    compile_graph = lab06_commands.add_parser("compile-graph")
+    compile_graph.add_argument("--collection", type=Path, required=True)
+    compile_graph.add_argument("--output", type=Path, required=True)
+    verify_graph = lab06_commands.add_parser("verify-graph")
+    verify_graph.add_argument("--collection", type=Path, required=True)
+    verify_graph.add_argument("--graph", type=Path, required=True)
+    query_paths = lab06_commands.add_parser("query-paths")
+    query_paths.add_argument("--collection", type=Path, required=True)
+    query_paths.add_argument("--graph", type=Path, required=True)
+    query_paths.add_argument("--start", required=True)
+    query_paths.add_argument("--max-edges", type=int, choices=(1, 2), required=True)
+    query_paths.add_argument("--output", type=Path, required=True)
+    direct_edge = lab06_commands.add_parser("inspect-direct-edge")
+    direct_edge.add_argument("--collection", type=Path, required=True)
+    direct_edge.add_argument("--graph", type=Path, required=True)
+    direct_edge.add_argument("--start", required=True)
+    direct_edge.add_argument("--target", required=True)
+    direct_edge.add_argument("--output", type=Path, required=True)
+
+    prepare_evidence = lab06_commands.add_parser("prepare-evidence")
+    prepare_evidence.add_argument("--collection", type=Path, required=True)
+    prepare_evidence.add_argument("--graph", type=Path, required=True)
+    prepare_evidence.add_argument("--fixture", type=Path, default=Path(__file__).resolve().parents[2] / "cases" / "lab06" / "evidence-preparation.json")
+    prepare_evidence.add_argument("--output", type=Path, required=True)
+
+    verify_evidence = lab06_commands.add_parser("verify-evidence")
+    verify_evidence.add_argument("--collection", type=Path, required=True)
+    verify_evidence.add_argument("--graph", type=Path, required=True)
+    verify_evidence.add_argument("--fixture", type=Path, default=Path(__file__).resolve().parents[2] / "cases" / "lab06" / "evidence-preparation.json")
+    verify_evidence.add_argument("--evidence", type=Path, required=True)
+
     return parser
 
 
@@ -1405,6 +1443,48 @@ def _run_lab05(args: argparse.Namespace) -> int:
     raise WorkflowError(f"Unknown Laboratory 05 command: {command}")
 
 
+def _run_lab06(args: argparse.Namespace) -> int:
+    from . import lab06
+
+    if args.lab06_command == "prepare-graph-review":
+        path = lab06.prepare_graph_review(output=args.output)
+        print(f"Prepared graph review at {path}.")
+        return 0
+    if args.lab06_command == "apply-graph-review":
+        path = lab06.apply_graph_review(review_path=args.review, collection=args.collection)
+        print(f"Stored accepted graph records at {path}.")
+        return 0
+    if args.lab06_command == "compile-graph":
+        path = lab06.compile_graph(collection=args.collection, output=args.output)
+        print(f"Compiled prerequisite graph at {path}.")
+        return 0
+    if args.lab06_command == "verify-graph":
+        result = lab06.verify_graph(collection=args.collection, graph_path=args.graph)
+        print(f"Graph verification passed for {result['nodes']} nodes and {result['edges']} edges; source support remains a human judgment.")
+        return 0
+    if args.lab06_command == "query-paths":
+        path = lab06.query_paths(collection=args.collection, graph_path=args.graph, start=args.start,
+                                 max_edges=args.max_edges, output=args.output)
+        print(f"Wrote bounded graph paths at {path}; graph and collection unchanged.")
+        return 0
+    if args.lab06_command == "inspect-direct-edge":
+        path = lab06.inspect_direct_edge(collection=args.collection, graph_path=args.graph, start=args.start,
+                                         target=args.target, output=args.output)
+        print(f"Wrote complete outgoing-edge inspection at {path}; no domain-level absence inferred.")
+        return 0
+    if args.lab06_command == "prepare-evidence":
+        path = lab06.prepare_evidence(collection=args.collection, graph_path=args.graph,
+                                      fixture_path=args.fixture, output=args.output)
+        print(f"Wrote paired evidence preparation at {path}; no model call or accepted-state write.")
+        return 0
+    if args.lab06_command == "verify-evidence":
+        result = lab06.verify_evidence(collection=args.collection, graph_path=args.graph,
+                                       fixture_path=args.fixture, evidence_path=args.evidence)
+        print(f"Evidence preparation verification passed for {result['inputs']} teaching inputs and {result['requests']} requests; no model output or support judgment verified.")
+        return 0
+    raise WorkflowError(f"Unknown Laboratory 06 command: {args.lab06_command}")
+
+
 def main(argv: list[str] | None = None) -> int:
     args = _build_parser().parse_args(argv)
     handlers = {
@@ -1417,6 +1497,7 @@ def main(argv: list[str] | None = None) -> int:
         "lab03": _run_lab03,
         "lab04": _run_lab04,
         "lab05": _run_lab05,
+        "lab06": _run_lab06,
     }
     try:
         return handlers[args.command](args)

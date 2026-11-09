@@ -6,9 +6,8 @@ __pycache__/
 .ruff_cache/
 dist/
 *.egg-info/
-/reports/lab01/submission/REPORT.md
-/reports/lab02/submission/REPORT.md
+/reports/lab[0-9][0-9]/submission/REPORT.md
 /reports/lab03/verification-report.json
 /reports/lab03/screenshots/07-final-verification.png
-/reports/lab03/submission/REPORT.md
+
 models/

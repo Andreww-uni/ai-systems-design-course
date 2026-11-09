@@ -1,0 +1,162 @@
+{
+  "kind": "Observed model extraction; unaccepted proposals, not a source-support verdict.",
+  "prompt": "Do not call tools, commands, skills, plugins, or external resources. Your entire answer must start with { and end with }. Emit exactly one JSON object, without Markdown code fences, preamble, reasoning or repetition. Match the enforced schema from the supplied input only. All connections remain unaccepted proposals.\n\n{\"task\": \"Extract only explicitly stated learning-prerequisite connections. Preserve teaching-route qualification and direction from dependent concept to prerequisite concept. Use the provided accepted concept identifiers. Do not infer transitive relations. Record ambiguous source wording as unresolved.\", \"concepts\": [{\"id\": \"C-RET\", \"primary_label\": \"Embedding-based retrieval\", \"description\": \"Ranks candidates using a query embedding.\", \"type\": \"Concept\"}, {\"id\": \"C-QUERY\", \"primary_label\": \"Query embedding\", \"description\": \"Vector representation produced from a text query by the declared embedding model.\", \"type\": \"Concept\"}, {\"id\": \"C-MODEL\", \"primary_label\": \"Embedding model\", \"description\": \"Model producing vector representations of text inputs.\", \"type\": \"Concept\"}], \"fragments\": [{\"id\": \"F-1\", \"text\": \"In this teaching route, understanding embedding-based retrieval requires understanding a query embedding.\", \"provenance\": {\"source_id\": \"S-TEACH\", \"version\": \"v1\", \"location\": \"sentence 1\"}}, {\"id\": \"F-2\", \"text\": \"In this teaching route, understanding a query embedding requires understanding the embedding model that produces the query embedding.\", \"provenance\": {\"source_id\": \"S-TEACH\", \"version\": \"v1\", \"location\": \"sentence 2\"}}, {\"id\": \"F-3\", \"text\": \"The embedding is needed before the next exercise.\", \"provenance\": {\"source_id\": \"S-AMBIG\", \"version\": \"v1\", \"location\": \"sentence 1\"}}]}\nOutput schema: {\"type\": \"object\", \"properties\": {\"relations\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"dependent_concept_id\": {\"type\": \"string\"}, \"prerequisite_concept_id\": {\"type\": \"string\"}, \"support_fragment_id\": {\"type\": \"string\"}, \"qualification\": {\"type\": \"string\"}}, \"required\": [\"dependent_concept_id\", \"prerequisite_concept_id\", \"support_fragment_id\", \"qualification\"], \"additionalProperties\": false}}, \"unresolved\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"fragment_id\": {\"type\": \"string\"}, \"wording\": {\"type\": \"string\"}, \"reason\": {\"type\": \"string\"}}, \"required\": [\"fragment_id\", \"wording\", \"reason\"], \"additionalProperties\": false}}}, \"required\": [\"relations\", \"unresolved\"], \"additionalProperties\": false}",
+  "request": {
+    "task": "Extract only explicitly stated learning-prerequisite connections. Preserve teaching-route qualification and direction from dependent concept to prerequisite concept. Use the provided accepted concept identifiers. Do not infer transitive relations. Record ambiguous source wording as unresolved.",
+    "concepts": [
+      {
+        "id": "C-RET",
+        "primary_label": "Embedding-based retrieval",
+        "description": "Ranks candidates using a query embedding.",
+        "type": "Concept"
+      },
+      {
+        "id": "C-QUERY",
+        "primary_label": "Query embedding",
+        "description": "Vector representation produced from a text query by the declared embedding model.",
+        "type": "Concept"
+      },
+      {
+        "id": "C-MODEL",
+        "primary_label": "Embedding model",
+        "description": "Model producing vector representations of text inputs.",
+        "type": "Concept"
+      }
+    ],
+    "fragments": [
+      {
+        "id": "F-1",
+        "text": "In this teaching route, understanding embedding-based retrieval requires understanding a query embedding.",
+        "provenance": {
+          "source_id": "S-TEACH",
+          "version": "v1",
+          "location": "sentence 1"
+        }
+      },
+      {
+        "id": "F-2",
+        "text": "In this teaching route, understanding a query embedding requires understanding the embedding model that produces the query embedding.",
+        "provenance": {
+          "source_id": "S-TEACH",
+          "version": "v1",
+          "location": "sentence 2"
+        }
+      },
+      {
+        "id": "F-3",
+        "text": "The embedding is needed before the next exercise.",
+        "provenance": {
+          "source_id": "S-AMBIG",
+          "version": "v1",
+          "location": "sentence 1"
+        }
+      }
+    ]
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "relations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "dependent_concept_id": {
+              "type": "string"
+            },
+            "prerequisite_concept_id": {
+              "type": "string"
+            },
+            "support_fragment_id": {
+              "type": "string"
+            },
+            "qualification": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "dependent_concept_id",
+            "prerequisite_concept_id",
+            "support_fragment_id",
+            "qualification"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "unresolved": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "fragment_id": {
+              "type": "string"
+            },
+            "wording": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "fragment_id",
+            "wording",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "relations",
+      "unresolved"
+    ],
+    "additionalProperties": false
+  },
+  "raw_response": "{\"relations\": [{\"dependent_concept_id\": \"C-RET\", \"prerequisite_concept_id\": \"C-QUERY\", \"support_fragment_id\": \"F-1\", \"qualification\": \"In this teaching route\"}, {\"dependent_concept_id\": \"C-QUERY\", \"prerequisite_concept_id\": \"C-MODEL\", \"support_fragment_id\": \"F-2\", \"qualification\": \"In this teaching route\"}], \"unresolved\": [{\"fragment_id\": \"F-3\", \"wording\": \"The embedding is needed before the next exercise.\", \"reason\": \"Ambiguous reference to 'embedding' and unmapped target 'the next exercise'\"}]}\n",
+  "outcome": {
+    "relations": [
+      {
+        "dependent_concept_id": "C-RET",
+        "prerequisite_concept_id": "C-QUERY",
+        "support_fragment_id": "F-1",
+        "qualification": "In this teaching route"
+      },
+      {
+        "dependent_concept_id": "C-QUERY",
+        "prerequisite_concept_id": "C-MODEL",
+        "support_fragment_id": "F-2",
+        "qualification": "In this teaching route"
+      }
+    ],
+    "unresolved": [
+      {
+        "fragment_id": "F-3",
+        "wording": "The embedding is needed before the next exercise.",
+        "reason": "Ambiguous reference to 'embedding' and unmapped target 'the next exercise'"
+      }
+    ]
+  },
+  "run_metadata": {
+    "adapter": "agy",
+    "model_id": "gemini-3.8-flash-low",
+    "returncode": 0,
+    "elapsed_seconds": 4.604010693999953,
+    "purpose": "Course fixture acquisition, not independent review; existing authenticated course adapter."
+  },
+  "provider_envelope": {
+    "conversation_id": "76cfbbae-69d6-4645-87a8-87ac233f2b4c",
+    "status": "SUCCESS",
+    "response": "{\"relations\": [{\"dependent_concept_id\": \"C-RET\", \"prerequisite_concept_id\": \"C-QUERY\", \"support_fragment_id\": \"F-1\", \"qualification\": \"In this teaching route\"}, {\"dependent_concept_id\": \"C-QUERY\", \"prerequisite_concept_id\": \"C-MODEL\", \"support_fragment_id\": \"F-2\", \"qualification\": \"In this teaching route\"}], \"unresolved\": [{\"fragment_id\": \"F-3\", \"wording\": \"The embedding is needed before the next exercise.\", \"reason\": \"Ambiguous reference to 'embedding' and unmapped target 'the next exercise'\"}]}\n",
+    "duration_seconds": 2.735035356,
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 10373,
+      "output_tokens": 145,
+      "thinking_tokens": 0,
+      "cache_read_tokens": 0,
+      "total_tokens": 10518
+    }
+  },
+  "adapter_profile": "Schema supplied in prompt; no --json-schema flag; sandbox enabled. Single-object response parsed with json.loads, never choose one from duplicates."
+}

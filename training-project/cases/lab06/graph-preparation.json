@@ -1,0 +1,157 @@
+{
+  "schema_version": "lab06-preparation-v1",
+  "input_kind": "Fixed replay of observed extraction (extraction-observation.json): P-1/P-2 preserve the returned endpoint identities, direction, support and qualification. Course-authored mention locations and occurrence-to-record match proposals make source review inspectable. P-3 is an injected reversed claim; P-4 is an injected unresolved-endpoint connection. Neither negative probe is model output. Students review the captured proposals without another model call.",
+  "collection_version": "lab06-teaching-v1",
+  "graph_schema": {
+    "node_type": "Concept",
+    "relation_type": "requires",
+    "direction": "dependent concept to prerequisite concept",
+    "qualification": "In this teaching route",
+    "support": "at least one resolvable source fragment with provenance"
+  },
+  "concepts": [
+    {
+      "id": "C-RET",
+      "primary_label": "Embedding-based retrieval",
+      "description": "Ranks candidates using a query embedding.",
+      "type": "Concept"
+    },
+    {
+      "id": "C-QUERY",
+      "primary_label": "Query embedding",
+      "description": "Vector representation produced from a text query by the declared embedding model.",
+      "type": "Concept"
+    },
+    {
+      "id": "C-MODEL",
+      "primary_label": "Embedding model",
+      "description": "Model producing vector representations of text inputs.",
+      "type": "Concept"
+    }
+  ],
+  "fragments": [
+    {
+      "id": "F-1",
+      "text": "In this teaching route, understanding embedding-based retrieval requires understanding a query embedding.",
+      "provenance": {
+        "source_id": "S-TEACH",
+        "version": "v1",
+        "location": "sentence 1"
+      }
+    },
+    {
+      "id": "F-2",
+      "text": "In this teaching route, understanding a query embedding requires understanding the embedding model that produces the query embedding.",
+      "provenance": {
+        "source_id": "S-TEACH",
+        "version": "v1",
+        "location": "sentence 2"
+      }
+    },
+    {
+      "id": "F-3",
+      "text": "The embedding is needed before the next exercise.",
+      "provenance": {
+        "source_id": "S-AMBIG",
+        "version": "v1",
+        "location": "sentence 1"
+      }
+    }
+  ],
+  "mentions": [
+    {
+      "id": "M-1",
+      "fragment_id": "F-1",
+      "start": 38,
+      "end": 63,
+      "text": "embedding-based retrieval",
+      "proposed_concept_id": "C-RET"
+    },
+    {
+      "id": "M-2",
+      "fragment_id": "F-1",
+      "start": 89,
+      "end": 104,
+      "text": "query embedding",
+      "proposed_concept_id": "C-QUERY"
+    },
+    {
+      "id": "M-3",
+      "fragment_id": "F-2",
+      "start": 40,
+      "end": 55,
+      "text": "query embedding",
+      "proposed_concept_id": "C-QUERY"
+    },
+    {
+      "id": "M-4",
+      "fragment_id": "F-2",
+      "start": 83,
+      "end": 98,
+      "text": "embedding model",
+      "proposed_concept_id": "C-MODEL"
+    },
+    {
+      "id": "M-5",
+      "fragment_id": "F-2",
+      "start": 117,
+      "end": 132,
+      "text": "query embedding",
+      "proposed_concept_id": "C-QUERY"
+    },
+    {
+      "id": "M-6",
+      "fragment_id": "F-3",
+      "start": 4,
+      "end": 13,
+      "text": "embedding",
+      "proposed_concept_id": null
+    }
+  ],
+  "proposals": [
+    {
+      "id": "P-1",
+      "relation_id": "R-1",
+      "type": "requires",
+      "from_mention": "M-1",
+      "to_mention": "M-2",
+      "support_fragment_ids": [
+        "F-1"
+      ],
+      "qualification": "In this teaching route"
+    },
+    {
+      "id": "P-2",
+      "relation_id": "R-2",
+      "type": "requires",
+      "from_mention": "M-3",
+      "to_mention": "M-4",
+      "support_fragment_ids": [
+        "F-2"
+      ],
+      "qualification": "In this teaching route"
+    },
+    {
+      "id": "P-3",
+      "relation_id": "R-3",
+      "type": "requires",
+      "from_mention": "M-2",
+      "to_mention": "M-1",
+      "support_fragment_ids": [
+        "F-1"
+      ],
+      "qualification": "In this teaching route"
+    },
+    {
+      "id": "P-4",
+      "relation_id": "R-4",
+      "type": "requires",
+      "from_mention": "M-6",
+      "to_mention": "M-4",
+      "support_fragment_ids": [
+        "F-3"
+      ],
+      "qualification": "In this teaching route"
+    }
+  ]
+}

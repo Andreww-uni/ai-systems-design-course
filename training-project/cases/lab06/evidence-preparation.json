@@ -1,0 +1,21 @@
+{
+  "schema_version": "lab06-evidence-v1",
+  "input_kind": "Course-supplied ranked teaching inputs; not fresh retrieval measurements or complete evaluation cases.",
+  "collection_version": "lab06-teaching-v1",
+  "context_budget_characters": 250,
+  "budget_basis": "Declared before generation after measuring current fragments: F-1=105, F-2=133, F-3=49 characters. The 250-character limit admits F-1+F-2 but not F-1+F-3+F-2; counts are Unicode characters of text only, not model tokens.",
+  "inputs": [
+    {
+      "input_id": "support-addition",
+      "target_label": "Embedding-based retrieval",
+      "original_fragment_ids": [
+        "F-1"
+      ]
+    },
+    {
+      "input_id": "budget-exclusion",
+      "target_label": "Embedding-based retrieval",
+      "original_fragment_ids": ["F-1", "F-3"]
+    }
+  ]
+}
