@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "evaluation case": "Evaluation Case A",
+  "retrieval configuration": "lexical retrieval",
+  "text query": "How can an auditor trace an excerpt to its origin and revision?",
+  "canonical knowledge collection version": "course-seed-v1",
+  "ranking evidence": {
+    "lexical ranking": []
+  },
+  "ranked candidate output": []
+}

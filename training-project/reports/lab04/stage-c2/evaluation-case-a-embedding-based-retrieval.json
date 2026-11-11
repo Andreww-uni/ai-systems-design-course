@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "evaluation case": "Evaluation Case A",
+  "retrieval configuration": "embedding-based retrieval",
+  "text query": "How can an auditor trace an excerpt to its origin and revision?",
+  "canonical knowledge collection version": "course-seed-v1",
+  "ranking evidence": {
+    "embedding ranking": [
+      {
+        "stable retrieval identifier": "F-B",
+        "score": 0.3953723830329931
+      },
+      {
+        "stable retrieval identifier": "F-A",
+        "score": 0.3940993117655553
+      }
+    ]
+  },
+  "ranked candidate output": [
+    {
+      "rank": 1,
+      "stable retrieval identifier": "F-B",
+      "provenance link": {
+        "canonical_knowledge_record_id": "R-B",
+        "record_version": 1,
+        "supporting_source_id": "course-source-b",
+        "supporting_source_version": 1,
+        "character_span": "1-143"
+      },
+      "score": 0.3953723830329931
+    }
+  ]
+}

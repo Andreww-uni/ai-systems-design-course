@@ -1,0 +1,12 @@
+schema version: '1.0'
+selected chunking configuration: sentence-pair-v1
+selected retrieval-unit definition: source fragment under sentence-pair-v1
+decision actor: the student acting as the engineering team
+decision boundary: meaning preservation required by the declared evaluation cases
+rationale: The sentence-pair boundary rule preserves together the originating record
+  identifier, record version, and exact supporting-passage location required by the
+  relevance judging basis of Evaluation Case A and Evaluation Case B; under fixed-72-v1
+  these three elements of R-A are split across F-A-72-1 to F-A-72-4, so no single
+  fragment satisfies the basis without reconstruction.
+recorded by: lepskyi-kn1223b
+authority boundary: does not authorize a change to the canonical knowledge collection

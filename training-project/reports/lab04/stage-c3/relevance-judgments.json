@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "designated human evaluator": "Andrii Lepskyi (lepskyi-kn1223b), designated human evaluator",
+  "judged evaluation cases": [
+    {
+      "evaluation case": "Evaluation Case A",
+      "relevance judging basis": "A retrieval unit must explain which data identify the originating record, the originating record version, and the exact location of the supporting passage.",
+      "returned retrieval units judged": [
+        "F-B"
+      ],
+      "relevance judgments": [
+        {
+          "stable retrieval identifier": "F-B",
+          "relevance judgment": "not relevant",
+          "rationale": "F-B describes a proposal-run receipt that records the source and version of the model used to produce a concept proposal and states that it does not locate the evidence passage. It identifies neither the originating record, nor the originating record version, nor the exact location of the supporting passage, so the relevance judging basis is not satisfied."
+        }
+      ]
+    },
+    {
+      "evaluation case": "Evaluation Case B",
+      "relevance judging basis": "A retrieval unit must explain which data identify the originating record, the originating record version, and the exact location of the supporting passage.",
+      "returned retrieval units judged": [
+        "F-B"
+      ],
+      "relevance judgments": [
+        {
+          "stable retrieval identifier": "F-B",
+          "relevance judgment": "not relevant",
+          "rationale": "F-B shares the words source and version with the query, but they refer to the model used to produce a concept proposal, not to the supporting passage; the fragment states that it does not locate the evidence passage and names no originating record, record version, or passage location, so the relevance judging basis is not satisfied."
+        }
+      ]
+    }
+  ],
+  "observation boundary": "relevance judgments over returned retrieval units; no retrieval metric"
+}

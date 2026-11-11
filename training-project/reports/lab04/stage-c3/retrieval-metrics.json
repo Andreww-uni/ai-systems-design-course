@@ -1,0 +1,220 @@
+{
+  "schema_version": "1.0",
+  "configured result count k": 1,
+  "expected-result chunking configuration binding": "the evaluator-only expected result identifiers of both evaluation cases are constructed under chunking configuration sentence-pair-v1; retrieval metrics computed under another chunking configuration are not comparable with these expected results",
+  "per-case metrics": [
+    {
+      "retrieval configuration": "lexical retrieval",
+      "evaluation case": "Evaluation Case A",
+      "ranked candidate output": [],
+      "judged returned retrieval units": [],
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 0,
+        "value": "undefined",
+        "reason": "undefined because no returned retrieval unit was available for a relevance judgment"
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      }
+    },
+    {
+      "retrieval configuration": "embedding-based retrieval",
+      "evaluation case": "Evaluation Case A",
+      "ranked candidate output": [
+        "F-B"
+      ],
+      "judged returned retrieval units": [
+        "F-B"
+      ],
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      }
+    },
+    {
+      "retrieval configuration": "hybrid retrieval",
+      "evaluation case": "Evaluation Case A",
+      "ranked candidate output": [
+        "F-B"
+      ],
+      "judged returned retrieval units": [
+        "F-B"
+      ],
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      }
+    },
+    {
+      "retrieval configuration": "lexical retrieval followed by embedding-based reranking",
+      "evaluation case": "Evaluation Case A",
+      "ranked candidate output": [],
+      "judged returned retrieval units": [],
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 0,
+        "value": "undefined",
+        "reason": "undefined because no returned retrieval unit was available for a relevance judgment"
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      }
+    },
+    {
+      "retrieval configuration": "lexical retrieval",
+      "evaluation case": "Evaluation Case B",
+      "ranked candidate output": [
+        "F-B"
+      ],
+      "judged returned retrieval units": [
+        "F-B"
+      ],
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      }
+    },
+    {
+      "retrieval configuration": "embedding-based retrieval",
+      "evaluation case": "Evaluation Case B",
+      "ranked candidate output": [
+        "F-B"
+      ],
+      "judged returned retrieval units": [
+        "F-B"
+      ],
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      }
+    },
+    {
+      "retrieval configuration": "hybrid retrieval",
+      "evaluation case": "Evaluation Case B",
+      "ranked candidate output": [
+        "F-B"
+      ],
+      "judged returned retrieval units": [
+        "F-B"
+      ],
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      }
+    },
+    {
+      "retrieval configuration": "lexical retrieval followed by embedding-based reranking",
+      "evaluation case": "Evaluation Case B",
+      "ranked candidate output": [
+        "F-B"
+      ],
+      "judged returned retrieval units": [
+        "F-B"
+      ],
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      }
+    }
+  ],
+  "aggregate metrics": [
+    {
+      "retrieval configuration": "lexical retrieval",
+      "aggregation rule": "judged returned retrieval units counted across both evaluation cases; an empty ranked candidate output contributes no judged returned retrieval unit to the precision denominator",
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 2,
+        "value": 0.0
+      }
+    },
+    {
+      "retrieval configuration": "embedding-based retrieval",
+      "aggregation rule": "judged returned retrieval units counted across both evaluation cases; an empty ranked candidate output contributes no judged returned retrieval unit to the precision denominator",
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 2,
+        "value": 0.0
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 2,
+        "value": 0.0
+      }
+    },
+    {
+      "retrieval configuration": "hybrid retrieval",
+      "aggregation rule": "judged returned retrieval units counted across both evaluation cases; an empty ranked candidate output contributes no judged returned retrieval unit to the precision denominator",
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 2,
+        "value": 0.0
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 2,
+        "value": 0.0
+      }
+    },
+    {
+      "retrieval configuration": "lexical retrieval followed by embedding-based reranking",
+      "aggregation rule": "judged returned retrieval units counted across both evaluation cases; an empty ranked candidate output contributes no judged returned retrieval unit to the precision denominator",
+      "precision@1": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "recall@1": {
+        "numerator": 0,
+        "denominator": 2,
+        "value": 0.0
+      }
+    }
+  ],
+  "observation boundary": "retrieval metrics over the ranked candidate output; no operational evidence and no downstream claim"
+}

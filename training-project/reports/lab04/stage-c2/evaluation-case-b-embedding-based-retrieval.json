@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "evaluation case": "Evaluation Case B",
+  "retrieval configuration": "embedding-based retrieval",
+  "text query": "Which source and version identify the supporting passage for a concept proposal?",
+  "canonical knowledge collection version": "course-seed-v1",
+  "ranking evidence": {
+    "embedding ranking": [
+      {
+        "stable retrieval identifier": "F-B",
+        "score": 0.7039309338080234
+      },
+      {
+        "stable retrieval identifier": "F-A",
+        "score": 0.5936826065241887
+      }
+    ]
+  },
+  "ranked candidate output": [
+    {
+      "rank": 1,
+      "stable retrieval identifier": "F-B",
+      "provenance link": {
+        "canonical_knowledge_record_id": "R-B",
+        "record_version": 1,
+        "supporting_source_id": "course-source-b",
+        "supporting_source_version": 1,
+        "character_span": "1-143"
+      },
+      "score": 0.7039309338080234
+    }
+  ]
+}

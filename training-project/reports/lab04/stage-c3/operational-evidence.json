@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "runs per configuration": 3,
+  "operational measurements": [
+    {
+      "retrieval configuration": "lexical retrieval",
+      "prepared-index build or update cost": {
+        "measurement boundary": "one Stage C1 index preparation already recorded in the archived evidence; no rebuild is measured here",
+        "measurement": "not re-measured; the archived Stage C1 evidence is reused for every compared configuration"
+      },
+      "query latency": {
+        "measurement boundary": "wall-clock seconds for executing both declared text queries once per run, averaged over 3 runs in one process",
+        "measurement": 0.050669
+      },
+      "query cost": {
+        "measurement boundary": "model-backed encodes are charged per text query plus the index re-encoding validation performed by execute-retrieval; CPU-only lexical scoring adds no model cost",
+        "measurement": "measured as encodes per execution: one query encode per text query plus the indexed-unit re-encoding validation under the declared encoder"
+      },
+      "resource consumption": {
+        "measurement boundary": "in-process peak is not instrumented; the consumed resources are the pinned local model, its memory footprint at load, and CPU time only",
+        "measurement": "local model reuse in one process; no network access; no additional hardware"
+      },
+      "execution failures": {
+        "measurement boundary": "WorkflowError outcomes raised while executing both declared text queries under this configuration",
+        "measurement": []
+      }
+    },
+    {
+      "retrieval configuration": "embedding-based retrieval",
+      "prepared-index build or update cost": {
+        "measurement boundary": "one Stage C1 index preparation already recorded in the archived evidence; no rebuild is measured here",
+        "measurement": "not re-measured; the archived Stage C1 evidence is reused for every compared configuration"
+      },
+      "query latency": {
+        "measurement boundary": "wall-clock seconds for executing both declared text queries once per run, averaged over 3 runs in one process",
+        "measurement": 0.5681
+      },
+      "query cost": {
+        "measurement boundary": "model-backed encodes are charged per text query plus the index re-encoding validation performed by execute-retrieval; CPU-only lexical scoring adds no model cost",
+        "measurement": "measured as encodes per execution: one query encode per text query plus the indexed-unit re-encoding validation under the declared encoder"
+      },
+      "resource consumption": {
+        "measurement boundary": "in-process peak is not instrumented; the consumed resources are the pinned local model, its memory footprint at load, and CPU time only",
+        "measurement": "local model reuse in one process; no network access; no additional hardware"
+      },
+      "execution failures": {
+        "measurement boundary": "WorkflowError outcomes raised while executing both declared text queries under this configuration",
+        "measurement": []
+      }
+    },
+    {
+      "retrieval configuration": "hybrid retrieval",
+      "prepared-index build or update cost": {
+        "measurement boundary": "one Stage C1 index preparation already recorded in the archived evidence; no rebuild is measured here",
+        "measurement": "not re-measured; the archived Stage C1 evidence is reused for every compared configuration"
+      },
+      "query latency": {
+        "measurement boundary": "wall-clock seconds for executing both declared text queries once per run, averaged over 3 runs in one process",
+        "measurement": 0.283452
+      },
+      "query cost": {
+        "measurement boundary": "model-backed encodes are charged per text query plus the index re-encoding validation performed by execute-retrieval; CPU-only lexical scoring adds no model cost",
+        "measurement": "measured as encodes per execution: one query encode per text query plus the indexed-unit re-encoding validation under the declared encoder"
+      },
+      "resource consumption": {
+        "measurement boundary": "in-process peak is not instrumented; the consumed resources are the pinned local model, its memory footprint at load, and CPU time only",
+        "measurement": "local model reuse in one process; no network access; no additional hardware"
+      },
+      "execution failures": {
+        "measurement boundary": "WorkflowError outcomes raised while executing both declared text queries under this configuration",
+        "measurement": []
+      }
+    },
+    {
+      "retrieval configuration": "lexical retrieval followed by embedding-based reranking",
+      "prepared-index build or update cost": {
+        "measurement boundary": "one Stage C1 index preparation already recorded in the archived evidence; no rebuild is measured here",
+        "measurement": "not re-measured; the archived Stage C1 evidence is reused for every compared configuration"
+      },
+      "query latency": {
+        "measurement boundary": "wall-clock seconds for executing both declared text queries once per run, averaged over 3 runs in one process",
+        "measurement": 0.271654
+      },
+      "query cost": {
+        "measurement boundary": "model-backed encodes are charged per text query plus the index re-encoding validation performed by execute-retrieval; CPU-only lexical scoring adds no model cost",
+        "measurement": "measured as encodes per execution: one query encode per text query plus the indexed-unit re-encoding validation under the declared encoder"
+      },
+      "resource consumption": {
+        "measurement boundary": "in-process peak is not instrumented; the consumed resources are the pinned local model, its memory footprint at load, and CPU time only",
+        "measurement": "local model reuse in one process; no network access; no additional hardware"
+      },
+      "execution failures": {
+        "measurement boundary": "WorkflowError outcomes raised while executing both declared text queries under this configuration",
+        "measurement": []
+      }
+    }
+  ],
+  "observation boundary": "operational evidence is not a relevance measure; no measurement from this record enters the numerator or denominator of precision@k or recall@k"
+}

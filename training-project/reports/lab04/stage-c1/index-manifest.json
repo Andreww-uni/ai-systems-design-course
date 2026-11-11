@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "index version": "vector-index-course-seed-v1",
+  "the canonical knowledge collection version": "course-seed-v1",
+  "the chunking configuration that realizes the retrieval-unit definition recorded in the retrieval contract": "sentence-pair-v1",
+  "the embedding model and representation version": {
+    "embedding model": "minishlab/potion-base-8M",
+    "model revision": "bf8b056651a2c21b8d2565580b8569da283cab23",
+    "representation version": "course-static-embed-v1"
+  },
+  "the required embedding dimension and embedding space": {
+    "embedding dimension": 256,
+    "embedding space": "potion-base-8M@bf8b056651a2c21b8d2565580b8569da283cab23/course-static-embed-v1"
+  },
+  "a stable retrieval identifier and provenance link for every retrieval unit": [
+    {
+      "stable retrieval identifier": "F-A",
+      "provenance link": {
+        "canonical_knowledge_record_id": "R-A",
+        "record_version": 1,
+        "supporting_source_id": "course-source-a",
+        "supporting_source_version": 1,
+        "character_span": "1-215"
+      }
+    },
+    {
+      "stable retrieval identifier": "F-B",
+      "provenance link": {
+        "canonical_knowledge_record_id": "R-B",
+        "record_version": 1,
+        "supporting_source_id": "course-source-b",
+        "supporting_source_version": 1,
+        "character_span": "1-143"
+      }
+    }
+  ],
+  "indexed retrieval units": [
+    "F-A",
+    "F-B"
+  ],
+  "completeness status": "complete for the declared chunking configuration: every retrieval unit of sentence-pair-v1 over course-seed-v1 is indexed"
+}

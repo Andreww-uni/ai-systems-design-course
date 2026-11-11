@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "retrieval_contract": {
+    "retrieval contract id": "lab04-retrieval-contract-v1",
+    "declared fields": {
+      "text query": "declared separately by Evaluation Case A and Evaluation Case B",
+      "canonical knowledge collection version": "course-seed-v1",
+      "retrieval unit and its boundary rule": "source fragment under the chunking configuration selected during Laboratory 04 Stage B",
+      "retrieval configuration": "one of the four compared retrieval configurations declared below",
+      "ranked candidate output": "ordered stable retrieval identifiers produced by the retrieval operation in Student Step 8",
+      "evaluator-only expected result": "declared separately inside the evaluator-only information of each evaluation case",
+      "relevance judging basis": "declared separately inside the evaluator-only information of each evaluation case",
+      "designated human evaluator": "the student acting as the designated human evaluator in Student Step 9",
+      "observation boundary": "the ranked candidate output of the retrieval operation"
+    },
+    "retrieval configuration roles": {
+      "experiment-baseline retrieval configuration": "lexical retrieval",
+      "candidate retrieval configuration": "embedding-based retrieval"
+    },
+    "compared retrieval configurations": [
+      "lexical retrieval",
+      "embedding-based retrieval",
+      "hybrid retrieval",
+      "lexical retrieval followed by embedding-based reranking"
+    ]
+  },
+  "canonical_knowledge_collection_version": "course-seed-v1",
+  "canonical_knowledge_records": [
+    {
+      "canonical_knowledge_record_id": "R-A",
+      "record_version": 1,
+      "supporting_source_id": "course-source-a",
+      "supporting_source_version": 1,
+      "supplied_seed_record": true,
+      "student_generated": false,
+      "student_approved": false
+    },
+    {
+      "canonical_knowledge_record_id": "R-B",
+      "record_version": 1,
+      "supporting_source_id": "course-source-b",
+      "supporting_source_version": 1,
+      "supplied_seed_record": true,
+      "student_generated": false,
+      "student_approved": false
+    }
+  ],
+  "evaluation_cases": [
+    {
+      "evaluation_case_id": "Evaluation Case A",
+      "case_version": 1,
+      "identity_source": "Module 04 theory Section 1.4",
+      "intended_risk_group": "lexical miss",
+      "membership": "development",
+      "operation_input": {
+        "text query": "How can an auditor trace an excerpt to its origin and revision?",
+        "canonical knowledge collection version": "course-seed-v1"
+      },
+      "evaluator_only_information": {
+        "relevance judging basis": "A retrieval unit must explain which data identify the originating record, the originating record version, and the exact location of the supporting passage.",
+        "evaluator-only expected result": [
+          "F-A"
+        ]
+      }
+    },
+    {
+      "evaluation_case_id": "Evaluation Case B",
+      "case_version": 1,
+      "identity_source": "Module 04 theory Section 1.4",
+      "intended_risk_group": "lexical false positive",
+      "membership": "development",
+      "operation_input": {
+        "text query": "Which source and version identify the supporting passage for a concept proposal?",
+        "canonical knowledge collection version": "course-seed-v1"
+      },
+      "evaluator_only_information": {
+        "relevance judging basis": "A retrieval unit must explain which data identify the originating record, the originating record version, and the exact location of the supporting passage.",
+        "evaluator-only expected result": [
+          "F-A"
+        ]
+      }
+    }
+  ],
+  "chunking_configuration_results": [
+    {
+      "chunking_configuration_id": "sentence-pair-v1",
+      "boundary_rule": "split at sentence boundaries only and group adjacent sentences into pairs from the first sentence",
+      "chunk_size": "at most two sentences",
+      "overlap": "none",
+      "source_fragments": [
+        {
+          "stable_retrieval_identifier": "F-A",
+          "canonical_knowledge_record_id": "R-A",
+          "text": "A provenance link binds each evidence passage to its originating record identifier, record version, and exact sentence span. The link lets a reviewer locate the passage used to justify a proposed concept definition.",
+          "provenance_link": {
+            "canonical_knowledge_record_id": "R-A",
+            "record_version": 1,
+            "supporting_source_id": "course-source-a",
+            "supporting_source_version": 1,
+            "character_span": "1-215"
+          },
+          "collection_membership": "derived retrieval-side artifact; not a canonical knowledge collection member"
+        },
+        {
+          "stable_retrieval_identifier": "F-B",
+          "canonical_knowledge_record_id": "R-B",
+          "text": "A proposal-run receipt records the source and version of the model used to produce a concept proposal; it does not locate the evidence passage.",
+          "provenance_link": {
+            "canonical_knowledge_record_id": "R-B",
+            "record_version": 1,
+            "supporting_source_id": "course-source-b",
+            "supporting_source_version": 1,
+            "character_span": "1-143"
+          },
+          "collection_membership": "derived retrieval-side artifact; not a canonical knowledge collection member"
+        }
+      ]
+    },
+    {
+      "chunking_configuration_id": "fixed-72-v1",
+      "boundary_rule": "end immediately before the last whitespace at or before the 72-character limit and continue after the delimiter space",
+      "chunk_size": "at most 72 characters unless no whitespace occurs within the limit",
+      "overlap": "none",
+      "source_fragments": [
+        {
+          "stable_retrieval_identifier": "F-A-72-1",
+          "canonical_knowledge_record_id": "R-A",
+          "text": "A provenance link binds each evidence passage to its originating record",
+          "provenance_link": {
+            "canonical_knowledge_record_id": "R-A",
+            "record_version": 1,
+            "supporting_source_id": "course-source-a",
+            "supporting_source_version": 1,
+            "character_span": "1-71"
+          },
+          "collection_membership": "derived retrieval-side artifact; not a canonical knowledge collection member"
+        },
+        {
+          "stable_retrieval_identifier": "F-A-72-2",
+          "canonical_knowledge_record_id": "R-A",
+          "text": "identifier, record version, and exact sentence span. The link lets a",
+          "provenance_link": {
+            "canonical_knowledge_record_id": "R-A",
+            "record_version": 1,
+            "supporting_source_id": "course-source-a",
+            "supporting_source_version": 1,
+            "character_span": "73-140"
+          },
+          "collection_membership": "derived retrieval-side artifact; not a canonical knowledge collection member"
+        },
+        {
+          "stable_retrieval_identifier": "F-A-72-3",
+          "canonical_knowledge_record_id": "R-A",
+          "text": "reviewer locate the passage used to justify a proposed concept",
+          "provenance_link": {
+            "canonical_knowledge_record_id": "R-A",
+            "record_version": 1,
+            "supporting_source_id": "course-source-a",
+            "supporting_source_version": 1,
+            "character_span": "142-203"
+          },
+          "collection_membership": "derived retrieval-side artifact; not a canonical knowledge collection member"
+        },
+        {
+          "stable_retrieval_identifier": "F-A-72-4",
+          "canonical_knowledge_record_id": "R-A",
+          "text": "definition.",
+          "provenance_link": {
+            "canonical_knowledge_record_id": "R-A",
+            "record_version": 1,
+            "supporting_source_id": "course-source-a",
+            "supporting_source_version": 1,
+            "character_span": "205-215"
+          },
+          "collection_membership": "derived retrieval-side artifact; not a canonical knowledge collection member"
+        },
+        {
+          "stable_retrieval_identifier": "F-B-72-1",
+          "canonical_knowledge_record_id": "R-B",
+          "text": "A proposal-run receipt records the source and version of the model used",
+          "provenance_link": {
+            "canonical_knowledge_record_id": "R-B",
+            "record_version": 1,
+            "supporting_source_id": "course-source-b",
+            "supporting_source_version": 1,
+            "character_span": "1-71"
+          },
+          "collection_membership": "derived retrieval-side artifact; not a canonical knowledge collection member"
+        },
+        {
+          "stable_retrieval_identifier": "F-B-72-2",
+          "canonical_knowledge_record_id": "R-B",
+          "text": "to produce a concept proposal; it does not locate the evidence passage.",
+          "provenance_link": {
+            "canonical_knowledge_record_id": "R-B",
+            "record_version": 1,
+            "supporting_source_id": "course-source-b",
+            "supporting_source_version": 1,
+            "character_span": "73-143"
+          },
+          "collection_membership": "derived retrieval-side artifact; not a canonical knowledge collection member"
+        }
+      ]
+    }
+  ]
+}
