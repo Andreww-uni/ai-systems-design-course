@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "query-rewriting rule": "QR-05-v1",
+  "cases": [
+    {
+      "case id": "solvable-rewrite",
+      "information need": "How does a provenance link let an auditor trace an excerpt back to where it came from and which revision it belongs to?",
+      "outcome": "rewritten retrieval input",
+      "rewritten retrieval input": "How can an auditor trace an excerpt to its origin and revision?",
+      "meaning preservation": {
+        "requested concept": "provenance link",
+        "requested relation": "trace an excerpt to its origin and revision",
+        "scope restriction": null
+      },
+      "next operation": "accepted retrieval operation"
+    },
+    {
+      "case id": "unsolvable-rewrite",
+      "information need": "Define it.",
+      "outcome": "unsolvable rewrite",
+      "missing identity": "requested concept",
+      "next operation": "stop before the accepted retrieval operation"
+    }
+  ]
+}

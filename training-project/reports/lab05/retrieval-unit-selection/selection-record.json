@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "selection record id": "SR-05-1",
+  "retrieval-unit admission criteria": "RUS-05-v1",
+  "context budget characters": 300,
+  "text query": "How can an auditor trace an excerpt to its origin and revision?",
+  "ranked candidate output": [
+    {
+      "rank": 1,
+      "retrieval unit id": "F-A",
+      "text": "A provenance link binds each evidence passage to its originating record identifier, record version, and exact sentence span. The link lets a reviewer locate the passage used to justify a proposed concept definition.",
+      "text character count": 215,
+      "provenance link": {
+        "record id": "R-A",
+        "version": 1,
+        "sentences": "1-2",
+        "resolves to registered source material": true
+      }
+    },
+    {
+      "rank": 2,
+      "retrieval unit id": "F-B",
+      "text": "A proposal-run receipt records the source and version of the model used to produce a concept proposal; it does not locate the evidence passage.",
+      "text character count": 143,
+      "provenance link": {
+        "record id": "R-B",
+        "version": 1,
+        "sentences": "1",
+        "resolves to registered source material": true
+      }
+    },
+    {
+      "rank": 3,
+      "retrieval unit id": "F-X",
+      "text": "A constructed retrieval unit whose provenance link does not resolve to registered sources.",
+      "text character count": 90,
+      "provenance link": {
+        "record id": null,
+        "version": null,
+        "sentences": null,
+        "resolves to registered source material": false
+      }
+    }
+  ],
+  "supplied source evidence": [
+    {
+      "retrieval unit id": "F-A",
+      "text": "A provenance link binds each evidence passage to its originating record identifier, record version, and exact sentence span. The link lets a reviewer locate the passage used to justify a proposed concept definition.",
+      "text character count": 215,
+      "provenance link": {
+        "record id": "R-A",
+        "version": 1,
+        "sentences": "1-2",
+        "resolves to registered source material": true
+      }
+    }
+  ],
+  "exclusions": [
+    {
+      "retrieval unit id": "F-B",
+      "failed criterion": "context-budget fit",
+      "evaluated criteria": [
+        "provenance-link resolution",
+        "context-budget fit"
+      ],
+      "remaining context budget characters before unit": 85,
+      "text character count": 143
+    },
+    {
+      "retrieval unit id": "F-X",
+      "failed criterion": "provenance-link resolution",
+      "evaluated criteria": [
+        "provenance-link resolution"
+      ],
+      "remaining context budget characters before unit": 85
+    }
+  ],
+  "remaining context budget characters": 85,
+  "next operation": "context construction",
+  "authority boundary": "The selection record is not an authorization to change the canonical knowledge collection."
+}

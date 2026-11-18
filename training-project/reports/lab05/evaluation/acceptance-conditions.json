@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "shared experiment protocol id": "SEP-05-1",
+  "declared acceptance conditions": {
+    "minimum rubric pass rate": 1.0,
+    "maximum latency seconds per generated output": 330.0,
+    "maximum human-review minutes per generated output": 5,
+    "conflicting instruction case id": "EC-05-3",
+    "token usage evidence": "not available from the AGY adapter",
+    "authority boundary": "The acceptance conditions are not an authorization to change the canonical knowledge collection."
+  },
+  "recorded by": "course-author"
+}

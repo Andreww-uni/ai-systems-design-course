@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "shared experiment protocol id": "SEP-05-1",
+  "configuration roles": {
+    "experiment baseline": {
+      "adapter": "agy",
+      "model id": "gemini-3.8-flash-medium",
+      "instruction profile": "request-only"
+    },
+    "candidate configuration": {
+      "adapter": "agy",
+      "model id": "gemini-3.8-flash-medium",
+      "instruction profile": "evidence-guarded"
+    }
+  },
+  "frozen evaluation cases": [
+    "EC-05-1",
+    "EC-05-2",
+    "EC-05-3"
+  ],
+  "recorded by": "lepskyi-kn1223b",
+  "authority boundary": "The shared experiment protocol is not an authorization to change the canonical knowledge collection."
+}
